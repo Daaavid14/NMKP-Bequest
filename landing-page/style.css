@@ -1865,171 +1865,7 @@ body {
 }
 
 /* ===================================
-   14. FINAL CTA SECTION STYLES
-   =================================== */
-
-.final-cta {
-  position: relative;
-  padding: 120px 2rem;
-  background: linear-gradient(
-    135deg,
-    var(--primary-blue),
-    var(--secondary-purple),
-    var(--primary-dark)
-  );
-  overflow: hidden;
-}
-
-.final-cta::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at 30% 50%,
-    rgba(0, 255, 245, 0.15) 0%,
-    transparent 50%
-  );
-  pointer-events: none;
-}
-
-.final-cta-container {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-
-.final-cta-heading {
-  font-family: "Orbitron", sans-serif;
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--text-white);
-  margin-bottom: 16px;
-  text-shadow: 0 2px 20px rgba(0, 255, 245, 0.3);
-}
-
-.final-cta-subheading {
-  font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 40px;
-}
-
-.final-cta-form {
-  margin-bottom: 16px;
-}
-
-.final-form-group {
-  display: flex;
-  gap: 16px;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.final-email-input {
-  flex: 1;
-  height: 56px;
-  padding: 0 24px;
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid transparent;
-  border-radius: 8px;
-  color: var(--primary-dark);
-  outline: none;
-  transition: all var(--transition-normal);
-}
-
-.final-email-input::placeholder {
-  color: rgba(26, 26, 46, 0.5);
-}
-
-.final-email-input:focus {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 20px rgba(0, 255, 245, 0.4);
-  background: white;
-}
-
-.final-email-input.error {
-  border-color: var(--accent-pink);
-}
-
-.final-submit-btn {
-  height: 56px;
-  padding: 0 40px;
-  background: linear-gradient(
-    135deg,
-    var(--accent-pink),
-    var(--secondary-light-purple)
-  );
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  font-family: "Inter", sans-serif;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  box-shadow: 0 4px 20px rgba(255, 0, 110, 0.4);
-  white-space: nowrap;
-}
-
-.final-submit-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 30px rgba(255, 0, 110, 0.6);
-}
-
-.final-submit-btn:active {
-  transform: scale(0.98);
-}
-
-.final-form-error {
-  color: var(--accent-pink);
-  font-size: 0.9rem;
-  margin-top: 8px;
-  min-height: 1.2rem;
-}
-
-.privacy-text {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 32px;
-}
-
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
-
-.social-link {
-  width: 48px;
-  height: 48px;
-
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-normal);
-  text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.social-link:hover {
-  background: var(--accent-cyan);
-  transform: scale(1.1);
-  box-shadow: 0 4px 15px rgba(0, 255, 245, 0.4);
-}
-
-.social-icon {
-  font-size: 1.5rem;
-}
-
-/* ===================================
-   15. FOOTER STYLES
+   14. FOOTER STYLES
    =================================== */
 
 .footer {
@@ -2097,7 +1933,6 @@ body {
 .footer-social-icon {
   width: 40px;
   height: 40px;
-
   background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
@@ -2105,11 +1940,22 @@ body {
   transition: all var(--transition-normal);
   text-decoration: none;
   font-size: 1.25rem;
+  color: var(--text-white);
+}
+
+.footer-social-icon svg {
+  width: 24px;
+  height: 24px;
+  transition: all var(--transition-normal);
 }
 
 .footer-social-icon:hover {
   background: var(--secondary-light-purple);
   transform: scale(1.1);
+}
+
+.footer-social-icon:hover svg {
+  transform: scale(1.15);
 }
 
 .footer-bottom {
@@ -2206,28 +2052,6 @@ body {
     font-size: 1rem;
   }
 
-  /* Final CTA */
-  .final-cta {
-    padding: 80px 1.5rem;
-  }
-
-  .final-cta-heading {
-    font-size: 2rem;
-  }
-
-  .final-cta-subheading {
-    font-size: 1.1rem;
-  }
-
-  .final-auth-cta-group {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .final-auth-btn {
-    width: 100%;
-  }
-
   /* Footer */
   .footer-links {
     gap: 20px;
@@ -2253,9 +2077,8 @@ body {
    AUTHENTICATION STYLES
    ================================ */
 
-/* Auth CTA Buttons (Hero & Final CTA) */
-.auth-cta-group,
-.final-auth-cta-group {
+/* Auth CTA Buttons (Hero) */
+.auth-cta-group {
   display: flex;
   gap: 16px;
   align-items: center;
@@ -2264,8 +2087,7 @@ body {
   animation: fadeInUp 1s ease 0.8s backwards;
 }
 
-.auth-btn,
-.final-auth-btn {
+.auth-btn {
   padding: 16px 32px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -2277,29 +2099,25 @@ body {
   text-decoration: none;
 }
 
-.auth-btn-primary,
-.final-auth-btn-primary {
+.auth-btn-primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-.auth-btn-primary:hover,
-.final-auth-btn-primary:hover {
+.auth-btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
-.auth-btn-secondary,
-.final-auth-btn-secondary {
+.auth-btn-secondary {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
 }
 
-.auth-btn-secondary:hover,
-.final-auth-btn-secondary:hover {
+.auth-btn-secondary:hover {
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
@@ -2593,34 +2411,6 @@ body.modal-open {
   font-size: 0.9rem;
 }
 
-/* Wallet Connect Button */
-.wallet-connect-btn {
-  padding: 14px;
-  font-size: 1rem;
-  font-weight: 600;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.wallet-connect-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-}
-
-.wallet-icon {
-  font-size: 1.3rem;
-}
-
 /* Form Footer Text */
 .form-footer-text {
   text-align: center;
@@ -2664,4 +2454,148 @@ body.modal-open {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
   color: #ef4444;
+}
+
+/* ========================================
+   SOCIAL AUTH BUTTONS
+   ======================================== */
+
+/* Social Buttons Container */
+.social-auth-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* Base Social Button */
+.btn-social {
+  height: 48px;
+  padding: 0 16px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-white);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.btn-social:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-social:active {
+  transform: translateY(0);
+}
+
+.btn-social:focus-visible {
+  outline: 3px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+/* Social Icon */
+.social-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Google Button Specific */
+.btn-google {
+  border-color: rgba(66, 133, 244, 0.3);
+  background: rgba(66, 133, 244, 0.05);
+}
+
+.btn-google:hover {
+  border-color: #4285F4;
+  background: rgba(66, 133, 244, 0.15);
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+}
+
+/* Facebook Button Specific */
+.btn-facebook {
+  border-color: rgba(24, 119, 242, 0.3);
+  background: rgba(24, 119, 242, 0.05);
+}
+
+.btn-facebook:hover {
+  border-color: #1877F2;
+  background: rgba(24, 119, 242, 0.15);
+  box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+}
+
+/* Loading State for Social Buttons */
+.btn-social.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn-social.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .social-auth-buttons {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .btn-social {
+    width: 100%;
+    height: 46px;
+  }
+  
+  .social-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .btn-social {
+    font-size: 0.9rem;
+    padding: 0 12px;
+  }
+  
+  .btn-social span {
+    /* Hide text on very small screens, show icon only */
+    display: none;
+  }
+  
+  .social-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .social-auth-buttons {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-social {
+    border-width: 3px;
+  }
 }

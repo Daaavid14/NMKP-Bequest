@@ -205,21 +205,6 @@ document.addEventListener("DOMContentLoaded", function () {
       switchModal("signup", "login");
     });
 
-  // Wallet connect buttons (placeholder)
-  document
-    .getElementById("walletConnectBtn")
-    ?.addEventListener("click", function () {
-      console.log("Wallet connection requested (placeholder)");
-      showMessage("login", "Wallet connection coming soon!", "error");
-    });
-
-  document
-    .getElementById("walletConnectSignupBtn")
-    ?.addEventListener("click", function () {
-      console.log("Wallet connection for signup requested (placeholder)");
-      showMessage("signup", "Wallet connection coming soon!", "error");
-    });
-
   // Forgot password link (placeholder)
   document
     .getElementById("forgotPasswordLink")
@@ -983,12 +968,6 @@ if (document.readyState === "loading") {
 }
 
 // ===================================
-// 16. FINAL CTA HANDLING
-// ===================================
-
-// Final CTA buttons now open authentication modals (handled by data-modal attribute)
-
-// ===================================
 // 17. SMOOTH SCROLL FOR ALL LINKS
 // ===================================
 
@@ -1010,7 +989,148 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 // ===================================
-// 18. CONSOLE WELCOME MESSAGE
+// 18. SOCIAL AUTHENTICATION
+// ===================================
+
+// Get all social auth buttons
+const googleLoginBtn = document.getElementById('login-google-btn');
+const facebookLoginBtn = document.getElementById('login-facebook-btn');
+const googleSignupBtn = document.getElementById('signup-google-btn');
+const facebookSignupBtn = document.getElementById('signup-facebook-btn');
+
+// ========== GOOGLE AUTHENTICATION ==========
+
+async function handleGoogleAuth() {
+  console.log('Google authentication initiated');
+  
+  // Show loading state
+  const googleButtons = document.querySelectorAll('.btn-google');
+  googleButtons.forEach(btn => {
+    btn.classList.add('loading');
+    btn.disabled = true;
+  });
+  
+  try {
+    // PLACEHOLDER: Replace with actual Google OAuth implementation
+    // This is where you'll integrate with Supabase or Firebase Auth
+    
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Example with Supabase (uncomment when ready):
+    // const { data, error } = await supabase.auth.signInWithOAuth({
+    //   provider: 'google',
+    //   options: {
+    //     redirectTo: `${window.location.origin}/auth/callback`
+    //   }
+    // });
+    
+    // if (error) throw error;
+    
+    // SUCCESS
+    alert('Google authentication successful! (Integration needed)');
+    closeAllModals();
+    
+  } catch (error) {
+    console.error('Google auth error:', error);
+    alert('Failed to authenticate with Google. Please try again.');
+  } finally {
+    // Remove loading state
+    googleButtons.forEach(btn => {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    });
+  }
+}
+
+// ========== FACEBOOK AUTHENTICATION ==========
+
+async function handleFacebookAuth() {
+  console.log('Facebook authentication initiated');
+  
+  // Show loading state
+  const facebookButtons = document.querySelectorAll('.btn-facebook');
+  facebookButtons.forEach(btn => {
+    btn.classList.add('loading');
+    btn.disabled = true;
+  });
+  
+  try {
+    // PLACEHOLDER: Replace with actual Facebook OAuth implementation
+    
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Example with Supabase (uncomment when ready):
+    // const { data, error } = await supabase.auth.signInWithOAuth({
+    //   provider: 'facebook',
+    //   options: {
+    //     redirectTo: `${window.location.origin}/auth/callback`
+    //   }
+    // });
+    
+    // if (error) throw error;
+    
+    // SUCCESS
+    alert('Facebook authentication successful! (Integration needed)');
+    closeAllModals();
+    
+  } catch (error) {
+    console.error('Facebook auth error:', error);
+    alert('Failed to authenticate with Facebook. Please try again.');
+  } finally {
+    // Remove loading state
+    facebookButtons.forEach(btn => {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    });
+  }
+}
+
+// ========== ATTACH EVENT LISTENERS ==========
+
+// Google auth buttons
+if (googleLoginBtn) {
+  googleLoginBtn.addEventListener('click', handleGoogleAuth);
+}
+if (googleSignupBtn) {
+  googleSignupBtn.addEventListener('click', handleGoogleAuth);
+}
+
+// Facebook auth buttons
+if (facebookLoginBtn) {
+  facebookLoginBtn.addEventListener('click', handleFacebookAuth);
+}
+if (facebookSignupBtn) {
+  facebookSignupBtn.addEventListener('click', handleFacebookAuth);
+}
+
+// ========== OAUTH CALLBACK HANDLER ==========
+
+// Handle OAuth redirect callback
+window.addEventListener('DOMContentLoaded', () => {
+  // Check if URL has OAuth callback parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const accessToken = urlParams.get('access_token');
+  const error = urlParams.get('error');
+  
+  if (error) {
+    console.error('OAuth error:', error);
+    alert('Authentication failed. Please try again.');
+    // Redirect to clean URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+  
+  if (accessToken) {
+    console.log('OAuth successful, access token received');
+    // Handle successful authentication
+    // Store token, redirect to dashboard, etc.
+    
+    // Clean URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+});
+
+// ===================================
+// 19. CONSOLE WELCOME MESSAGE
 // ===================================
 
 console.log(
