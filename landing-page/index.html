@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Nomekop Bequest - Collect, battle, and truly own your creatures on the blockchain. Classic gameplay meets true digital ownership. Join the waitlist for exclusive genesis Nomekops."
+      content="Nomekop Bequest - Collect, battle, and truly own your creatures on the blockchain. Classic gameplay meets true digital ownership. Create your account for exclusive genesis Nomekops."
     />
     <title>Nomekop Bequest - Own Your Adventure | Blockchain Gaming</title>
 
@@ -22,7 +22,7 @@
     <header class="navbar">
       <div class="nav-container">
         <div class="logo">NOMEKOP BEQUEST</div>
-        <button class="nav-cta" id="navCTA">Join Waitlist</button>
+        <button class="nav-cta" id="navCTA" data-modal="signup">Sign Up</button>
       </div>
     </header>
 
@@ -43,21 +43,22 @@
             item, truly yours.
           </p>
 
-          <form class="waitlist-form" id="waitlistForm">
-            <div class="form-group">
-              <input
-                type="email"
-                id="emailInput"
-                class="email-input"
-                placeholder="Enter your email"
-                aria-label="Email address"
-                required
-              />
-              <button type="submit" class="submit-btn">Join Waitlist</button>
-            </div>
-            <p class="form-error" id="formError"></p>
-            <p class="form-success" id="formSuccess"></p>
-          </form>
+          <div class="auth-cta-group">
+            <button
+              class="auth-btn auth-btn-primary"
+              id="heroSignupBtn"
+              data-modal="signup"
+            >
+              Create Account
+            </button>
+            <button
+              class="auth-btn auth-btn-secondary"
+              id="heroLoginBtn"
+              data-modal="login"
+            >
+              Log In
+            </button>
+          </div>
 
           <p class="secondary-text">
             Be among the first to receive genesis Nomekops
@@ -133,52 +134,16 @@
           </p>
 
           <div class="showcase-grid">
-            <div class="creature-card" data-type="fire">
-              <div class="creature-image type-fire">
+            <div class="creature-card" data-type="bug">
+              <div class="creature-image">
                 <img
-                  src="../assets/types/fire.png"
-                  alt="Fire Type"
+                  src="../assets/types/bug.png"
+                  alt="Bug Type"
                   class="creature-silhouette type-sprite"
                   loading="lazy"
                 />
               </div>
-              <h3 class="creature-name">Fire</h3>
-            </div>
-
-            <div class="creature-card" data-type="water">
-              <div class="creature-image type-water">
-                <img
-                  src="../assets/types/water.png"
-                  alt="Water Type"
-                  class="creature-silhouette type-sprite"
-                  loading="lazy"
-                />
-              </div>
-              <h3 class="creature-name">Water</h3>
-            </div>
-
-            <div class="creature-card" data-type="electric">
-              <div class="creature-image type-electric">
-                <img
-                  src="../assets/types/electric.png"
-                  alt="Electric Type"
-                  class="creature-silhouette type-sprite"
-                  loading="lazy"
-                />
-              </div>
-              <h3 class="creature-name">Electric</h3>
-            </div>
-
-            <div class="creature-card" data-type="ice">
-              <div class="creature-image type-ice">
-                <img
-                  src="../assets/types/ice.png"
-                  alt="Ice Type"
-                  class="creature-silhouette type-sprite"
-                  loading="lazy"
-                />
-              </div>
-              <h3 class="creature-name">Ice</h3>
+              <h3 class="creature-name">Bug</h3>
             </div>
 
             <div class="creature-card" data-type="dark">
@@ -193,6 +158,90 @@
               <h3 class="creature-name">Dark</h3>
             </div>
 
+            <div class="creature-card" data-type="dragon">
+              <div class="creature-image">
+                <img
+                  src="../assets/types/dragon.png"
+                  alt="Dragon Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Dragon</h3>
+            </div>
+
+            <div class="creature-card" data-type="electric">
+              <div class="creature-image type-electric">
+                <img
+                  src="../assets/types/electric.png"
+                  alt="Electric Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Electric</h3>
+            </div>
+
+            <div class="creature-card" data-type="fairy">
+              <div class="creature-image type-fairy">
+                <img
+                  src="../assets/types/fairy.png"
+                  alt="Fairy Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Fairy</h3>
+            </div>
+
+            <div class="creature-card" data-type="fighting">
+              <div class="creature-image type-fighting">
+                <img
+                  src="../assets/types/fighting.png"
+                  alt="Fighting Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Fighting</h3>
+            </div>
+
+            <div class="creature-card" data-type="fire">
+              <div class="creature-image type-fire">
+                <img
+                  src="../assets/types/fire.png"
+                  alt="Fire Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Fire</h3>
+            </div>
+
+            <div class="creature-card" data-type="flying">
+              <div class="creature-image type-flying">
+                <img
+                  src="../assets/types/flying.png"
+                  alt="Flying Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Flying</h3>
+            </div>
+
+            <div class="creature-card" data-type="ghost">
+              <div class="creature-image type-ghost">
+                <img
+                  src="../assets/types/ghost.png"
+                  alt="Ghost Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Ghost</h3>
+            </div>
+
             <div class="creature-card" data-type="grass">
               <div class="creature-image type-grass">
                 <img
@@ -203,6 +252,102 @@
                 />
               </div>
               <h3 class="creature-name">Grass</h3>
+            </div>
+
+            <div class="creature-card" data-type="ground">
+              <div class="creature-image type-ground">
+                <img
+                  src="../assets/types/ground.png"
+                  alt="Ground Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Ground</h3>
+            </div>
+
+            <div class="creature-card" data-type="ice">
+              <div class="creature-image type-ice">
+                <img
+                  src="../assets/types/ice.png"
+                  alt="Ice Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Ice</h3>
+            </div>
+
+            <div class="creature-card" data-type="normal">
+              <div class="creature-image type-normal">
+                <img
+                  src="../assets/types/normal.png"
+                  alt="Normal Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Normal</h3>
+            </div>
+
+            <div class="creature-card" data-type="poison">
+              <div class="creature-image type-poison">
+                <img
+                  src="../assets/types/poison.png"
+                  alt="Poison Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Poison</h3>
+            </div>
+
+            <div class="creature-card" data-type="psychic">
+              <div class="creature-image type-psychic">
+                <img
+                  src="../assets/types/psychic.png"
+                  alt="Psychic Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Psychic</h3>
+            </div>
+
+            <div class="creature-card" data-type="rock">
+              <div class="creature-image type-rock">
+                <img
+                  src="../assets/types/rock.png"
+                  alt="Rock Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Rock</h3>
+            </div>
+
+            <div class="creature-card" data-type="steel">
+              <div class="creature-image type-steel">
+                <img
+                  src="../assets/types/steel.png"
+                  alt="Steel Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Steel</h3>
+            </div>
+
+            <div class="creature-card" data-type="water">
+              <div class="creature-image type-water">
+                <img
+                  src="../assets/types/water.png"
+                  alt="Water Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Water</h3>
             </div>
           </div>
         </div>
@@ -221,11 +366,10 @@
               <div class="step-icon-circle">
                 <div class="step-icon">🎯</div>
               </div>
-              <h3 class="step-title">Join the Waitlist</h3>
+              <h3 class="step-title">Create Your Account</h3>
               <p class="step-description">
-                Sign up with your email to secure early access. Be among the
-                first trainers to receive exclusive genesis Nomekops when we
-                launch.
+                Sign up to secure your trainer profile. Be among the first
+                trainers to receive exclusive genesis Nomekops when we launch.
               </p>
             </div>
 
@@ -267,7 +411,7 @@
             <div class="stat-card">
               <div class="stat-icon">👥</div>
               <div class="stat-number" data-target="10000">0</div>
-              <div class="stat-label">Trainers on Waitlist</div>
+              <div class="stat-label">Registered Trainers</div>
             </div>
 
             <div class="stat-card">
@@ -342,25 +486,23 @@
         <div class="final-cta-container">
           <h2 class="final-cta-heading">Ready to Begin Your Adventure?</h2>
           <p class="final-cta-subheading">
-            Join the waitlist and be first to receive your genesis Nomekop
+            Create your account and be first to receive your genesis Nomekop
           </p>
 
-          <form class="final-cta-form" id="finalCTAForm">
-            <div class="final-form-group">
-              <input
-                type="email"
-                id="finalEmailInput"
-                class="final-email-input"
-                placeholder="Enter your email"
-                aria-label="Email address"
-                required
-              />
-              <button type="submit" class="final-submit-btn">
-                Get Early Access
-              </button>
-            </div>
-            <p class="final-form-error" id="finalFormError"></p>
-          </form>
+          <div class="final-auth-cta-group">
+            <button
+              class="final-auth-btn final-auth-btn-primary"
+              data-modal="signup"
+            >
+              Create Account
+            </button>
+            <button
+              class="final-auth-btn final-auth-btn-secondary"
+              data-modal="login"
+            >
+              Already Have an Account? Log In
+            </button>
+          </div>
 
           <p class="privacy-text">
             We respect your privacy. Unsubscribe anytime.
@@ -426,12 +568,174 @@
       </div>
     </footer>
 
-    <div class="modal" id="successModal">
-      <div class="modal-content">
-        <div class="modal-icon">✓</div>
-        <h3>Welcome to the Adventure!</h3>
-        <p>You're on the waitlist. Check your email for exclusive updates.</p>
-        <button class="modal-close" id="modalClose">Continue</button>
+    <!-- Authentication Modals -->
+    <div class="modal-overlay" id="modalOverlay">
+      <!-- Login Modal -->
+      <div class="modal" id="loginModal">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <div class="modal-header">
+          <h2 class="modal-title">Welcome Back, Trainer!</h2>
+          <p class="modal-subtitle">Log in to access your Nomekop collection</p>
+        </div>
+
+        <form class="auth-form" id="loginForm">
+          <div class="form-field">
+            <label for="loginEmail" class="form-label">Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              class="form-input"
+              placeholder="your@email.com"
+              required
+              autocomplete="email"
+            />
+            <span class="form-error-msg" id="loginEmailError"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              class="form-input"
+              placeholder="Enter your password"
+              required
+              autocomplete="current-password"
+            />
+            <span class="form-error-msg" id="loginPasswordError"></span>
+          </div>
+
+          <div class="form-actions">
+            <a href="#" class="forgot-password" id="forgotPasswordLink"
+              >Forgot Password?</a
+            >
+          </div>
+
+          <button type="submit" class="form-submit-btn" id="loginSubmitBtn">
+            <span class="btn-text">Log In</span>
+            <span class="btn-loader" style="display: none">
+              <span class="loader-spinner"></span>
+            </span>
+          </button>
+
+          <div class="form-divider">
+            <span>or</span>
+          </div>
+
+          <button
+            type="button"
+            class="wallet-connect-btn"
+            id="walletConnectBtn"
+          >
+            <span class="wallet-icon">🔗</span>
+            Connect Wallet
+          </button>
+
+          <p class="form-footer-text">
+            Don't have an account?
+            <a href="#" class="form-switch-link" id="switchToSignup">Sign Up</a>
+          </p>
+        </form>
+
+        <div class="form-message" id="loginMessage"></div>
+      </div>
+
+      <!-- Signup Modal -->
+      <div class="modal" id="signupModal">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <div class="modal-header">
+          <h2 class="modal-title">Begin Your Journey</h2>
+          <p class="modal-subtitle">Create your trainer account</p>
+        </div>
+
+        <form class="auth-form" id="signupForm">
+          <div class="form-field">
+            <label for="signupEmail" class="form-label">Email</label>
+            <input
+              type="email"
+              id="signupEmail"
+              class="form-input"
+              placeholder="your@email.com"
+              required
+              autocomplete="email"
+            />
+            <span class="form-error-msg" id="signupEmailError"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="signupPassword" class="form-label">Password</label>
+            <input
+              type="password"
+              id="signupPassword"
+              class="form-input"
+              placeholder="Create a password"
+              required
+              autocomplete="new-password"
+            />
+            <span class="form-error-msg" id="signupPasswordError"></span>
+            <span class="form-hint"
+              >At least 8 characters, one uppercase, one number, one special
+              character</span
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="signupConfirmPassword" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              id="signupConfirmPassword"
+              class="form-input"
+              placeholder="Confirm your password"
+              required
+              autocomplete="new-password"
+            />
+            <span class="form-error-msg" id="signupConfirmPasswordError"></span>
+          </div>
+
+          <div class="form-field-checkbox">
+            <input
+              type="checkbox"
+              id="termsCheckbox"
+              class="form-checkbox"
+              required
+            />
+            <label for="termsCheckbox" class="checkbox-label">
+              I agree to the
+              <a href="#" class="terms-link">Terms of Service</a> and
+              <a href="#" class="terms-link">Privacy Policy</a>
+            </label>
+            <span class="form-error-msg" id="termsError"></span>
+          </div>
+
+          <button type="submit" class="form-submit-btn" id="signupSubmitBtn">
+            <span class="btn-text">Create Account</span>
+            <span class="btn-loader" style="display: none">
+              <span class="loader-spinner"></span>
+            </span>
+          </button>
+
+          <div class="form-divider">
+            <span>or</span>
+          </div>
+
+          <button
+            type="button"
+            class="wallet-connect-btn"
+            id="walletConnectSignupBtn"
+          >
+            <span class="wallet-icon">🔗</span>
+            Connect Wallet to Sign Up
+          </button>
+
+          <p class="form-footer-text">
+            Already have an account?
+            <a href="#" class="form-switch-link" id="switchToLogin">Log In</a>
+          </p>
+        </form>
+
+        <div class="form-message" id="signupMessage"></div>
       </div>
     </div>
 

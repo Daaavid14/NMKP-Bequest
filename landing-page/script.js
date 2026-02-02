@@ -50,135 +50,475 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ===================================
-// 3. EMAIL VALIDATION
+// 3. EMAIL & PASSWORD VALIDATION
 // ===================================
 
 function validateEmail(email) {
-  // Basic email format validation
+  // Email format validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
 
+function validatePassword(password) {
+  // At least 8 characters, one uppercase, one number, one special character
+  const minLength = password.length >= 8;
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+  return {
+    isValid: minLength && hasUppercase && hasNumber && hasSpecial,
+    minLength,
+    hasUppercase,
+    hasNumber,
+    hasSpecial,
+  };
+}
+
 // ===================================
-// 4. FORM SUBMISSION HANDLING
+// 4. MODAL FUNCTIONALITY
 // ===================================
 
-const form = document.getElementById("waitlistForm");
-const emailInput = document.getElementById("emailInput");
-const formError = document.getElementById("formError");
-const formSuccess = document.getElementById("formSuccess");
-const modal = document.getElementById("successModal");
-const modalClose = document.getElementById("modalClose");
+const modalOverlay = document.getElementById("modalOverlay");
+const loginModal = document.getElementById("loginModal");
+const signupModal = document.getElementById("signupModal");
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
+// Open modal
+function openModal(modalType) {
+  const modal = modalType === "login" ? loginModal : signupModal;
 
-  // Clear previous messages
-  formError.textContent = "";
-  formSuccess.textContent = "";
-  emailInput.classList.remove("error");
+  modalOverlay.classList.add("active");
+  modal.classList.add("active");
+  document.body.classList.add("modal-open");
 
-  const email = emailInput.value.trim();
+  // Focus on first input
+  setTimeout(() => {
+    const firstInput = modal.querySelector(".form-input");
+    if (firstInput) firstInput.focus();
+  }, 100);
+}
 
-  // Validate email
-  if (!email) {
-    formError.textContent = "Please enter your email address";
-    emailInput.classList.add("error");
-    return;
+// Close modal
+function closeModal() {
+  modalOverlay.classList.remove("active");
+  loginModal.classList.remove("active");
+  signupModal.classList.remove("active");
+  document.body.classList.remove("modal-open");
+
+  // Clear forms
+  clearForm("login");
+  clearForm("signup");
+}
+
+// Clear form
+function clearForm(formType) {
+  const form = document.getElementById(`${formType}Form`);
+  if (!form) return;
+
+  form.reset();
+
+  // Clear error messages
+  form.querySelectorAll(".form-error-msg").forEach((msg) => {
+    msg.classList.remove("visible");
+    msg.textContent = "";
+  });
+
+  // Clear error states
+  form.querySelectorAll(".form-input").forEach((input) => {
+    input.classList.remove("error");
+  });
+
+  // Clear form messages
+  const message = document.getElementById(`${formType}Message`);
+  if (message) {
+    message.classList.remove("visible", "success", "error");
+    message.textContent = "";
   }
 
-  if (!validateEmail(email)) {
-    formError.textContent = "Please enter a valid email address";
-    emailInput.classList.add("error");
-    return;
+  // Reset button state
+  const submitBtn = form.querySelector(".form-submit-btn");
+  if (submitBtn) {
+    submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
   }
+}
 
-  // Simulate form submission (replace with actual API call)
-  submitToWaitlist(email);
+// Switch between login and signup
+function switchModal(fromType, toType) {
+  const fromModal = document.getElementById(`${fromType}Modal`);
+  const toModal = document.getElementById(`${toType}Modal`);
+
+  fromModal.classList.remove("active");
+  toModal.classList.add("active");
+
+  clearForm(fromType);
+
+  // Focus on first input
+  setTimeout(() => {
+    const firstInput = toModal.querySelector(".form-input");
+    if (firstInput) firstInput.focus();
+  }, 100);
+}
+
+// Event listeners for modal triggers
+document.addEventListener("DOMContentLoaded", function () {
+  // All buttons with data-modal attribute
+  document.querySelectorAll("[data-modal]").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const modalType = this.getAttribute("data-modal");
+      openModal(modalType);
+    });
+  });
+
+  // Close buttons
+  document.querySelectorAll(".modal-close").forEach((btn) => {
+    btn.addEventListener("click", closeModal);
+  });
+
+  // Close on overlay click
+  modalOverlay.addEventListener("click", function (e) {
+    if (e.target === modalOverlay) {
+      closeModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modalOverlay.classList.contains("active")) {
+      closeModal();
+    }
+  });
+
+  // Switch between modals
+  document
+    .getElementById("switchToSignup")
+    ?.addEventListener("click", function (e) {
+      e.preventDefault();
+      switchModal("login", "signup");
+    });
+
+  document
+    .getElementById("switchToLogin")
+    ?.addEventListener("click", function (e) {
+      e.preventDefault();
+      switchModal("signup", "login");
+    });
+
+  // Wallet connect buttons (placeholder)
+  document
+    .getElementById("walletConnectBtn")
+    ?.addEventListener("click", function () {
+      console.log("Wallet connection requested (placeholder)");
+      showMessage("login", "Wallet connection coming soon!", "error");
+    });
+
+  document
+    .getElementById("walletConnectSignupBtn")
+    ?.addEventListener("click", function () {
+      console.log("Wallet connection for signup requested (placeholder)");
+      showMessage("signup", "Wallet connection coming soon!", "error");
+    });
+
+  // Forgot password link (placeholder)
+  document
+    .getElementById("forgotPasswordLink")
+    ?.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("Password reset requested (placeholder)");
+      showMessage(
+        "login",
+        "Password reset functionality coming soon!",
+        "error",
+      );
+    });
 });
 
-function submitToWaitlist(email) {
-  // Show loading state (optional)
-  const submitBtn = form.querySelector(".submit-btn");
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = "Joining...";
+// ===================================
+// 5. FORM VALIDATION
+// ===================================
+
+// Show error message
+function showError(inputId, message) {
+  const input = document.getElementById(inputId);
+  const errorMsg = document.getElementById(`${inputId}Error`);
+
+  if (input) input.classList.add("error");
+  if (errorMsg) {
+    errorMsg.textContent = message;
+    errorMsg.classList.add("visible");
+  }
+}
+
+// Clear error message
+function clearError(inputId) {
+  const input = document.getElementById(inputId);
+  const errorMsg = document.getElementById(`${inputId}Error`);
+
+  if (input) input.classList.remove("error");
+  if (errorMsg) {
+    errorMsg.textContent = "";
+    errorMsg.classList.remove("visible");
+  }
+}
+
+// Show form message
+function showMessage(formType, message, type) {
+  const messageEl = document.getElementById(`${formType}Message`);
+  if (!messageEl) return;
+
+  messageEl.textContent = message;
+  messageEl.classList.remove("success", "error");
+  messageEl.classList.add("visible", type);
+}
+
+// Clear all errors in form
+function clearAllErrors(formType) {
+  const form = document.getElementById(`${formType}Form`);
+  if (!form) return;
+
+  form.querySelectorAll(".form-error-msg").forEach((msg) => {
+    msg.classList.remove("visible");
+    msg.textContent = "";
+  });
+
+  form.querySelectorAll(".form-input").forEach((input) => {
+    input.classList.remove("error");
+  });
+}
+
+// Real-time validation on input
+document.addEventListener("DOMContentLoaded", function () {
+  // Clear errors on input
+  document.querySelectorAll(".form-input").forEach((input) => {
+    input.addEventListener("input", function () {
+      if (this.classList.contains("error")) {
+        clearError(this.id);
+      }
+    });
+  });
+});
+
+// ===================================
+// 6. LOGIN FORM HANDLING
+// ===================================
+
+document.addEventListener("DOMContentLoaded", function () {
+  const loginForm = document.getElementById("loginForm");
+  if (!loginForm) return;
+
+  loginForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    clearAllErrors("login");
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    let hasError = false;
+
+    // Validate email
+    if (!email) {
+      showError("loginEmail", "Email is required");
+      hasError = true;
+    } else if (!validateEmail(email)) {
+      showError("loginEmail", "Please enter a valid email address");
+      hasError = true;
+    }
+
+    // Validate password
+    if (!password) {
+      showError("loginPassword", "Password is required");
+      hasError = true;
+    }
+
+    if (hasError) return;
+
+    // Submit login
+    await handleLogin(email, password);
+  });
+});
+
+async function handleLogin(email, password) {
+  const submitBtn = document.getElementById("loginSubmitBtn");
+
+  // Show loading state
+  submitBtn.classList.add("loading");
   submitBtn.disabled = true;
 
-  // Simulate API call with timeout
+  // Simulate API call
   setTimeout(() => {
-    // Success!
-    submitBtn.textContent = originalText;
+    // Success simulation
+    submitBtn.classList.remove("loading");
     submitBtn.disabled = false;
 
-    // Clear form
-    emailInput.value = "";
+    showMessage("login", "Login successful! Redirecting...", "success");
 
-    // Show success modal
-    showSuccessModal();
+    console.log("Login attempted:", { email, password: "***" });
 
-    // Log to console (replace with actual API call)
-    console.log("Email submitted to waitlist:", email);
+    // Simulate redirect
+    setTimeout(() => {
+      closeModal();
+      // In production, redirect to dashboard or handle auth state
+    }, 1500);
 
-    // Here you would typically send to your backend:
-    // fetch('/api/waitlist', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ email })
-    // })
-    // .then(response => response.json())
-    // .then(data => showSuccessModal())
-    // .catch(error => {
-    //     formError.textContent = 'Something went wrong. Please try again.';
-    // });
-  }, 1000);
+    // TODO: Replace with actual API call
+    /*
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showMessage('login', 'Login successful!', 'success');
+        // Handle successful login (store token, redirect, etc.)
+      } else {
+        showMessage('login', data.message || 'Invalid credentials', 'error');
+      }
+    })
+    .catch(error => {
+      showMessage('login', 'Login failed. Please try again.', 'error');
+    })
+    .finally(() => {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+    });
+    */
+  }, 1500);
 }
 
-function showSuccessModal() {
-  modal.classList.add("active");
-  document.body.style.overflow = "hidden";
-}
+// ===================================
+// 7. SIGNUP FORM HANDLING
+// ===================================
 
-function closeSuccessModal() {
-  modal.classList.remove("active");
-  document.body.style.overflow = "auto";
-}
+document.addEventListener("DOMContentLoaded", function () {
+  const signupForm = document.getElementById("signupForm");
+  if (!signupForm) return;
 
-// Modal close handlers
-modalClose.addEventListener("click", closeSuccessModal);
-modal.addEventListener("click", function (e) {
-  if (e.target === modal) {
-    closeSuccessModal();
-  }
+  signupForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    clearAllErrors("signup");
+
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById(
+      "signupConfirmPassword",
+    ).value;
+    const termsChecked = document.getElementById("termsCheckbox").checked;
+
+    let hasError = false;
+
+    // Validate email
+    if (!email) {
+      showError("signupEmail", "Email is required");
+      hasError = true;
+    } else if (!validateEmail(email)) {
+      showError("signupEmail", "Please enter a valid email address");
+      hasError = true;
+    }
+
+    // Validate password
+    if (!password) {
+      showError("signupPassword", "Password is required");
+      hasError = true;
+    } else {
+      const passwordValidation = validatePassword(password);
+      if (!passwordValidation.isValid) {
+        let errorMsg = "Password must contain: ";
+        const missing = [];
+        if (!passwordValidation.minLength) missing.push("8+ characters");
+        if (!passwordValidation.hasUppercase) missing.push("uppercase letter");
+        if (!passwordValidation.hasNumber) missing.push("number");
+        if (!passwordValidation.hasSpecial) missing.push("special character");
+        errorMsg += missing.join(", ");
+        showError("signupPassword", errorMsg);
+        hasError = true;
+      }
+    }
+
+    // Validate confirm password
+    if (!confirmPassword) {
+      showError("signupConfirmPassword", "Please confirm your password");
+      hasError = true;
+    } else if (password !== confirmPassword) {
+      showError("signupConfirmPassword", "Passwords do not match");
+      hasError = true;
+    }
+
+    // Validate terms
+    if (!termsChecked) {
+      showError("termsCheckbox", "You must agree to the Terms of Service");
+      hasError = true;
+    }
+
+    if (hasError) return;
+
+    // Submit signup
+    await handleSignup(email, password);
+  });
 });
 
-// Close modal on Escape key
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" && modal.classList.contains("active")) {
-    closeSuccessModal();
-  }
-});
+async function handleSignup(email, password) {
+  const submitBtn = document.getElementById("signupSubmitBtn");
+
+  // Show loading state
+  submitBtn.classList.add("loading");
+  submitBtn.disabled = true;
+
+  // Simulate API call
+  setTimeout(() => {
+    // Success simulation
+    submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
+
+    showMessage(
+      "signup",
+      "Account created successfully! Please check your email to verify.",
+      "success",
+    );
+
+    console.log("Signup attempted:", { email, password: "***" });
+
+    // Simulate auto-switch to login after success
+    setTimeout(() => {
+      closeModal();
+      // Or switch to login modal
+      // switchModal('signup', 'login');
+    }, 2500);
+
+    // TODO: Replace with actual API call
+    /*
+    fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showMessage('signup', 'Account created! Check your email.', 'success');
+        // Handle successful signup
+      } else {
+        showMessage('signup', data.message || 'Signup failed', 'error');
+      }
+    })
+    .catch(error => {
+      showMessage('signup', 'Signup failed. Please try again.', 'error');
+    })
+    .finally(() => {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+    });
+    */
+  }, 1500);
+}
 
 // ===================================
 // 3. SMOOTH SCROLL FOR NAVIGATION CTA
 // ===================================
 
-const navCTA = document.getElementById("navCTA");
-const heroSection = document.getElementById("hero");
-
-navCTA.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  // Scroll to email input and focus
-  emailInput.scrollIntoView({
-    behavior: "smooth",
-    block: "center",
-  });
-
-  // Focus on email input after scroll
-  setTimeout(() => {
-    emailInput.focus();
-  }, 500);
-});
+// Note: Nav CTA now opens signup modal instead of scrolling
 
 // ===================================
 // 4. NAVIGATION SCROLL EFFECT
@@ -643,48 +983,10 @@ if (document.readyState === "loading") {
 }
 
 // ===================================
-// 16. FINAL CTA FORM HANDLING
+// 16. FINAL CTA HANDLING
 // ===================================
 
-const finalForm = document.getElementById("finalCTAForm");
-const finalEmailInput = document.getElementById("finalEmailInput");
-const finalFormError = document.getElementById("finalFormError");
-
-if (finalForm) {
-  finalForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Clear previous errors
-    finalFormError.textContent = "";
-    finalEmailInput.classList.remove("error");
-
-    const email = finalEmailInput.value.trim();
-
-    // Validate email
-    if (!email) {
-      finalFormError.textContent = "Please enter your email address";
-      finalEmailInput.classList.add("error");
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      finalFormError.textContent = "Please enter a valid email address";
-      finalEmailInput.classList.add("error");
-      return;
-    }
-
-    // Submit to waitlist
-    submitToWaitlist(email);
-  });
-
-  // Clear error on input
-  finalEmailInput.addEventListener("input", function () {
-    if (finalEmailInput.classList.contains("error")) {
-      finalEmailInput.classList.remove("error");
-      finalFormError.textContent = "";
-    }
-  });
-}
+// Final CTA buttons now open authentication modals (handled by data-modal attribute)
 
 // ===================================
 // 17. SMOOTH SCROLL FOR ALL LINKS
