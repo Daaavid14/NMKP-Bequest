@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Nomekop Bequest - Collect, battle, and truly own your creatures on the blockchain. Classic gameplay meets true digital ownership. Join the waitlist for exclusive genesis Nomekops."
+    />
+    <title>Nomekop Bequest - Own Your Adventure | Blockchain Gaming</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="nav-container">
+        <div class="logo">NOMEKOP BEQUEST</div>
+        <button class="nav-cta" id="navCTA">Join Waitlist</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero" class="hero">
+        <div class="hero-background">
+          <div class="particle-container" id="particleContainer"></div>
+          <div class="gradient-overlay"></div>
+        </div>
+
+        <div class="hero-content">
+          <h1 class="game-title">NOMEKOP BEQUEST</h1>
+          <h2 class="headline">
+            Collect, Battle, Own - Your Adventure on the Blockchain
+          </h2>
+          <p class="value-prop">
+            Classic gameplay meets true digital ownership. Every creature, every
+            item, truly yours.
+          </p>
+
+          <form class="waitlist-form" id="waitlistForm">
+            <div class="form-group">
+              <input
+                type="email"
+                id="emailInput"
+                class="email-input"
+                placeholder="Enter your email"
+                aria-label="Email address"
+                required
+              />
+              <button type="submit" class="submit-btn">Join Waitlist</button>
+            </div>
+            <p class="form-error" id="formError"></p>
+            <p class="form-success" id="formSuccess"></p>
+          </form>
+
+          <p class="secondary-text">
+            Be among the first to receive genesis Nomekops
+          </p>
+
+          <div class="trust-indicators">
+            <span class="indicator">🎮 Join 10,000+ trainers</span>
+            <span class="indicator">🚀 Launching Q2 2026</span>
+          </div>
+        </div>
+
+        <div class="scroll-indicator">
+          <div class="scroll-arrow"></div>
+        </div>
+      </section>
+
+      <section id="features" class="features">
+        <div class="features-container">
+          <h2 class="features-heading">Why Nomekop Bequest?</h2>
+          <p class="features-subheading">
+            The future of gaming meets true ownership
+          </p>
+
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">🔐</div>
+              <h3 class="feature-title">True Digital Ownership</h3>
+              <p class="feature-description">
+                Every Nomekop and item is an NFT on the blockchain. You own them
+                completely—trade, sell, or collect rare creatures that are truly
+                yours forever.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🎮</div>
+              <h3 class="feature-title">Classic Adventure, Evolved</h3>
+              <p class="feature-description">
+                Experience the beloved gameplay mechanics you know and love,
+                enhanced with modern blockchain technology. Catch, train, and
+                battle in a nostalgic yet innovative world.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">💎</div>
+              <h3 class="feature-title">Player-Driven Economy</h3>
+              <p class="feature-description">
+                Trade rare Nomekops and items in a real marketplace. Your
+                achievements have real value. Build your collection and
+                participate in a thriving economy.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">⭐</div>
+              <h3 class="feature-title">Exclusive & Rare Collections</h3>
+              <p class="feature-description">
+                Discover legendary creatures with limited supply. Genesis
+                Nomekops will never be minted again. Be among the first
+                collectors of these rare digital companions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="showcase" class="showcase">
+        <div class="showcase-container">
+          <h2 class="showcase-heading">Meet Your Nomekops</h2>
+          <p class="showcase-subheading">
+            Discover unique creatures across different types
+          </p>
+
+          <div class="showcase-grid">
+            <div class="creature-card" data-type="fire">
+              <div class="creature-image type-fire">
+                <img
+                  src="../assets/types/fire.png"
+                  alt="Fire Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Fire</h3>
+            </div>
+
+            <div class="creature-card" data-type="water">
+              <div class="creature-image type-water">
+                <img
+                  src="../assets/types/water.png"
+                  alt="Water Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Water</h3>
+            </div>
+
+            <div class="creature-card" data-type="electric">
+              <div class="creature-image type-electric">
+                <img
+                  src="../assets/types/electric.png"
+                  alt="Electric Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Electric</h3>
+            </div>
+
+            <div class="creature-card" data-type="ice">
+              <div class="creature-image type-ice">
+                <img
+                  src="../assets/types/ice.png"
+                  alt="Ice Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Ice</h3>
+            </div>
+
+            <div class="creature-card" data-type="dark">
+              <div class="creature-image type-dark">
+                <img
+                  src="../assets/types/dark.png"
+                  alt="Dark Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Dark</h3>
+            </div>
+
+            <div class="creature-card" data-type="grass">
+              <div class="creature-image type-grass">
+                <img
+                  src="../assets/types/grass.png"
+                  alt="Grass Type"
+                  class="creature-silhouette type-sprite"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="creature-name">Grass</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="how-it-works">
+        <div class="how-it-works-container">
+          <h2 class="how-it-works-heading">How It Works</h2>
+          <p class="how-it-works-subheading">
+            Start your journey in three simple steps
+          </p>
+
+          <div class="steps-container">
+            <div class="step-card">
+              <div class="step-number">01</div>
+              <div class="step-icon-circle">
+                <div class="step-icon">🎯</div>
+              </div>
+              <h3 class="step-title">Join the Waitlist</h3>
+              <p class="step-description">
+                Sign up with your email to secure early access. Be among the
+                first trainers to receive exclusive genesis Nomekops when we
+                launch.
+              </p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">02</div>
+              <div class="step-icon-circle">
+                <div class="step-icon">🎁</div>
+              </div>
+              <h3 class="step-title">Get Your Genesis Nomekop</h3>
+              <p class="step-description">
+                Upon launch, claim your unique starter Nomekop NFT. Each genesis
+                creature is one-of-a-kind and will never be minted again.
+              </p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">03</div>
+              <div class="step-icon-circle">
+                <div class="step-icon">🚀</div>
+              </div>
+              <h3 class="step-title">Explore & Collect</h3>
+              <p class="step-description">
+                Begin your adventure, catch new Nomekops, battle other trainers,
+                and build your legendary collection in the blockchain.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="social-proof" class="social-proof">
+        <div class="social-proof-container">
+          <h2 class="social-proof-heading">Join the Community</h2>
+          <p class="social-proof-subheading">
+            Thousands of trainers are ready for launch
+          </p>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+              <div class="stat-number" data-target="10000">0</div>
+              <div class="stat-label">Trainers on Waitlist</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">💬</div>
+              <div class="stat-number" data-target="5000">0</div>
+              <div class="stat-label">Discord Members</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">⭐</div>
+              <div class="stat-number" data-target="999">0</div>
+              <div class="stat-label">Limited Genesis Nomekops</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">🚀</div>
+              <div class="stat-number">Q2 2026</div>
+              <div class="stat-label">Estimated Launch</div>
+            </div>
+          </div>
+
+          <div class="testimonials-row">
+            <div class="testimonial-card">
+              <div class="quote-mark">“</div>
+              <p class="testimonial-quote">
+                Finally, a game where I truly own my collection. The nostalgia
+                combined with blockchain technology is genius!
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">A</div>
+                <div class="author-info">
+                  <div class="author-name">Alex M.</div>
+                  <div class="author-role">Early Supporter</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="quote-mark">“</div>
+              <p class="testimonial-quote">
+                I've been waiting for something like this. Classic gameplay with
+                real ownership—this is the future of gaming.
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">S</div>
+                <div class="author-info">
+                  <div class="author-name">Sarah K.</div>
+                  <div class="author-role">Beta Tester</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="quote-mark">“</div>
+              <p class="testimonial-quote">
+                The diverse creatures and limited genesis collection make this
+                incredibly exciting. Can't wait to start collecting!
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">J</div>
+                <div class="author-info">
+                  <div class="author-name">Jordan T.</div>
+                  <div class="author-role">Community Member</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="final-cta" class="final-cta">
+        <div class="final-cta-container">
+          <h2 class="final-cta-heading">Ready to Begin Your Adventure?</h2>
+          <p class="final-cta-subheading">
+            Join the waitlist and be first to receive your genesis Nomekop
+          </p>
+
+          <form class="final-cta-form" id="finalCTAForm">
+            <div class="final-form-group">
+              <input
+                type="email"
+                id="finalEmailInput"
+                class="final-email-input"
+                placeholder="Enter your email"
+                aria-label="Email address"
+                required
+              />
+              <button type="submit" class="final-submit-btn">
+                Get Early Access
+              </button>
+            </div>
+            <p class="final-form-error" id="finalFormError"></p>
+          </form>
+
+          <p class="privacy-text">
+            We respect your privacy. Unsubscribe anytime.
+          </p>
+
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Join Discord">
+              <span class="social-icon">💬</span>
+            </a>
+            <a href="#" class="social-link" aria-label="Follow on Twitter">
+              <span class="social-icon">🐦</span>
+            </a>
+            <a href="#" class="social-link" aria-label="Join Telegram">
+              <span class="social-icon">✈️</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <div class="footer-logo">NOMEKOP BEQUEST</div>
+          <p class="footer-tagline">Own Your Adventure</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#" class="footer-link">About</a>
+          <a href="#" class="footer-link">Whitepaper</a>
+          <a href="#" class="footer-link">Roadmap</a>
+          <a href="#" class="footer-link">FAQ</a>
+          <a href="#" class="footer-link">Contact</a>
+        </div>
+
+        <div class="footer-social">
+          <a href="#" class="footer-social-icon" aria-label="Discord">
+            <span>💬</span>
+          </a>
+          <a href="#" class="footer-social-icon" aria-label="Twitter">
+            <span>🐦</span>
+          </a>
+          <a href="#" class="footer-social-icon" aria-label="Telegram">
+            <span>✈️</span>
+          </a>
+          <a href="#" class="footer-social-icon" aria-label="Medium">
+            <span>📝</span>
+          </a>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright">
+            © 2026 Nomekop Bequest. All rights reserved.
+          </p>
+          <div class="footer-legal">
+            <a href="#" class="footer-legal-link">Privacy Policy</a>
+            <span class="separator">|</span>
+            <a href="#" class="footer-legal-link">Terms of Service</a>
+            <span class="separator">|</span>
+            <a href="#" class="footer-legal-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal" id="successModal">
+      <div class="modal-content">
+        <div class="modal-icon">✓</div>
+        <h3>Welcome to the Adventure!</h3>
+        <p>You're on the waitlist. Check your email for exclusive updates.</p>
+        <button class="modal-close" id="modalClose">Continue</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
