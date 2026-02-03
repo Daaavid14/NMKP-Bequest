@@ -322,11 +322,8 @@ if (usernameForm) {
 
       updateNavigationForLoggedInUser();
 
-      showMessage("username", "Username created successfully!", "success");
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // Reload page immediately to show updated username
+      window.location.reload();
     } catch (error) {
       console.error("Error updating username:", error);
       showError(
@@ -806,15 +803,9 @@ async function handleSignup(email, password) {
     currentUser = data.user;
     await loadUserProfile(data.user.id);
 
-    // Close signup modal then show username modal
-    setTimeout(() => {
-      closeModal();
-
-      // Show username modal after signup
-      setTimeout(() => {
-        openUsernameModal();
-      }, 300);
-    }, 800);
+    // Close signup modal and immediately show username modal
+    closeModal();
+    openUsernameModal();
   } catch (error) {
     submitBtn.classList.remove("loading");
     submitBtn.disabled = false;
