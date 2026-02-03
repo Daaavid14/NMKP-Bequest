@@ -1,0 +1,1651 @@
+Update the Nomekop Bequest landing page to match the visual design style shown in the reference image. This includes implementing a dark, immersive gaming aesthetic with vibrant gradients, glowing effects, card-based layouts, Pokemon character displays, and modern UI elements. The goal is to create a visually stunning, game-inspired interface while maintaining the existing functionality and structure.
+Design Elements to Implement:
+
+Dark background with gradient overlays and particle effects
+Vibrant orange/red and blue/purple gradient accents
+Glowing card containers with border effects
+Pokemon/Nomekop character displays with dynamic positioning
+Modern button styles with gradients and hover effects
+Stat cards with icons and glowing backgrounds
+Immersive hero section with layered visuals
+Gaming-inspired typography and spacing
+
+Update the following files:
+
+index.html - Update structure for new UI elements
+style.css - Complete visual overhaul with new design system
+script.js - Add interactive effects and animations
+
+
+PART A: DESIGN SYSTEM & CSS VARIABLES
+1. Update Root CSS Variables (style.css)
+REPLACE existing color variables with new gaming-inspired palette:
+css
+/* ========================================
+   DESIGN SYSTEM - COLOR PALETTE
+   ======================================== */
+
+:root {
+  /* Primary Dark Backgrounds */
+  --bg-darkest: #0a0a0f;
+  --bg-dark: #121218;
+  --bg-dark-secondary: #1a1a24;
+  --bg-dark-tertiary: #242430;
+  
+  /* Gradient Colors */
+  --gradient-orange-start: #ff6b35;
+  --gradient-orange-end: #ff8c42;
+  --gradient-red-start: #ff4757;
+  --gradient-red-end: #ff6b81;
+  --gradient-purple-start: #a855f7;
+  --gradient-purple-end: #6366f1;
+  --gradient-blue-start: #3b82f6;
+  --gradient-blue-end: #06b6d4;
+  
+  /* Accent Colors */
+  --accent-orange: #ff6b35;
+  --accent-red: #ff4757;
+  --accent-purple: #a855f7;
+  --accent-blue: #3b82f6;
+  --accent-cyan: #06b6d4;
+  --accent-yellow: #fbbf24;
+  
+  /* Text Colors */
+  --text-white: #ffffff;
+  --text-gray-100: #f3f4f6;
+  --text-gray-200: #e5e7eb;
+  --text-gray-300: #d1d5db;
+  --text-gray-400: #9ca3af;
+  --text-gray-500: #6b7280;
+  
+  /* Glow Effects */
+  --glow-orange: rgba(255, 107, 53, 0.5);
+  --glow-red: rgba(255, 71, 87, 0.5);
+  --glow-purple: rgba(168, 85, 247, 0.5);
+  --glow-blue: rgba(59, 130, 246, 0.5);
+  --glow-cyan: rgba(6, 182, 212, 0.5);
+  
+  /* Card Backgrounds */
+  --card-bg: rgba(26, 26, 36, 0.8);
+  --card-bg-hover: rgba(36, 36, 48, 0.9);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-border-glow: rgba(255, 107, 53, 0.3);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-2xl: 64px;
+  --spacing-3xl: 96px;
+  
+  /* Typography */
+  --font-primary: 'Orbitron', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+}
+
+PART B: GLOBAL STYLES & BACKGROUND
+2. Update Global Body Styles (style.css)
+css/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-secondary);
+  background: var(--bg-darkest);
+  color: var(--text-white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: backgroundPulse 15s ease-in-out infinite;
+}
+
+@keyframes backgroundPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Particle Background Effect */
+.particle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--accent-orange);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 0.3; }
+  50% { 
+    transform: translateY(-100vh) translateX(50px);
+    opacity: 0.5;
+  }
+  90% { opacity: 0.3; }
+}
+
+/* Main Content Container */
+main {
+  position: relative;
+  z-index: 2;
+}
+
+PART C: MODERN BUTTON STYLES
+3. Update Button Components (style.css)
+css/* ========================================
+   BUTTON COMPONENTS
+   ======================================== */
+
+/* Primary Button (Orange Gradient) */
+.btn-primary,
+.btn-hero-primary,
+.btn-cta-primary {
+  position: relative;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--gradient-orange-start), var(--gradient-orange-end));
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--text-white);
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px var(--glow-orange);
+}
+
+.btn-primary::before,
+.btn-hero-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover,
+.btn-hero-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px var(--glow-orange);
+}
+
+.btn-primary:hover::before,
+.btn-hero-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(-1px);
+}
+
+/* Secondary Button (Outline) */
+.btn-secondary,
+.btn-hero-secondary {
+  padding: 14px 32px;
+  background: transparent;
+  border: 2px solid var(--accent-orange);
+  border-radius: var(--radius-full);
+  color: var(--text-white);
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--accent-orange);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+  z-index: -1;
+}
+
+.btn-secondary:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-orange);
+  color: var(--text-white);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px var(--glow-orange);
+}
+
+/* Smaller Buttons */
+.btn-sm {
+  padding: 10px 24px;
+  font-size: 0.9rem;
+}
+
+/* Icon Buttons */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon svg,
+.btn-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+PART D: CARD COMPONENTS
+4. Create Glowing Card Styles (style.css)
+css/* ========================================
+   CARD COMPONENTS
+   ======================================== */
+
+/* Base Card */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  border-color: var(--card-border-glow);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(255, 107, 53, 0.2);
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+/* Glowing Border Card */
+.glow-card {
+  position: relative;
+  background: var(--bg-dark-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  overflow: hidden;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple), var(--accent-blue));
+  border-radius: var(--radius-lg);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bg-dark-secondary);
+  border-radius: var(--radius-lg);
+  z-index: -1;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+  animation: borderGlow 2s ease infinite;
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(45deg);
+  }
+}
+
+/* Stat Card */
+.stat-card {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(168, 85, 247, 0.1));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-md);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+}
+
+.stat-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-sm);
+  filter: drop-shadow(0 4px 12px var(--glow-orange));
+}
+
+.stat-card-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-card-label {
+  font-size: 0.95rem;
+  color: var(--text-gray-300);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+PART E: HERO SECTION UPDATE
+5. Transform Hero Section (index.html)
+REPLACE existing hero section with:
+html<section id="hero" class="hero-section">
+  <!-- Animated Background Layers -->
+  <div class="hero-bg-layer hero-bg-gradient"></div>
+  <div class="hero-bg-layer hero-bg-particles"></div>
+  
+  <!-- Pokemon/Nomekop Character Display -->
+  <div class="hero-characters">
+    <div class="character-display character-left">
+      <img src="assets/pokeSprites/lucario.png" alt="Lucario" class="pokemon-sprite" data-tilt="left">
+    </div>
+    <div class="character-display character-right">
+      <img src="assets/pokeSprites/charizard.png" alt="Charizard" class="pokemon-sprite" data-tilt="right">
+    </div>
+  </div>
+  
+  <!-- Main Hero Content -->
+  <div class="hero-content-wrapper">
+    <div class="hero-content">
+      <!-- Badge/Label -->
+      <div class="hero-badge">
+        <span class="badge-icon">⚡</span>
+        <span>Genesis Collection Coming Soon</span>
+      </div>
+      
+      <!-- Main Heading -->
+      <h1 class="hero-title">
+        <span class="title-line-1">A Complete Gaming</span>
+        <span class="title-line-2">Metaverse of Digital</span>
+        <span class="title-line-3 gradient-text">Monsters Awaits</span>
+      </h1>
+      
+      <!-- Subtitle -->
+      <p class="hero-subtitle">
+        Dive into an immersive gaming experience where you can catch, 
+        train, and battle with digital monsters. Own them as NFTs and 
+        trade them in a thriving marketplace.
+      </p>
+      
+      <!-- CTA Buttons -->
+      <div class="hero-cta-buttons">
+        <button class="btn-hero-primary" id="hero-signup-btn">
+          <span>Get Started</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+          </svg>
+        </button>
+        <button class="btn-hero-secondary" id="hero-login-btn">
+          <span>Login</span>
+        </button>
+      </div>
+      
+      <!-- Stats Row -->
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="stat-number">$1.6M+</div>
+          <div class="stat-label">Trading Volume</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat-item">
+          <div class="stat-number">230K+</div>
+          <div class="stat-label">Active Trainers</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat-item">
+          <div class="stat-number">$50K+</div>
+          <div class="stat-label">NFTs Collection</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Decorative Elements -->
+  <div class="hero-decoration hero-decoration-top-left"></div>
+  <div class="hero-decoration hero-decoration-bottom-right"></div>
+</section>
+6. Hero Section Styling (style.css)
+css/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 120px 20px 80px;
+}
+
+/* Background Layers */
+.hero-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-bg-gradient {
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(10, 10, 15, 0) 0%, rgba(10, 10, 15, 0.8) 100%);
+  z-index: 1;
+}
+
+/* Pokemon Character Displays */
+.hero-characters {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.character-display {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  filter: drop-shadow(0 20px 60px rgba(255, 107, 53, 0.4));
+}
+
+.character-left {
+  bottom: 10%;
+  left: 5%;
+  animation: floatLeft 6s ease-in-out infinite;
+}
+
+.character-right {
+  top: 15%;
+  right: 8%;
+  animation: floatRight 6s ease-in-out infinite 1s;
+}
+
+.pokemon-sprite {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 40px rgba(255, 107, 53, 0.6));
+}
+
+@keyframes floatLeft {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-30px) rotate(-8deg); }
+}
+
+@keyframes floatRight {
+  0%, 100% { transform: translateY(0) rotate(5deg); }
+  50% { transform: translateY(-25px) rotate(8deg); }
+}
+
+/* Hero Content */
+.hero-content-wrapper {
+  position: relative;
+  z-index: 3;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hero-content {
+  max-width: 700px;
+  text-align: left;
+}
+
+/* Hero Badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: var(--radius-full);
+  color: var(--accent-orange);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  animation: badgePulse 2s ease infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--glow-orange); }
+  50% { box-shadow: 0 0 20px 4px var(--glow-orange); }
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+  animation: iconSpin 3s linear infinite;
+}
+
+@keyframes iconSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Hero Title */
+.hero-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  font-family: var(--font-primary);
+  line-height: 1.1;
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -1px;
+}
+
+.title-line-1,
+.title-line-2,
+.title-line-3 {
+  display: block;
+  animation: slideInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.title-line-1 {
+  animation-delay: 0.2s;
+}
+
+.title-line-2 {
+  animation-delay: 0.4s;
+}
+
+.title-line-3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Hero Subtitle */
+.hero-subtitle {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--text-gray-300);
+  margin-bottom: var(--spacing-xl);
+  max-width: 600px;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.8s;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Hero CTA Buttons */
+.hero-cta-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: var(--spacing-2xl);
+  flex-wrap: wrap;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+.btn-hero-primary,
+.btn-hero-secondary {
+  height: 56px;
+  padding: 0 32px;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Hero Stats */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: rgba(26, 26, 36, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 1.2s;
+  opacity: 0;
+}
+
+.hero-stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Decorative Elements */
+.hero-decoration {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.hero-decoration-top-left {
+  top: -100px;
+  left: -100px;
+  background: radial-gradient(circle, var(--accent-orange) 0%, transparent 70%);
+}
+
+.hero-decoration-bottom-right {
+  bottom: -100px;
+  right: -100px;
+  background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+}
+
+/* Mobile Responsive */
+@media (max-width: 1200px) {
+  .character-left,
+  .character-right {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 968px) {
+  .hero-section {
+    padding: 100px 20px 60px;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .character-left {
+    bottom: 5%;
+    left: -50px;
+    width: 250px;
+    height: 250px;
+    opacity: 0.3;
+  }
+  
+  .character-right {
+    top: 10%;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    opacity: 0.3;
+  }
+  
+  .hero-stats {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .stat-divider {
+    width: 100%;
+    height: 1px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .character-left,
+  .character-right {
+    display: none;
+  }
+}
+
+PART F: FEATURES SECTION UPDATE
+7. Update Features Section (index.html)
+ADD "How It Works" section with step cards:
+html<section id="how-it-works" class="how-it-works-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="title-accent">How It</span> Works
+      </h2>
+      <p class="section-subtitle">
+        Start your journey in three simple steps
+      </p>
+    </div>
+    
+    <!-- Steps Grid -->
+    <div class="steps-grid">
+      <!-- Step 1 -->
+      <div class="step-card glow-card">
+        <div class="step-number">01</div>
+        <div class="step-icon">
+          <img src="assets/types/normal.png" alt="Create Account">
+        </div>
+        <h3 class="step-title">Create Account</h3>
+        <p class="step-description">
+          Sign up with your email or connect with social accounts. 
+          Set your unique trainer name and start your adventure.
+        </p>
+        <div class="step-arrow">→</div>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="step-card glow-card">
+        <div class="step-number">02</div>
+        <div class="step-icon starter-icons-wrapper">
+          <img src="assets/types/fire.png" alt="Fire" class="starter-icon">
+          <img src="assets/types/water.png" alt="Water" class="starter-icon">
+          <img src="assets/types/grass.png" alt="Grass" class="starter-icon">
+        </div>
+        <h3 class="step-title">Battle & Earn</h3>
+        <p class="step-description">
+          Choose your starter Nomekop and begin battling. 
+          Earn rewards, level up, and unlock rare creatures.
+        </p>
+        <div class="step-arrow">→</div>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="step-card glow-card">
+        <div class="step-number">03</div>
+        <div class="step-icon">
+          <img src="assets/types/dragon.png" alt="Play & Earn">
+        </div>
+        <h3 class="step-title">Play & Earn</h3>
+        <p class="step-description">
+          Trade in the marketplace, collect rare NFTs, and build 
+          your ultimate collection of digital monsters.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+8. How It Works Section Styling (style.css)
+css/* ========================================
+   HOW IT WORKS SECTION
+   ======================================== */
+
+.how-it-works-section {
+  padding: var(--spacing-3xl) 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.section-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  font-family: var(--font-primary);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.2;
+}
+
+.title-accent {
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-red));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-gray-300);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Steps Grid */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  position: relative;
+}
+
+/* Step Card */
+.step-card {
+  position: relative;
+  text-align: center;
+  padding: var(--spacing-xl);
+  transition: all 0.4s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-12px);
+}
+
+/* Step Number */
+.step-number {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  font-size: 5rem;
+  font-weight: 900;
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(168, 85, 247, 0.2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.3;
+  line-height: 1;
+}
+
+/* Step Icon */
+.step-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.step-icon img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px var(--glow-orange));
+  transition: transform 0.3s ease;
+}
+
+.step-card:hover .step-icon img {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* Starter Icons */
+.starter-icons-wrapper {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.starter-icon {
+  width: 50px !important;
+  height: 50px !important;
+  animation: float 3s ease-in-out infinite;
+}
+
+.starter-icon:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.starter-icon:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Step Title */
+.step-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  color: var(--text-white);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Step Description */
+.step-description {
+  font-size: 1rem;
+  color: var(--text-gray-300);
+  line-height: 1.7;
+}
+
+/* Step Arrow */
+.step-arrow {
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: var(--accent-orange);
+  opacity: 0.5;
+  animation: arrowPulse 2s ease infinite;
+}
+
+.step-card:last-child .step-arrow {
+  display: none;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(10px); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  .step-arrow {
+    top: auto;
+    bottom: -40px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) rotate(90deg);
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .step-number {
+    font-size: 3rem;
+  }
+  
+  .step-title {
+    font-size: 1.5rem;
+  }
+}
+
+PART G: COMMUNITY/CTA SECTION
+9. Add Community Section (index.html)
+html<section id="community" class="community-section">
+  <div class="container">
+    <div class="community-content glass-card">
+      <!-- Left Content -->
+      <div class="community-text">
+        <h2 class="community-title">
+          Join Our Community <br>
+          <span class="gradient-text">To Earn</span>
+        </h2>
+        <p class="community-description">
+          Connect with thousands of trainers worldwide. Share strategies, 
+          trade Nomekops, and participate in exclusive events. Join our 
+          vibrant community on Discord and Twitter.
+        </p>
+        
+        <!-- Social Buttons -->
+        <div class="social-buttons">
+          <a href="#" class="social-btn twitter-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>Twitter</span>
+          </a>
+          
+          <a href="#" class="social-btn discord-btn">
+            <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor">
+              <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+            </svg>
+            <span>Discord</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right Stats -->
+      <div class="community-stats">
+        <div class="stat-card">
+          <div class="stat-card-icon">👥</div>
+          <div class="stat-card-number">230K+</div>
+          <div class="stat-card-label">Active Members</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon">💬</div>
+          <div class="stat-card-number">50K+</div>
+          <div class="stat-card-label">Discord Members</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+10. Community Section Styling (style.css)
+css/* ========================================
+   COMMUNITY SECTION
+   ======================================== */
+
+.community-section {
+  padding: var(--spacing-3xl) 20px;
+  position: relative;
+}
+
+.community-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--spacing-2xl);
+  align-items: center;
+  padding: var(--spacing-2xl);
+}
+
+.community-title {
+  font-size: 3rem;
+  font-weight: 900;
+  font-family: var(--font-primary);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+}
+
+.community-description {
+  font-size: 1.1rem;
+  color: var(--text-gray-300);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Social Buttons */
+.social-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid;
+}
+
+.twitter-btn {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: #000;
+  color: var(--text-white);
+}
+
+.twitter-btn:hover {
+  background: #000;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.discord-btn {
+  background: rgba(88, 101, 242, 0.1);
+  border-color: #5865F2;
+  color: #5865F2;
+}
+
+.discord-btn:hover {
+  background: #5865F2;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4);
+}
+
+/* Community Stats */
+.community-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .community-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  .community-title {
+    font-size: 2.5rem;
+  }
+  
+  .social-buttons {
+    flex-direction: column;
+  }
+  
+  .social-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .community-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+PART H: JAVASCRIPT ENHANCEMENTS
+11. Add Interactive Animations (script.js)
+ADD at the beginning of script.js:
+javascript// ========================================
+// VISUAL ENHANCEMENTS & ANIMATIONS
+// ========================================
+
+// Create particle background
+function createParticles() {
+  const particleContainer = document.createElement('div');
+  particleContainer.className = 'particle-container';
+  document.body.appendChild(particleContainer);
+  
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+    particleContainer.appendChild(particle);
+  }
+}
+
+// Parallax effect for hero characters
+function initParallax() {
+  const characters = document.querySelectorAll('.pokemon-sprite');
+  
+  document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth;
+    const mouseY = e.clientY / window.innerHeight;
+    
+    characters.forEach((character, index) => {
+      const speed = (index + 1) * 0.05;
+      const x = (mouseX - 0.5) * 50 * speed;
+      const y = (mouseY - 0.5) * 50 * speed;
+      
+      character.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  });
+}
+
+// Scroll reveal animations
+function initScrollReveal() {
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -100px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+  
+  // Observe elements
+  const animateElements = document.querySelectorAll('.step-card, .stat-card, .glass-card');
+  animateElements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+}
+
+// Glowing cursor trail effect
+function initCursorGlow() {
+  const cursorGlow = document.createElement('div');
+  cursorGlow.className = 'cursor-glow';
+  document.body.appendChild(cursorGlow);
+  
+  let mouseX = 0;
+  let mouseY = 0;
+  let cursorX = 0;
+  let cursorY = 0;
+  
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  
+  function animateCursor() {
+    cursorX += (mouseX - cursorX) * 0.1;
+    cursorY += (mouseY - cursorY) * 0.1;
+    
+    cursorGlow.style.left = cursorX + 'px';
+    cursorGlow.style.top = cursorY + 'px';
+    
+    requestAnimationFrame(animateCursor);
+  }
+  
+  animateCursor();
+}
+
+// Add cursor glow CSS
+const cursorGlowStyle = document.createElement('style');
+cursorGlowStyle.textContent = `
+  .cursor-glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transition: opacity 0.3s ease;
+  }
+  
+  body:not(:hover) .cursor-glow {
+    opacity: 0;
+  }
+`;
+document.head.appendChild(cursorGlowStyle);
+
+// Stat number counter animation
+function animateCounters() {
+  const counters = document.querySelectorAll('.stat-card-number, .stat-number');
+  
+  const observerOptions = {
+    threshold: 0.5
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+        entry.target.classList.add('counted');
+        animateCounter(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  counters.forEach(counter => observer.observe(counter));
+}
+
+function animateCounter(element) {
+  const text = element.textContent;
+  const hasPlus = text.includes('+');
+  const hasDollar = text.includes('$');
+  const hasK = text.includes('K');
+  const hasM = text.includes('M');
+  
+  // Extract number
+  let targetValue = parseFloat(text.replace(/[^0-9.]/g, ''));
+  
+  if (hasK) targetValue *= 1000;
+  if (hasM) targetValue *= 1000000;
+  
+  let currentValue = 0;
+  const increment = targetValue / 60; // 60 frames
+  const duration = 2000; // 2 seconds
+  const stepTime = duration / 60;
+  
+  const timer = setInterval(() => {
+    currentValue += increment;
+    
+    if (currentValue >= targetValue) {
+      currentValue = targetValue;
+      clearInterval(timer);
+    }
+    
+    let displayValue = Math.floor(currentValue);
+    
+    // Format number
+    if (hasM) {
+      displayValue = (displayValue / 1000000).toFixed(1) + 'M';
+    } else if (hasK) {
+      displayValue = (displayValue / 1000).toFixed(0) + 'K';
+    }
+    
+    if (hasDollar) displayValue = '$' + displayValue;
+    if (hasPlus) displayValue += '+';
+    
+    element.textContent = displayValue;
+  }, stepTime);
+}
+
+// Initialize all effects on page load
+document.addEventListener('DOMContentLoaded', () => {
+  createParticles();
+  initParallax();
+  initScrollReveal();
+  initCursorGlow();
+  animateCounters();
+  
+  // Add smooth scroll behavior
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+});
+
+PART I: NAVIGATION UPDATE
+12. Update Navigation Styling (style.css)
+css/* ========================================
+   NAVIGATION
+   ======================================== */
+
+#main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+#main-nav.scrolled {
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.nav-logo-icon {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 4px 12px var(--glow-orange));
+  transition: transform 0.3s ease;
+}
+
+.nav-brand:hover .nav-logo-icon {
+  transform: rotate(360deg) scale(1.1);
+}
+
+.nav-brand-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+
+/* Add scroll listener for navigation */
+ADD to script.js:
+javascript// Navigation scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('main-nav');
+  if (window.scrollY > 100) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+IMPLEMENTATION CHECKLIST
+13. Complete Implementation Steps
+Phase 1: Design System Setup
+
+✅ Update CSS variables with new color palette
+✅ Add gradient definitions
+✅ Set up spacing and typography variables
+✅ Create glow effect variables
+
+Phase 2: Global Styles
+
+✅ Update body background
+✅ Add animated background gradients
+✅ Create particle container
+✅ Set up base styles
+
+Phase 3: Component Library
+
+✅ Create modern button styles
+✅ Build glass card components
+✅ Design glow card components
+✅ Create stat card components
+
+Phase 4: Hero Section
+
+✅ Restructure hero HTML
+✅ Add Pokemon character displays
+✅ Implement gradient text effects
+✅ Add animated stats row
+✅ Create parallax effects
+
+Phase 5: Content Sections
+
+✅ Update How It Works section
+✅ Add Community section
+✅ Style all section components
+✅ Implement responsive layouts
+
+Phase 6: JavaScript Effects
+
+✅ Create particle system
+✅ Add parallax mouse tracking
+✅ Implement scroll reveal animations
+✅ Add cursor glow effect
+✅ Create counter animations
+✅ Add navigation scroll effect
+
+Phase 7: Testing & Polish
+
+✅ Test all animations
+✅ Verify responsive design
+✅ Check cross-browser compatibility
+✅ Optimize performance
+✅ Test on mobile devices
+✅ Validate accessibility
+
+
+EXPECTED OUTCOME
+After implementing this prompt, your landing page will have:
+✅ Dark, immersive gaming aesthetic matching the reference
+✅ Vibrant orange/purple/blue gradients throughout
+✅ Glowing card effects with modern glass morphism
+✅ Animated particle background for depth
+✅ Pokemon character displays with parallax effects
+✅ Modern button designs with gradient and glow effects
+✅ Stat cards with animations and counter effects
+✅ Scroll reveal animations for engagement
+✅ Cursor glow trail for interactivity
+✅ Professional typography with gaming fonts
+✅ Fully responsive design for all devices
+✅ Smooth transitions and micro-interactions
