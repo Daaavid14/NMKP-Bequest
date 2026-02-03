@@ -1,8 +1,8 @@
-# 🎮 Nomekop Bequest - Supabase Database Infrastructure
+# Nomekop Bequest - Supabase Database Infrastructure
 
 > Complete authentication, user management, and player data system for the Nomekop Bequest game
 
-## 📋 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -28,7 +28,7 @@
    - Open: http://127.0.0.1:54324 (Inbucket)
    - All authentication emails will appear here
 
-## 🗄️ What's Included
+## What's Included
 
 ### Database Tables
 
@@ -84,7 +84,7 @@ NMKP Bequest/
 └── README.md                                   # This file
 ```
 
-## 🔧 Common Commands
+## Common Commands
 
 ```powershell
 # Start Supabase
@@ -120,17 +120,17 @@ Run the verification script in Supabase Studio SQL Editor:
 
 Or use the checklist in [SUPABASE_SETUP.md](./SUPABASE_SETUP.md).
 
-## 📧 Email Templates
+## Email Templates
 
 Custom branded email templates are configured for:
 
-- ✉️ **Account Confirmation** - New user email verification
-- 🔐 **Password Reset** - Password recovery emails
-- 🔄 **Email Change** - Email address change confirmation
+- **Account Confirmation** - New user email verification
+- **Password Reset** - Password recovery emails
+- **Email Change** - Email address change confirmation
 
 Test emails in Inbucket: http://127.0.0.1:54324
 
-## 🔒 Security
+## Security
 
 ### Row Level Security (RLS)
 
@@ -157,7 +157,7 @@ All actions logged:
 - Wallet verifications
 - Security events
 
-## 🌐 Environment Variables
+## Environment Variables
 
 Copy `.env.example` to `.env` and fill in values:
 
@@ -171,13 +171,13 @@ Get these values from: `npx supabase status`
 
 ⚠️ **Never commit `.env` to version control!**
 
-## 📖 Documentation
+## Documentation
 
 - [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) - Complete setup and verification guide
 - [supabase/queries.sql](./supabase/queries.sql) - SQL query reference
 - [types/database.types.ts](./types/database.types.ts) - TypeScript types
 
-## 🧪 Testing
+## Testing
 
 ### Create Test User
 
@@ -201,7 +201,7 @@ SELECT * FROM user_settings
 WHERE id = (SELECT id FROM auth.users WHERE email = 'test@example.com');
 ```
 
-## 📊 Monitoring
+## Monitoring
 
 ### View Recent Activity
 
@@ -229,7 +229,7 @@ FROM user_profiles;
 
 More queries in [supabase/queries.sql](./supabase/queries.sql).
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Docker Not Running
 
@@ -258,7 +258,7 @@ More queries in [supabase/queries.sql](./supabase/queries.sql).
 npx supabase db reset
 ```
 
-## 🚀 Production Deployment
+## Production Deployment
 
 When deploying to production:
 
@@ -268,14 +268,14 @@ When deploying to production:
 4. Configure production SMTP in Supabase dashboard
 5. Update environment variables with production values
 
-## 📚 Resources
+## Resources
 
 - [Supabase Documentation](https://supabase.com/docs)
 - [Supabase Auth Guide](https://supabase.com/docs/guides/auth)
 - [Row Level Security](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
 - [Database Functions](https://supabase.com/docs/guides/database/functions)
 
-## ✨ Features Checklist
+## Features Checklist
 
 - [x] User authentication with Supabase Auth
 - [x] User profiles with game statistics
@@ -293,7 +293,7 @@ When deploying to production:
 - [x] SQL query reference
 - [x] Comprehensive documentation
 
-## 🎉 Success Criteria
+## Success Criteria
 
 Your database is ready when:
 
@@ -311,7 +311,7 @@ Your database is ready when:
 
 Run `supabase/verify.sql` to check all criteria!
 
-## 📞 Support
+## Support
 
 For issues or questions:
 
@@ -324,4 +324,4 @@ For issues or questions:
 
 **Built with** [Supabase](https://supabase.com) • **Powered by** PostgreSQL
 
-_Nomekop Bequest - Adventure Awaits_ 🎮
+_Nomekop Bequest - Adventure Awaits_
