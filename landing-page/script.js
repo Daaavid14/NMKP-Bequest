@@ -1,5 +1,347 @@
 // ===================================
-// 1. ASSET PRELOADING
+// 1. SUPABASE INITIALIZATION
+// ===================================
+
+const { createClient } = window.supabase;
+const supabaseClient = createClient(
+  "http://127.0.0.1:54321",
+  "sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH",
+);
+
+let currentUser = null;
+let currentProfile = null;
+
+// Check auth state on page load
+window.addEventListener("DOMContentLoaded", async () => {
+  await checkAuthState();
+  initAuthListeners();
+});
+
+// Check current authentication state
+async function checkAuthState() {
+  try {
+    const {
+      data: { session },
+    } = await supabaseClient.auth.getSession();
+
+    if (session) {
+      console.log("User logged in:", session.user.email);
+      currentUser = session.user;
+
+      await loadUserProfile(session.user.id);
+
+      updateNavigationForLoggedInUser();
+    } else {
+      console.log("No active session");
+      updateNavigationForLoggedOutUser();
+    }
+  } catch (error) {
+    console.error("Error checking auth state:", error);
+  }
+}
+
+async function loadUserProfile(userId) {
+  try {
+    const { data, error } = await supabaseClient
+      .from("user_profiles")
+      .select("*")
+      .eq("id", userId)
+      .single();
+
+    if (error) throw error;
+
+    currentProfile = data;
+    console.log("Profile loaded:", currentProfile);
+    return data;
+  } catch (error) {
+    console.error("Error loading profile:", error);
+    return null;
+  }
+}
+
+function initAuthListeners() {
+  supabaseClient.auth.onAuthStateChange(async (event, session) => {
+    console.log("Auth state changed:", event);
+
+    if (event === "SIGNED_IN" && session) {
+      currentUser = session.user;
+      await loadUserProfile(session.user.id);
+      updateNavigationForLoggedInUser();
+    } else if (event === "SIGNED_OUT") {
+      currentUser = null;
+      currentProfile = null;
+      updateNavigationForLoggedOutUser();
+    }
+  });
+}
+
+// ===================================
+// NAVIGATION UPDATE FUNCTIONS
+// ===================================
+
+function updateNavigationForLoggedInUser() {
+  const navLoginBtn = document.getElementById("navLoginBtn");
+  const userMenu = document.getElementById("userMenu");
+  const navUsername = document.getElementById("navUsername");
+  const dropdownUsername = document.getElementById("dropdownUsername");
+  const dropdownEmail = document.getElementById("dropdownEmail");
+
+  if (navLoginBtn) navLoginBtn.style.display = "none";
+  if (userMenu) userMenu.style.display = "block";
+
+  const displayName = currentProfile?.username || "Trainer";
+  if (navUsername) navUsername.textContent = displayName;
+  if (dropdownUsername) dropdownUsername.textContent = displayName;
+  if (dropdownEmail) dropdownEmail.textContent = currentUser?.email || "";
+}
+
+function updateNavigationForLoggedOutUser() {
+  const navLoginBtn = document.getElementById("navLoginBtn");
+  const userMenu = document.getElementById("userMenu");
+
+  if (navLoginBtn) navLoginBtn.style.display = "block";
+  if (userMenu) userMenu.style.display = "none";
+}
+
+// ===================================
+// USER MENU DROPDOWN
+// ===================================
+
+document.addEventListener("DOMContentLoaded", function () {
+  const userMenuTrigger = document.getElementById("userMenuTrigger");
+  const userDropdown = document.getElementById("userDropdown");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (userMenuTrigger) {
+    userMenuTrigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      userDropdown.classList.toggle("active");
+      this.classList.toggle("active");
+    });
+  }
+
+  document.addEventListener("click", function () {
+    if (userDropdown && userDropdown.classList.contains("active")) {
+      userDropdown.classList.remove("active");
+      if (userMenuTrigger) userMenuTrigger.classList.remove("active");
+    }
+  });
+
+  if (userDropdown) {
+    userDropdown.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async function () {
+      try {
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) throw error;
+
+        console.log("Logged out successfully");
+
+        userDropdown.classList.remove("active");
+        userMenuTrigger.classList.remove("active");
+
+        window.location.reload();
+      } catch (error) {
+        console.error("Logout error:", error);
+        alert("Failed to log out. Please try again.");
+      }
+    });
+  }
+});
+
+// ===================================
+// USERNAME MODAL FUNCTIONALITY
+// ===================================
+
+const usernameModalOverlay = document.getElementById("usernameModalOverlay");
+const usernameModal = document.getElementById("usernameModal");
+const usernameForm = document.getElementById("usernameForm");
+const usernameInput = document.getElementById("usernameInput");
+const usernameStatus = document.getElementById("usernameStatus");
+const usernameSuggestions = document.getElementById("usernameSuggestions");
+const suggestionsList = document.getElementById("suggestionsList");
+
+let usernameCheckTimeout = null;
+
+function openUsernameModal() {
+  if (usernameModalOverlay && usernameModal) {
+    usernameModalOverlay.classList.add("active");
+    usernameModal.classList.add("active");
+    document.body.classList.add("modal-open");
+
+    setTimeout(() => {
+      if (usernameInput) usernameInput.focus();
+    }, 100);
+  }
+}
+
+function closeUsernameModal() {
+  if (usernameModalOverlay && usernameModal) {
+    usernameModalOverlay.classList.remove("active");
+    usernameModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+
+    if (usernameForm) usernameForm.reset();
+    if (usernameStatus) {
+      usernameStatus.className = "username-status";
+      usernameStatus.textContent = "";
+    }
+    if (usernameSuggestions) usernameSuggestions.style.display = "none";
+  }
+}
+
+if (usernameInput) {
+  usernameInput.addEventListener("input", async function () {
+    const username = this.value.trim();
+
+    if (usernameCheckTimeout) {
+      clearTimeout(usernameCheckTimeout);
+    }
+
+    if (usernameSuggestions) usernameSuggestions.style.display = "none";
+
+    if (username.length < 3) {
+      usernameStatus.className = "username-status";
+      usernameStatus.textContent = "";
+      return;
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      usernameStatus.className = "username-status taken";
+      usernameStatus.textContent =
+        "⚠️ Username can only contain letters, numbers, and underscores";
+      return;
+    }
+
+    usernameStatus.className = "username-status checking";
+    usernameStatus.textContent = "⏳ Checking availability...";
+
+    usernameCheckTimeout = setTimeout(async () => {
+      await checkUsernameAvailability(username);
+    }, 500);
+  });
+}
+
+async function checkUsernameAvailability(username) {
+  try {
+    const { data, error } = await supabaseClient
+      .from("user_profiles")
+      .select("username")
+      .eq("username", username)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (data) {
+      usernameStatus.className = "username-status taken";
+      usernameStatus.textContent = "❌ Username already taken";
+
+      generateUsernameSuggestions(username);
+    } else {
+      usernameStatus.className = "username-status available";
+      usernameStatus.textContent = "✅ Username available!";
+    }
+  } catch (error) {
+    console.error("Error checking username:", error);
+    usernameStatus.className = "username-status taken";
+    usernameStatus.textContent = "⚠️ Error checking username";
+  }
+}
+
+function generateUsernameSuggestions(baseUsername) {
+  const suggestions = [
+    `${baseUsername}${Math.floor(Math.random() * 100)}`,
+    `${baseUsername}_${Math.floor(Math.random() * 1000)}`,
+    `${baseUsername}_trainer`,
+    `epic_${baseUsername}`,
+    `${baseUsername}_master`,
+  ];
+
+  suggestionsList.innerHTML = "";
+  suggestions.forEach((suggestion) => {
+    const chip = document.createElement("div");
+    chip.className = "suggestion-chip";
+    chip.textContent = suggestion;
+    chip.addEventListener("click", function () {
+      usernameInput.value = suggestion;
+      usernameInput.dispatchEvent(new Event("input"));
+      usernameSuggestions.style.display = "none";
+    });
+    suggestionsList.appendChild(chip);
+  });
+
+  usernameSuggestions.style.display = "block";
+}
+
+if (usernameForm) {
+  usernameForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const username = usernameInput.value.trim();
+    const submitBtn = document.getElementById("usernameSubmitBtn");
+
+    if (username.length < 3) {
+      showError("usernameInput", "Username must be at least 3 characters");
+      return;
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      showError(
+        "usernameInput",
+        "Username can only contain letters, numbers, and underscores",
+      );
+      return;
+    }
+
+    submitBtn.classList.add("loading");
+    submitBtn.disabled = true;
+
+    try {
+      const { error } = await supabaseClient
+        .from("user_profiles")
+        .update({ username: username })
+        .eq("id", currentUser.id);
+
+      if (error) throw error;
+
+      await supabaseClient.from("activity_logs").insert({
+        user_id: currentUser.id,
+        action_type: "username_created",
+        description: `Username set to: ${username}`,
+      });
+
+      console.log("Username updated successfully:", username);
+
+      currentProfile.username = username;
+
+      closeUsernameModal();
+
+      updateNavigationForLoggedInUser();
+
+      showMessage("username", "Username created successfully!", "success");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error("Error updating username:", error);
+      showError(
+        "usernameInput",
+        error.message || "Failed to set username. Please try again.",
+      );
+    } finally {
+      submitBtn.classList.remove("loading");
+      submitBtn.disabled = false;
+    }
+  });
+}
+
+// ===================================
+// 2. ASSET PRELOADING
 // ===================================
 
 function preloadTypeSprites() {
@@ -14,7 +356,6 @@ function preloadTypeSprites() {
   });
 }
 
-// Preload sprites on page load
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", preloadTypeSprites);
 } else {
@@ -330,47 +671,37 @@ async function handleLogin(email, password) {
   submitBtn.classList.add("loading");
   submitBtn.disabled = true;
 
-  // Simulate API call
-  setTimeout(() => {
-    // Success simulation
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (error) throw error;
+
     submitBtn.classList.remove("loading");
     submitBtn.disabled = false;
 
-    showMessage("login", "Login successful! Redirecting...", "success");
+    showMessage("login", "Login successful!", "success");
 
-    console.log("Login attempted:", { email, password: "***" });
+    console.log("Login successful:", data.user.email);
 
-    // Simulate redirect
+    // Close modal - auth listener will handle the rest
     setTimeout(() => {
       closeModal();
-      // In production, redirect to dashboard or handle auth state
-    }, 1500);
+      // Auth listener will check if username is set and update navigation
+    }, 800);
+  } catch (error) {
+    submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
 
-    // TODO: Replace with actual API call
-    /*
-    fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        showMessage('login', 'Login successful!', 'success');
-        // Handle successful login (store token, redirect, etc.)
-      } else {
-        showMessage('login', data.message || 'Invalid credentials', 'error');
-      }
-    })
-    .catch(error => {
-      showMessage('login', 'Login failed. Please try again.', 'error');
-    })
-    .finally(() => {
-      submitBtn.classList.remove('loading');
-      submitBtn.disabled = false;
-    });
-    */
-  }, 1500);
+    console.error("Login error:", error);
+    showMessage(
+      "login",
+      error.message || "Login failed. Please try again.",
+      "error",
+    );
+  }
 }
 
 // ===================================
@@ -451,52 +782,50 @@ async function handleSignup(email, password) {
   submitBtn.classList.add("loading");
   submitBtn.disabled = true;
 
-  // Simulate API call
-  setTimeout(() => {
-    // Success simulation
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          username: "player_" + Math.random().toString(36).substring(7),
+        },
+      },
+    });
+
+    if (error) throw error;
+
     submitBtn.classList.remove("loading");
     submitBtn.disabled = false;
 
-    showMessage(
-      "signup",
-      "Account created successfully! Please check your email to verify.",
-      "success",
-    );
+    showMessage("signup", "Account created successfully!", "success");
 
-    console.log("Signup attempted:", { email, password: "***" });
+    console.log("Signup successful:", data.user.email);
 
-    // Simulate auto-switch to login after success
+    // Update current user and profile
+    currentUser = data.user;
+    await loadUserProfile(data.user.id);
+
+    // Close signup modal then show username modal
     setTimeout(() => {
       closeModal();
-      // Or switch to login modal
-      // switchModal('signup', 'login');
-    }, 2500);
 
-    // TODO: Replace with actual API call
-    /*
-    fetch('/api/auth/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        showMessage('signup', 'Account created! Check your email.', 'success');
-        // Handle successful signup
-      } else {
-        showMessage('signup', data.message || 'Signup failed', 'error');
-      }
-    })
-    .catch(error => {
-      showMessage('signup', 'Signup failed. Please try again.', 'error');
-    })
-    .finally(() => {
-      submitBtn.classList.remove('loading');
-      submitBtn.disabled = false;
-    });
-    */
-  }, 1500);
+      // Show username modal after signup
+      setTimeout(() => {
+        openUsernameModal();
+      }, 300);
+    }, 800);
+  } catch (error) {
+    submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
+
+    console.error("Signup error:", error);
+    showMessage(
+      "signup",
+      error.message || "Signup failed. Please try again.",
+      "error",
+    );
+  }
 }
 
 // ===================================
@@ -993,29 +1322,29 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 // ===================================
 
 // Get all social auth buttons
-const googleLoginBtn = document.getElementById('login-google-btn');
-const facebookLoginBtn = document.getElementById('login-facebook-btn');
-const googleSignupBtn = document.getElementById('signup-google-btn');
-const facebookSignupBtn = document.getElementById('signup-facebook-btn');
+const googleLoginBtn = document.getElementById("login-google-btn");
+const facebookLoginBtn = document.getElementById("login-facebook-btn");
+const googleSignupBtn = document.getElementById("signup-google-btn");
+const facebookSignupBtn = document.getElementById("signup-facebook-btn");
 
 // ========== GOOGLE AUTHENTICATION ==========
 
 async function handleGoogleAuth() {
-  console.log('Google authentication initiated');
-  
+  console.log("Google authentication initiated");
+
   // Show loading state
-  const googleButtons = document.querySelectorAll('.btn-google');
-  googleButtons.forEach(btn => {
-    btn.classList.add('loading');
+  const googleButtons = document.querySelectorAll(".btn-google");
+  googleButtons.forEach((btn) => {
+    btn.classList.add("loading");
     btn.disabled = true;
   });
-  
+
   try {
     // PLACEHOLDER: Replace with actual Google OAuth implementation
     // This is where you'll integrate with Supabase or Firebase Auth
-    
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     // Example with Supabase (uncomment when ready):
     // const { data, error } = await supabase.auth.signInWithOAuth({
     //   provider: 'google',
@@ -1023,20 +1352,19 @@ async function handleGoogleAuth() {
     //     redirectTo: `${window.location.origin}/auth/callback`
     //   }
     // });
-    
+
     // if (error) throw error;
-    
+
     // SUCCESS
-    alert('Google authentication successful! (Integration needed)');
+    alert("Google authentication successful! (Integration needed)");
     closeAllModals();
-    
   } catch (error) {
-    console.error('Google auth error:', error);
-    alert('Failed to authenticate with Google. Please try again.');
+    console.error("Google auth error:", error);
+    alert("Failed to authenticate with Google. Please try again.");
   } finally {
     // Remove loading state
-    googleButtons.forEach(btn => {
-      btn.classList.remove('loading');
+    googleButtons.forEach((btn) => {
+      btn.classList.remove("loading");
       btn.disabled = false;
     });
   }
@@ -1045,20 +1373,20 @@ async function handleGoogleAuth() {
 // ========== FACEBOOK AUTHENTICATION ==========
 
 async function handleFacebookAuth() {
-  console.log('Facebook authentication initiated');
-  
+  console.log("Facebook authentication initiated");
+
   // Show loading state
-  const facebookButtons = document.querySelectorAll('.btn-facebook');
-  facebookButtons.forEach(btn => {
-    btn.classList.add('loading');
+  const facebookButtons = document.querySelectorAll(".btn-facebook");
+  facebookButtons.forEach((btn) => {
+    btn.classList.add("loading");
     btn.disabled = true;
   });
-  
+
   try {
     // PLACEHOLDER: Replace with actual Facebook OAuth implementation
-    
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     // Example with Supabase (uncomment when ready):
     // const { data, error } = await supabase.auth.signInWithOAuth({
     //   provider: 'facebook',
@@ -1066,20 +1394,19 @@ async function handleFacebookAuth() {
     //     redirectTo: `${window.location.origin}/auth/callback`
     //   }
     // });
-    
+
     // if (error) throw error;
-    
+
     // SUCCESS
-    alert('Facebook authentication successful! (Integration needed)');
+    alert("Facebook authentication successful! (Integration needed)");
     closeAllModals();
-    
   } catch (error) {
-    console.error('Facebook auth error:', error);
-    alert('Failed to authenticate with Facebook. Please try again.');
+    console.error("Facebook auth error:", error);
+    alert("Failed to authenticate with Facebook. Please try again.");
   } finally {
     // Remove loading state
-    facebookButtons.forEach(btn => {
-      btn.classList.remove('loading');
+    facebookButtons.forEach((btn) => {
+      btn.classList.remove("loading");
       btn.disabled = false;
     });
   }
@@ -1089,41 +1416,41 @@ async function handleFacebookAuth() {
 
 // Google auth buttons
 if (googleLoginBtn) {
-  googleLoginBtn.addEventListener('click', handleGoogleAuth);
+  googleLoginBtn.addEventListener("click", handleGoogleAuth);
 }
 if (googleSignupBtn) {
-  googleSignupBtn.addEventListener('click', handleGoogleAuth);
+  googleSignupBtn.addEventListener("click", handleGoogleAuth);
 }
 
 // Facebook auth buttons
 if (facebookLoginBtn) {
-  facebookLoginBtn.addEventListener('click', handleFacebookAuth);
+  facebookLoginBtn.addEventListener("click", handleFacebookAuth);
 }
 if (facebookSignupBtn) {
-  facebookSignupBtn.addEventListener('click', handleFacebookAuth);
+  facebookSignupBtn.addEventListener("click", handleFacebookAuth);
 }
 
 // ========== OAUTH CALLBACK HANDLER ==========
 
 // Handle OAuth redirect callback
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener("DOMContentLoaded", () => {
   // Check if URL has OAuth callback parameters
   const urlParams = new URLSearchParams(window.location.search);
-  const accessToken = urlParams.get('access_token');
-  const error = urlParams.get('error');
-  
+  const accessToken = urlParams.get("access_token");
+  const error = urlParams.get("error");
+
   if (error) {
-    console.error('OAuth error:', error);
-    alert('Authentication failed. Please try again.');
+    console.error("OAuth error:", error);
+    alert("Authentication failed. Please try again.");
     // Redirect to clean URL
     window.history.replaceState({}, document.title, window.location.pathname);
   }
-  
+
   if (accessToken) {
-    console.log('OAuth successful, access token received');
+    console.log("OAuth successful, access token received");
     // Handle successful authentication
     // Store token, redirect to dashboard, etc.
-    
+
     // Clean URL
     window.history.replaceState({}, document.title, window.location.pathname);
   }

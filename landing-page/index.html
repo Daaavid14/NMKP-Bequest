@@ -17,6 +17,7 @@
     />
 
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
   <body>
     <header class="navbar">
@@ -24,7 +25,51 @@
         <div class="logo">
           <img src="/backgrounds/nomekop.png" alt="Nomekop Bequest Logo" />
         </div>
-        <button class="nav-cta" id="navCTA" data-modal="signup">Sign Up</button>
+
+        <!-- Logged Out State -->
+        <button class="nav-cta" id="navLoginBtn" data-modal="login">
+          Login
+        </button>
+
+        <!-- Logged In State -->
+        <div class="user-menu" id="userMenu" style="display: none">
+          <button class="user-menu-trigger" id="userMenuTrigger">
+            <span class="user-avatar">👤</span>
+            <span class="user-name" id="navUsername">Trainer</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-dropdown-header">
+              <div class="user-dropdown-avatar">👤</div>
+              <div class="user-dropdown-info">
+                <div class="user-dropdown-name" id="dropdownUsername">
+                  Trainer
+                </div>
+                <div class="user-dropdown-email" id="dropdownEmail">
+                  trainer@example.com
+                </div>
+              </div>
+            </div>
+            <div class="user-dropdown-divider"></div>
+            <a href="#profile" class="user-dropdown-item">
+              <span class="dropdown-icon">👤</span>
+              My Profile
+            </a>
+            <a href="#collection" class="user-dropdown-item">
+              <span class="dropdown-icon">🎮</span>
+              My Collection
+            </a>
+            <a href="#settings" class="user-dropdown-item">
+              <span class="dropdown-icon">⚙️</span>
+              Settings
+            </a>
+            <div class="user-dropdown-divider"></div>
+            <button class="user-dropdown-item logout-btn" id="logoutBtn">
+              <span class="dropdown-icon">🚪</span>
+              Logout
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -45,7 +90,7 @@
             item, truly yours.
           </p>
 
-          <div class="auth-cta-group">
+          <!-- <div class="auth-cta-group">
             <button
               class="auth-btn auth-btn-primary"
               id="heroSignupBtn"
@@ -60,7 +105,7 @@
             >
               Log In
             </button>
-          </div>
+          </div> -->
 
           <p class="secondary-text">
             Be among the first to receive genesis Nomekops
@@ -502,28 +547,68 @@
 
         <div class="footer-social">
           <a href="#" class="footer-social-icon" aria-label="Discord">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" width="24" height="24" fill="currentColor">
-              <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 127.14 96.36"
+              width="24"
+              height="24"
+              fill="currentColor"
+            >
+              <path
+                d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"
+              />
             </svg>
           </a>
           <a href="#" class="footer-social-icon" aria-label="YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="currentColor"
+            >
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+              />
             </svg>
           </a>
           <a href="#" class="footer-social-icon" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="currentColor"
+            >
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              />
             </svg>
           </a>
           <a href="#" class="footer-social-icon" aria-label="Twitter">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="currentColor"
+            >
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              />
             </svg>
           </a>
           <a href="#" class="footer-social-icon" aria-label="TikTok">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="currentColor"
+            >
+              <path
+                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
+              />
             </svg>
           </a>
         </div>
@@ -597,20 +682,62 @@
           </div>
 
           <div class="social-auth-buttons">
-            <button type="button" class="btn-social btn-google" id="login-google-btn" aria-label="Sign in with Google">
-              <svg class="social-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20px" height="20px">
-                <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-                <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-                <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
-                <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+            <button
+              type="button"
+              class="btn-social btn-google"
+              id="login-google-btn"
+              aria-label="Sign in with Google"
+            >
+              <svg
+                class="social-icon"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 48 48"
+                width="20px"
+                height="20px"
+              >
+                <path
+                  fill="#FFC107"
+                  d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                />
+                <path
+                  fill="#FF3D00"
+                  d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                />
+                <path
+                  fill="#4CAF50"
+                  d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                />
+                <path
+                  fill="#1976D2"
+                  d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                />
               </svg>
               <span>Google</span>
             </button>
-            
-            <button type="button" class="btn-social btn-facebook" id="login-facebook-btn" aria-label="Sign in with Facebook">
-              <svg class="social-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20px" height="20px">
-                <path fill="#1877F2" d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z"/>
-                <path fill="#fff" d="M26.707,29.301h5.176l0.813-5.258h-5.989v-2.874c0-2.184,0.714-4.121,2.757-4.121h3.283V12.46 c-0.577-0.078-1.797-0.248-4.102-0.248c-4.814,0-7.636,2.542-7.636,8.334v3.498H16.06v5.258h4.948v14.452 C21.988,43.9,22.981,44,24,44c0.921,0,1.82-0.084,2.707-0.204V29.301z"/>
+
+            <button
+              type="button"
+              class="btn-social btn-facebook"
+              id="login-facebook-btn"
+              aria-label="Sign in with Facebook"
+            >
+              <svg
+                class="social-icon"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 48 48"
+                width="20px"
+                height="20px"
+              >
+                <path
+                  fill="#1877F2"
+                  d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z"
+                />
+                <path
+                  fill="#fff"
+                  d="M26.707,29.301h5.176l0.813-5.258h-5.989v-2.874c0-2.184,0.714-4.121,2.757-4.121h3.283V12.46 c-0.577-0.078-1.797-0.248-4.102-0.248c-4.814,0-7.636,2.542-7.636,8.334v3.498H16.06v5.258h4.948v14.452 C21.988,43.9,22.981,44,24,44c0.921,0,1.82-0.084,2.707-0.204V29.301z"
+                />
               </svg>
               <span>Facebook</span>
             </button>
@@ -707,20 +834,62 @@
           </div>
 
           <div class="social-auth-buttons">
-            <button type="button" class="btn-social btn-google" id="signup-google-btn" aria-label="Sign up with Google">
-              <svg class="social-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20px" height="20px">
-                <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-                <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-                <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
-                <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+            <button
+              type="button"
+              class="btn-social btn-google"
+              id="signup-google-btn"
+              aria-label="Sign up with Google"
+            >
+              <svg
+                class="social-icon"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 48 48"
+                width="20px"
+                height="20px"
+              >
+                <path
+                  fill="#FFC107"
+                  d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                />
+                <path
+                  fill="#FF3D00"
+                  d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                />
+                <path
+                  fill="#4CAF50"
+                  d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                />
+                <path
+                  fill="#1976D2"
+                  d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                />
               </svg>
               <span>Google</span>
             </button>
-            
-            <button type="button" class="btn-social btn-facebook" id="signup-facebook-btn" aria-label="Sign up with Facebook">
-              <svg class="social-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20px" height="20px">
-                <path fill="#1877F2" d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z"/>
-                <path fill="#fff" d="M26.707,29.301h5.176l0.813-5.258h-5.989v-2.874c0-2.184,0.714-4.121,2.757-4.121h3.283V12.46 c-0.577-0.078-1.797-0.248-4.102-0.248c-4.814,0-7.636,2.542-7.636,8.334v3.498H16.06v5.258h4.948v14.452 C21.988,43.9,22.981,44,24,44c0.921,0,1.82-0.084,2.707-0.204V29.301z"/>
+
+            <button
+              type="button"
+              class="btn-social btn-facebook"
+              id="signup-facebook-btn"
+              aria-label="Sign up with Facebook"
+            >
+              <svg
+                class="social-icon"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 48 48"
+                width="20px"
+                height="20px"
+              >
+                <path
+                  fill="#1877F2"
+                  d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z"
+                />
+                <path
+                  fill="#fff"
+                  d="M26.707,29.301h5.176l0.813-5.258h-5.989v-2.874c0-2.184,0.714-4.121,2.757-4.121h3.283V12.46 c-0.577-0.078-1.797-0.248-4.102-0.248c-4.814,0-7.636,2.542-7.636,8.334v3.498H16.06v5.258h4.948v14.452 C21.988,43.9,22.981,44,24,44c0.921,0,1.82-0.084,2.707-0.204V29.301z"
+                />
               </svg>
               <span>Facebook</span>
             </button>
@@ -733,6 +902,64 @@
         </form>
 
         <div class="form-message" id="signupMessage"></div>
+      </div>
+    </div>
+
+    <!-- Username Creation Modal -->
+    <div class="modal-overlay" id="usernameModalOverlay">
+      <div class="modal username-modal" id="usernameModal">
+        <div class="modal-content">
+          <h2 class="modal-title">🎮 Welcome to Nomekop Bequest!</h2>
+          <p class="modal-subtitle">
+            Choose your trainer name to begin your adventure
+          </p>
+
+          <form id="usernameForm" class="auth-form">
+            <div class="form-group">
+              <label for="usernameInput" class="form-label">
+                Trainer Username
+              </label>
+              <input
+                type="text"
+                id="usernameInput"
+                class="form-input"
+                placeholder="Enter your username"
+                autocomplete="off"
+                minlength="3"
+                maxlength="20"
+                required
+              />
+              <div class="form-error-msg" id="usernameInputError"></div>
+              <div class="username-status" id="usernameStatus"></div>
+            </div>
+
+            <div
+              class="username-suggestions"
+              id="usernameSuggestions"
+              style="display: none"
+            >
+              <p class="suggestions-label">Try these available usernames:</p>
+              <div class="suggestions-list" id="suggestionsList"></div>
+            </div>
+
+            <div class="form-group">
+              <button
+                type="submit"
+                class="form-submit-btn"
+                id="usernameSubmitBtn"
+              >
+                <span class="btn-text">Continue</span>
+                <span class="btn-loader"></span>
+              </button>
+            </div>
+
+            <p class="form-hint">
+              Your username will be visible to other players. Choose wisely!
+            </p>
+          </form>
+
+          <div class="form-message" id="usernameMessage"></div>
+        </div>
       </div>
     </div>
 

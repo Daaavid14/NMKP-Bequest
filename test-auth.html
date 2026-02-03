@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supabase Auth Test - Nomekop Bequest</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1a0033 0%, #2d0a4e 100%);
+        color: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        width: 100%;
+        background: rgba(45, 10, 78, 0.95);
+        border-radius: 12px;
+        border: 1px solid rgba(138, 43, 226, 0.3);
+        padding: 40px;
+        box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+      }
+
+      h1 {
+        color: #9370db;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 30px;
+        font-size: 14px;
+      }
+
+      .status {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .status.info {
+        background: rgba(138, 43, 226, 0.2);
+        border-left: 4px solid #8a2be2;
+      }
+
+      .status.success {
+        background: rgba(0, 255, 0, 0.1);
+        border-left: 4px solid #00ff00;
+      }
+
+      .status.error {
+        background: rgba(255, 0, 0, 0.1);
+        border-left: 4px solid #ff0000;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #9370db;
+        font-weight: 500;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(138, 43, 226, 0.3);
+        border-radius: 6px;
+        color: #ffffff;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #8a2be2;
+        box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+      }
+
+      button:hover {
+        box-shadow: 0 6px 16px rgba(138, 43, 226, 0.6);
+        transform: translateY(-2px);
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .secondary-btn {
+        background: rgba(138, 43, 226, 0.2);
+        border: 1px solid #8a2be2;
+      }
+
+      .user-info {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+
+      .user-info h3 {
+        color: #9370db;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+
+      .user-info pre {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-size: 12px;
+        color: #00ff00;
+      }
+
+      .logs {
+        margin-top: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .log-entry {
+        font-size: 12px;
+        margin-bottom: 5px;
+        padding: 5px;
+        border-left: 2px solid #8a2be2;
+        padding-left: 10px;
+      }
+
+      .log-entry.error {
+        border-left-color: #ff0000;
+        color: #ff6b6b;
+      }
+
+      .log-entry.success {
+        border-left-color: #00ff00;
+        color: #51cf66;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎮 Nomekop Bequest</h1>
+      <p class="subtitle">Authentication Test Page</p>
+
+      <div id="connectionStatus" class="status info">
+        ⏳ Checking Supabase connection...
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="test@example.com"
+          value="test@example.com"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter password (min 8 chars)"
+          value="TestPass123"
+        />
+      </div>
+
+      <button onclick="testSignUp()">🔐 Test Sign Up</button>
+      <button onclick="testSignIn()" class="secondary-btn">
+        🔑 Test Sign In
+      </button>
+      <button onclick="checkSession()" class="secondary-btn">
+        👤 Check Current Session
+      </button>
+      <button onclick="signOut()" class="secondary-btn">🚪 Sign Out</button>
+      <button onclick="checkDatabase()" class="secondary-btn">
+        🗄️ Check Database Tables
+      </button>
+
+      <div id="userInfo" style="display: none" class="user-info">
+        <h3>Current User</h3>
+        <pre id="userDetails"></pre>
+      </div>
+
+      <div class="logs">
+        <h3 style="color: #9370db; margin-bottom: 10px">Activity Log</h3>
+        <div id="logs"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      // Initialize Supabase client
+      const SUPABASE_URL = "http://127.0.0.1:54321";
+      const SUPABASE_ANON_KEY =
+        "sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH";
+
+      let supabaseClient;
+
+      function log(message, type = "info") {
+        const logsDiv = document.getElementById("logs");
+        const entry = document.createElement("div");
+        entry.className = `log-entry ${type}`;
+        const timestamp = new Date().toLocaleTimeString();
+        entry.textContent = `[${timestamp}] ${message}`;
+        logsDiv.insertBefore(entry, logsDiv.firstChild);
+        console.log(message);
+      }
+
+      function updateStatus(message, type = "info") {
+        const statusDiv = document.getElementById("connectionStatus");
+        statusDiv.className = `status ${type}`;
+        statusDiv.innerHTML = message;
+      }
+
+      function showUserInfo(user) {
+        const userInfoDiv = document.getElementById("userInfo");
+        const userDetailsDiv = document.getElementById("userDetails");
+
+        if (user) {
+          userInfoDiv.style.display = "block";
+          userDetailsDiv.textContent = JSON.stringify(
+            {
+              id: user.id,
+              email: user.email,
+              created_at: user.created_at,
+              email_confirmed_at: user.email_confirmed_at,
+              last_sign_in_at: user.last_sign_in_at,
+            },
+            null,
+            2,
+          );
+        } else {
+          userInfoDiv.style.display = "none";
+        }
+      }
+
+      async function initSupabase() {
+        try {
+          log("Initializing Supabase client...", "info");
+          const { createClient } = window.supabase;
+          supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+          // Test connection
+          const { data, error } = await supabaseClient
+            .from("user_profiles")
+            .select("count");
+
+          if (error) {
+            throw error;
+          }
+
+          updateStatus("✅ Connected to Supabase!", "success");
+          log("Successfully connected to Supabase", "success");
+
+          // Check current session
+          const {
+            data: { session },
+          } = await supabaseClient.auth.getSession();
+          if (session) {
+            log("Active session found!", "success");
+            showUserInfo(session.user);
+          } else {
+            log("No active session", "info");
+          }
+        } catch (error) {
+          updateStatus(
+            "❌ Failed to connect to Supabase: " + error.message,
+            "error",
+          );
+          log("Connection error: " + error.message, "error");
+        }
+      }
+
+      async function testSignUp() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+          log("Please enter email and password", "error");
+          return;
+        }
+
+        if (password.length < 8) {
+          log("Password must be at least 8 characters", "error");
+          return;
+        }
+
+        try {
+          log(`Attempting to sign up: ${email}`, "info");
+          updateStatus("⏳ Creating account...", "info");
+
+          const { data, error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+              data: {
+                username: "player_" + Math.random().toString(36).substring(7),
+              },
+            },
+          });
+
+          if (error) throw error;
+
+          log("✅ Sign up successful!", "success");
+          log("User ID: " + data.user.id, "success");
+          updateStatus("✅ Account created successfully!", "success");
+          showUserInfo(data.user);
+
+          // Check if profile was created
+          setTimeout(async () => {
+            await checkProfile(data.user.id);
+          }, 1000);
+        } catch (error) {
+          log("❌ Sign up failed: " + error.message, "error");
+          updateStatus("❌ Sign up failed: " + error.message, "error");
+        }
+      }
+
+      async function testSignIn() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+          log("Please enter email and password", "error");
+          return;
+        }
+
+        try {
+          log(`Attempting to sign in: ${email}`, "info");
+          updateStatus("⏳ Signing in...", "info");
+
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password,
+          });
+
+          if (error) throw error;
+
+          log("✅ Sign in successful!", "success");
+          log("User ID: " + data.user.id, "success");
+          updateStatus("✅ Signed in successfully!", "success");
+          showUserInfo(data.user);
+        } catch (error) {
+          log("❌ Sign in failed: " + error.message, "error");
+          updateStatus("❌ Sign in failed: " + error.message, "error");
+        }
+      }
+
+      async function checkSession() {
+        try {
+          log("Checking current session...", "info");
+
+          const {
+            data: { session },
+            error,
+          } = await supabaseClient.auth.getSession();
+
+          if (error) throw error;
+
+          if (session) {
+            log("✅ Active session found!", "success");
+            log("User: " + session.user.email, "success");
+            updateStatus("✅ Logged in as: " + session.user.email, "success");
+            showUserInfo(session.user);
+
+            // Check profile
+            await checkProfile(session.user.id);
+          } else {
+            log("No active session", "info");
+            updateStatus("Not logged in", "info");
+            showUserInfo(null);
+          }
+        } catch (error) {
+          log("❌ Session check failed: " + error.message, "error");
+        }
+      }
+
+      async function signOut() {
+        try {
+          log("Signing out...", "info");
+
+          const { error } = await supabaseClient.auth.signOut();
+
+          if (error) throw error;
+
+          log("✅ Signed out successfully", "success");
+          updateStatus("Signed out", "info");
+          showUserInfo(null);
+        } catch (error) {
+          log("❌ Sign out failed: " + error.message, "error");
+        }
+      }
+
+      async function checkProfile(userId) {
+        try {
+          log("Checking user profile...", "info");
+
+          const { data: profile, error: profileError } = await supabaseClient
+            .from("user_profiles")
+            .select("*")
+            .eq("id", userId)
+            .single();
+
+          if (profileError) {
+            log("❌ Profile not found: " + profileError.message, "error");
+            log("This means the auth trigger may not have fired!", "error");
+            return;
+          }
+
+          log("✅ Profile found!", "success");
+          log("Username: " + (profile.username || "Not set"), "success");
+          log("Player Level: " + profile.player_level, "success");
+
+          // Check settings
+          const { data: settings, error: settingsError } = await supabaseClient
+            .from("user_settings")
+            .select("*")
+            .eq("id", userId)
+            .single();
+
+          if (settingsError) {
+            log("❌ Settings not found: " + settingsError.message, "error");
+          } else {
+            log("✅ Settings found!", "success");
+            log("Theme: " + settings.theme, "success");
+          }
+        } catch (error) {
+          log("❌ Profile check failed: " + error.message, "error");
+        }
+      }
+
+      async function checkDatabase() {
+        try {
+          log("Checking database tables...", "info");
+
+          // Check each table
+          const tables = [
+            "user_profiles",
+            "user_settings",
+            "user_sessions",
+            "wallet_connections",
+            "activity_logs",
+          ];
+
+          for (const table of tables) {
+            const { count, error } = await supabaseClient
+              .from(table)
+              .select("*", { count: "exact", head: true });
+
+            if (error) {
+              log(`❌ Table ${table}: Error - ${error.message}`, "error");
+            } else {
+              log(`✅ Table ${table}: ${count} rows`, "success");
+            }
+          }
+
+          updateStatus("✅ Database check complete", "success");
+        } catch (error) {
+          log("❌ Database check failed: " + error.message, "error");
+        }
+      }
+
+      // Initialize on page load
+      window.addEventListener("DOMContentLoaded", initSupabase);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Change Confirmation - Nomekop Bequest</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1a0033 0%, #2d0a4e 100%);
+        color: #ffffff;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: rgba(45, 10, 78, 0.95);
+        border-radius: 12px;
+        border: 1px solid rgba(138, 43, 226, 0.3);
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+      }
+      .header {
+        background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
+        padding: 40px 20px;
+        text-align: center;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .header p {
+        margin: 10px 0 0;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .content {
+        padding: 40px 30px;
+      }
+      .content h2 {
+        color: #9370db;
+        font-size: 24px;
+        margin-top: 0;
+      }
+      .content p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 15px 0;
+      }
+      .button-container {
+        text-align: center;
+        margin: 35px 0;
+      }
+      .confirm-button {
+        display: inline-block;
+        padding: 16px 40px;
+        background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+        transition: all 0.3s ease;
+      }
+      .confirm-button:hover {
+        box-shadow: 0 6px 16px rgba(138, 43, 226, 0.6);
+        transform: translateY(-2px);
+      }
+      .warning-box {
+        background: rgba(255, 165, 0, 0.15);
+        border-left: 4px solid #ffa500;
+        padding: 15px;
+        margin: 25px 0;
+        border-radius: 4px;
+      }
+      .warning-box p {
+        margin: 0;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .info-box {
+        background: rgba(138, 43, 226, 0.1);
+        border-left: 4px solid #8a2be2;
+        padding: 15px;
+        margin: 25px 0;
+        border-radius: 4px;
+      }
+      .info-box p {
+        margin: 0;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .footer {
+        background: rgba(26, 0, 51, 0.8);
+        padding: 30px;
+        text-align: center;
+        border-top: 1px solid rgba(138, 43, 226, 0.2);
+      }
+      .footer p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .footer a {
+        color: #9370db;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .security-note {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🎮 Nomekop Bequest</h1>
+        <p>Account Security</p>
+      </div>
+
+      <div class="content">
+        <h2>Confirm Email Change</h2>
+
+        <p>Hello,</p>
+
+        <p>
+          We received a request to change the email address associated with your
+          Nomekop Bequest account to:
+        </p>
+
+        <div class="info-box">
+          <p style="font-size: 16px"><strong>{{ .Email }}</strong></p>
+        </div>
+
+        <p>
+          To complete this email change, please click the button below to verify
+          that you own this email address.
+        </p>
+
+        <div class="button-container">
+          <a href="{{ .ConfirmationURL }}" class="confirm-button">
+            Confirm Email Change
+          </a>
+        </div>
+
+        <div class="info-box">
+          <p><strong>⏱️ This link will expire in 24 hours</strong></p>
+        </div>
+
+        <div class="warning-box">
+          <p><strong>⚠️ Didn't request this change?</strong></p>
+          <p>
+            If you didn't request to change your email address, please ignore
+            this email. Your email address will not be changed unless you click
+            the confirmation button above.
+          </p>
+          <p style="margin-top: 10px">
+            If you're concerned about your account security, please contact our
+            support team immediately and consider changing your password.
+          </p>
+        </div>
+
+        <p>
+          If the button above doesn't work, copy and paste this link into your
+          browser:
+        </p>
+        <p
+          style="
+            word-break: break-all;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #9370db;
+          "
+        >
+          {{ .ConfirmationURL }}
+        </p>
+
+        <p
+          style="
+            margin-top: 30px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+          "
+        >
+          <strong>Note:</strong> After confirming this email change, you will
+          need to use this new email address to sign in to your Nomekop Bequest
+          account.
+        </p>
+      </div>
+
+      <div class="footer">
+        <p><strong>Nomekop Bequest</strong></p>
+        <p>
+          Need help?
+          <a href="mailto:support@nomekopbequest.com">Contact Support</a>
+        </p>
+        <p class="security-note">
+          🔒 This is an automated security email. Please do not reply to this
+          message.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

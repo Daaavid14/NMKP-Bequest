@@ -1,0 +1,83 @@
+# ============================================================================
+# NOMEKOP BEQUEST - GIT IGNORE
+# ============================================================================
+
+# Environment variables - NEVER commit these!
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Supabase
+.branches
+.temp
+supabase/.branches
+supabase/.temp
+
+# Docker volumes
+.docker
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Database backups (if local)
+*.sql.backup
+backup.sql
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Build outputs
+out/
+.next/
+.nuxt/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Keys and certificates - NEVER commit these!
+*.pem
+*.key
+*.crt
+signing_keys.json
+
+# Secrets - NEVER commit these!
+secrets/
+.secrets
+
+# ============================================================================
+# IMPORTANT SECURITY NOTE
+# ============================================================================
+# Always review files before committing
+# Never commit API keys, passwords, or secrets
+# Use environment variables for sensitive data
+# Review this file regularly to ensure it's up to date
+# ============================================================================
