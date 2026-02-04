@@ -346,7 +346,7 @@ function preloadTypeSprites() {
 
   typeSprites.forEach((type) => {
     const img = new Image();
-    img.src = `../assets/types/${type}.png`;
+    img.src = `./assets/types/${type}.png`;
     img.onerror = function () {
       console.warn(`Failed to load sprite: ${type}.png`);
     };
