@@ -434,6 +434,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--bg-black);
   overflow: hidden;
   padding: 100px 20px 80px;
 }
