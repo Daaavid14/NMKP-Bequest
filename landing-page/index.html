@@ -23,7 +23,7 @@
     <header class="navbar">
       <div class="nav-container">
         <div class="logo">
-          <img src="./backgrounds/nomekop.png" alt="Nomekop Bequest Logo" />
+          <img src="/backgrounds/nomekop.png" alt="Nomekop Bequest Logo" />
         </div>
 
         <!-- Logged Out State -->
@@ -74,46 +74,80 @@
     </header>
 
     <main>
-      <section id="hero" class="hero">
-        <div class="hero-background">
-          <div class="particle-container" id="particleContainer"></div>
-          <div class="gradient-overlay"></div>
-        </div>
+      <section id="hero" class="hero-section">
+        <!-- Fire Overlay -->
+        <div class="hero-fire-overlay"></div>
 
-        <div class="hero-content">
-          <h1 class="game-title">NOMEKOP BEQUEST</h1>
-          <h2 class="headline">
-            Collect, Battle, Own Your Adventure on the Blockchain
-          </h2>
-          <p class="value-prop">
-            Classic gameplay meets true digital ownership. Every creature, every
-            item, truly yours.
-          </p>
+        <!-- Hero Content -->
+        <div class="hero-content-container">
+          <div class="hero-content">
+            <!-- Small Badge -->
+            <div class="hero-badge-small">
+              <span class="fire-icon">🔥</span>
+              <span>THE NEW ERA</span>
+            </div>
 
-          <!-- <div class="auth-cta-group">
-            <button
-              class="auth-btn auth-btn-primary"
-              id="heroSignupBtn"
-              data-modal="signup"
-            >
-              Create Account
-            </button>
-            <button
-              class="auth-btn auth-btn-secondary"
-              id="heroLoginBtn"
-              data-modal="login"
-            >
-              Log In
-            </button>
-          </div> -->
+            <!-- Main Title -->
+            <h1 class="hero-title-large">
+              <span class="title-line">A Complete Gaming</span>
+              <span class="title-line">Metaverse of Digital</span>
+              <span class="title-line orange-glow">Monsters Awaits</span>
+            </h1>
 
-          <p class="secondary-text">
-            Be among the first to receive genesis Nomekops
-          </p>
+            <!-- Subtitle -->
+            <p class="hero-description">
+              Dive into a revolutionary gaming experience where classic
+              monster-catching meets blockchain technology. Own, trade, and
+              battle with creatures that are truly yours in a thriving digital
+              economy.
+            </p>
 
-          <div class="trust-indicators">
-            <span class="indicator">Join us trainers</span>
-            <span class="indicator">Launching 2026</span>
+            <!-- CTA Buttons -->
+            <div class="hero-buttons">
+              <button
+                class="btn-orange-primary btn-lg"
+                id="heroSignupBtn"
+                data-modal="signup"
+              >
+                <span>Get Started</span>
+                <svg
+                  class="btn-arrow"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  />
+                </svg>
+              </button>
+              <button
+                class="btn-orange-secondary btn-lg"
+                id="heroLoginBtn"
+                data-modal="login"
+              >
+                <span>Login</span>
+              </button>
+            </div>
+
+            <!-- Mini Stats -->
+            <div class="hero-mini-stats">
+              <div class="mini-stat">
+                <div class="mini-stat-value">$1.6M+</div>
+                <div class="mini-stat-label">Trading Volume</div>
+              </div>
+              <div class="mini-stat-divider"></div>
+              <div class="mini-stat">
+                <div class="mini-stat-value">230K+</div>
+                <div class="mini-stat-label">Active Players</div>
+              </div>
+              <div class="mini-stat-divider"></div>
+              <div class="mini-stat">
+                <div class="mini-stat-value">50K+</div>
+                <div class="mini-stat-label">NFT Collection</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

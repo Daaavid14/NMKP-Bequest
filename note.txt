@@ -1,87 +1,93 @@
-Update the Nomekop Bequest landing page to match the visual design style shown in the reference image. This includes implementing a dark, immersive gaming aesthetic with vibrant gradients, glowing effects, card-based layouts, Pokemon character displays, and modern UI elements. The goal is to create a visually stunning, game-inspired interface while maintaining the existing functionality and structure.
-Design Elements to Implement:
+Update the Nomekop Bequest landing page to match the reference design's visual aesthetic: a dark, immersive gaming theme with vibrant orange fire effects, dramatic shadows, and cinematic Pokemon character displays. The goal is to create a high-impact, professional gaming interface with orange as the primary accent color against deep dark backgrounds.
+Key Visual Elements to Implement:
 
-Dark background with gradient overlays and particle effects
-Vibrant orange/red and blue/purple gradient accents
-Glowing card containers with border effects
-Pokemon/Nomekop character displays with dynamic positioning
-Modern button styles with gradients and hover effects
-Stat cards with icons and glowing backgrounds
-Immersive hero section with layered visuals
-Gaming-inspired typography and spacing
+Deep black/charcoal backgrounds with orange fire gradients
+Large, prominent Pokemon character displays with dramatic lighting
+Orange gradient buttons with glow effects
+Cinematic hero section with layered Pokemon sprites
+Dark glass-morphism cards with orange accents
+Fire particle effects and orange glow overlays
+Professional stat displays with orange highlights
+Smooth animations and transitions
 
 Update the following files:
 
-index.html - Update structure for new UI elements
-style.css - Complete visual overhaul with new design system
-script.js - Add interactive effects and animations
+index.html - Update structure for new visual layout
+style.css - Complete visual overhaul with orange/dark theme
+script.js - Add fire particle effects and animations
 
 
-PART A: DESIGN SYSTEM & CSS VARIABLES
-1. Update Root CSS Variables (style.css)
-REPLACE existing color variables with new gaming-inspired palette:
-css
-/* ========================================
-   DESIGN SYSTEM - COLOR PALETTE
+PART A: COLOR SYSTEM - ORANGE/DARK THEME
+1. Update CSS Variables (style.css)
+REPLACE all color variables with orange/dark theme:
+css/* ========================================
+   ORANGE/DARK THEME - COLOR SYSTEM
    ======================================== */
 
 :root {
-  /* Primary Dark Backgrounds */
-  --bg-darkest: #0a0a0f;
-  --bg-dark: #121218;
-  --bg-dark-secondary: #1a1a24;
-  --bg-dark-tertiary: #242430;
+  /* Background Colors - Deep Darks */
+  --bg-black: #000000;
+  --bg-darkest: #0a0a0a;
+  --bg-dark: #121212;
+  --bg-dark-secondary: #1a1a1a;
+  --bg-dark-tertiary: #242424;
   
-  /* Gradient Colors */
-  --gradient-orange-start: #ff6b35;
-  --gradient-orange-end: #ff8c42;
-  --gradient-red-start: #ff4757;
-  --gradient-red-end: #ff6b81;
-  --gradient-purple-start: #a855f7;
-  --gradient-purple-end: #6366f1;
-  --gradient-blue-start: #3b82f6;
-  --gradient-blue-end: #06b6d4;
+  /* Orange Palette - Primary Accent */
+  --orange-50: #fff7ed;
+  --orange-100: #ffedd5;
+  --orange-200: #fed7aa;
+  --orange-300: #fdba74;
+  --orange-400: #fb923c;
+  --orange-500: #f97316;
+  --orange-600: #ea580c;
+  --orange-700: #c2410c;
+  --orange-800: #9a3412;
+  --orange-900: #7c2d12;
   
-  /* Accent Colors */
-  --accent-orange: #ff6b35;
-  --accent-red: #ff4757;
-  --accent-purple: #a855f7;
-  --accent-blue: #3b82f6;
-  --accent-cyan: #06b6d4;
-  --accent-yellow: #fbbf24;
+  /* Primary Orange Gradient */
+  --gradient-orange: linear-gradient(135deg, #ff6b35 0%, #ff8c42 50%, #ffa552 100%);
+  --gradient-orange-intense: linear-gradient(135deg, #ff4500 0%, #ff6b35 50%, #ff8c42 100%);
+  --gradient-fire: linear-gradient(180deg, #ff4500 0%, #ff6b35 40%, #ff8c42 70%, #ffb870 100%);
+  
+  /* Red/Orange Mix */
+  --red-orange-500: #ff4500;
+  --red-orange-600: #ff3d00;
   
   /* Text Colors */
   --text-white: #ffffff;
-  --text-gray-100: #f3f4f6;
-  --text-gray-200: #e5e7eb;
-  --text-gray-300: #d1d5db;
-  --text-gray-400: #9ca3af;
-  --text-gray-500: #6b7280;
+  --text-gray-50: #fafafa;
+  --text-gray-100: #f5f5f5;
+  --text-gray-200: #e5e5e5;
+  --text-gray-300: #d4d4d4;
+  --text-gray-400: #a3a3a3;
+  --text-gray-500: #737373;
+  --text-gray-600: #525252;
   
-  /* Glow Effects */
-  --glow-orange: rgba(255, 107, 53, 0.5);
-  --glow-red: rgba(255, 71, 87, 0.5);
-  --glow-purple: rgba(168, 85, 247, 0.5);
-  --glow-blue: rgba(59, 130, 246, 0.5);
-  --glow-cyan: rgba(6, 182, 212, 0.5);
+  /* Glow Effects - Orange */
+  --glow-orange-sm: 0 0 10px rgba(249, 115, 22, 0.3);
+  --glow-orange-md: 0 0 20px rgba(249, 115, 22, 0.4);
+  --glow-orange-lg: 0 0 40px rgba(249, 115, 22, 0.5);
+  --glow-orange-xl: 0 0 60px rgba(249, 115, 22, 0.6);
+  
+  --glow-fire: 0 0 80px rgba(255, 69, 0, 0.6);
   
   /* Card Backgrounds */
-  --card-bg: rgba(26, 26, 36, 0.8);
-  --card-bg-hover: rgba(36, 36, 48, 0.9);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --card-border-glow: rgba(255, 107, 53, 0.3);
+  --card-bg-dark: rgba(18, 18, 18, 0.85);
+  --card-bg-darker: rgba(10, 10, 10, 0.9);
+  --card-border-orange: rgba(249, 115, 22, 0.3);
+  --card-border-orange-hover: rgba(249, 115, 22, 0.6);
   
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  /* Shadows - Dark with Orange Tint */
+  --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.8);
+  --shadow-orange: 0 8px 32px rgba(249, 115, 22, 0.3);
+  --shadow-orange-intense: 0 12px 48px rgba(255, 69, 0, 0.4);
   
   /* Border Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-full: 9999px;
   
   /* Spacing */
@@ -92,16 +98,17 @@ css
   --spacing-xl: 48px;
   --spacing-2xl: 64px;
   --spacing-3xl: 96px;
+  --spacing-4xl: 128px;
   
   /* Typography */
   --font-primary: 'Orbitron', sans-serif;
   --font-secondary: 'Inter', sans-serif;
 }
 
-PART B: GLOBAL STYLES & BACKGROUND
-2. Update Global Body Styles (style.css)
+PART B: GLOBAL BACKGROUND - FIRE & DARKNESS
+2. Update Body & Background Styles (style.css)
 css/* ========================================
-   GLOBAL STYLES
+   GLOBAL STYLES - DARK WITH FIRE
    ======================================== */
 
 * {
@@ -110,16 +117,20 @@ css/* ========================================
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-secondary);
-  background: var(--bg-darkest);
+  background: var(--bg-black);
   color: var(--text-white);
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
 }
 
-/* Animated Background */
+/* Dark Background with Orange Glow Accents */
 body::before {
   content: '';
   position: fixed;
@@ -128,21 +139,21 @@ body::before {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 30%, rgba(255, 69, 0, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(249, 115, 22, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(255, 107, 53, 0.06) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
-  animation: backgroundPulse 15s ease-in-out infinite;
+  animation: glowPulse 8s ease-in-out infinite;
 }
 
-@keyframes backgroundPulse {
+@keyframes glowPulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
 }
 
-/* Particle Background Effect */
-.particle-container {
+/* Fire Particle Container */
+.fire-particles {
   position: fixed;
   top: 0;
   left: 0;
@@ -153,48 +164,407 @@ body::before {
   z-index: 1;
 }
 
-.particle {
+.fire-particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--accent-orange);
+  width: 3px;
+  height: 3px;
+  background: var(--orange-500);
   border-radius: 50%;
-  opacity: 0.3;
-  animation: float 20s infinite ease-in-out;
+  box-shadow: var(--glow-orange-sm);
+  opacity: 0;
+  animation: riseUp 8s infinite ease-out;
 }
 
-@keyframes float {
-  0%, 100% { 
-    transform: translateY(0) translateX(0);
+@keyframes riseUp {
+  0% {
     opacity: 0;
+    transform: translateY(0) scale(1);
   }
-  10% { opacity: 0.3; }
-  50% { 
-    transform: translateY(-100vh) translateX(50px);
-    opacity: 0.5;
+  10% {
+    opacity: 0.8;
   }
-  90% { opacity: 0.3; }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(0.3);
+  }
 }
 
-/* Main Content Container */
+/* Main Content */
 main {
   position: relative;
   z-index: 2;
 }
 
-PART C: MODERN BUTTON STYLES
-3. Update Button Components (style.css)
+PART C: HERO SECTION - CINEMATIC ORANGE THEME
+3. Update Hero Section HTML (index.html)
+REPLACE hero section with cinematic layout:
+html<section id="hero" class="hero-section">
+  <!-- Fire Overlay -->
+  <div class="hero-fire-overlay"></div>
+  
+  <!-- Large Pokemon Character Left -->
+  <div class="hero-pokemon-left">
+    <img src="assets/pokeSprites/lucario.png" alt="Lucario" class="pokemon-sprite-large">
+    <div class="pokemon-fire-glow"></div>
+  </div>
+  
+  <!-- Large Pokemon Character Right (Optional) -->
+  <div class="hero-pokemon-right">
+    <img src="assets/pokeSprites/charizard.png" alt="Charizard" class="pokemon-sprite-large">
+    <div class="pokemon-fire-glow"></div>
+  </div>
+  
+  <!-- Hero Content -->
+  <div class="hero-content-container">
+    <div class="hero-content">
+      <!-- Small Badge -->
+      <div class="hero-badge-small">
+        <span class="fire-icon">🔥</span>
+        <span>THE NEW ERA</span>
+      </div>
+      
+      <!-- Main Title -->
+      <h1 class="hero-title-large">
+        <span class="title-line">A Complete Gaming</span>
+        <span class="title-line">Metaverse of Digital</span>
+        <span class="title-line orange-glow">Monsters Awaits</span>
+      </h1>
+      
+      <!-- Subtitle -->
+      <p class="hero-description">
+        Dive into a revolutionary gaming experience where classic monster-catching 
+        meets blockchain technology. Own, trade, and battle with creatures that are 
+        truly yours in a thriving digital economy.
+      </p>
+      
+      <!-- CTA Buttons -->
+      <div class="hero-buttons">
+        <button class="btn-orange-primary btn-lg" id="hero-signup-btn">
+          <span>Get Started</span>
+          <svg class="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+          </svg>
+        </button>
+        <button class="btn-orange-secondary btn-lg" id="hero-login-btn">
+          <span>Login</span>
+        </button>
+      </div>
+      
+      <!-- Mini Stats -->
+      <div class="hero-mini-stats">
+        <div class="mini-stat">
+          <div class="mini-stat-value">$1.6M+</div>
+          <div class="mini-stat-label">Trading Volume</div>
+        </div>
+        <div class="mini-stat-divider"></div>
+        <div class="mini-stat">
+          <div class="mini-stat-value">230K+</div>
+          <div class="mini-stat-label">Active Players</div>
+        </div>
+        <div class="mini-stat-divider"></div>
+        <div class="mini-stat">
+          <div class="mini-stat-value">$50K+</div>
+          <div class="mini-stat-label">NFT Collection</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+4. Hero Section Styling (style.css)
 css/* ========================================
-   BUTTON COMPONENTS
+   HERO SECTION - CINEMATIC ORANGE/DARK
    ======================================== */
 
-/* Primary Button (Orange Gradient) */
-.btn-primary,
-.btn-hero-primary,
-.btn-cta-primary {
+.hero-section {
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-black);
+  overflow: hidden;
+  padding: 140px 20px 80px;
+}
+
+/* Fire Overlay */
+.hero-fire-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(
+    to top,
+    rgba(255, 69, 0, 0.15) 0%,
+    rgba(249, 115, 22, 0.1) 30%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Large Pokemon Characters */
+.hero-pokemon-left,
+.hero-pokemon-right {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  z-index: 2;
+}
+
+.hero-pokemon-left {
+  bottom: 0;
+  left: -50px;
+  animation: floatFire 5s ease-in-out infinite;
+}
+
+.hero-pokemon-right {
+  bottom: 0;
+  right: -50px;
+  animation: floatFire 5s ease-in-out infinite 0.5s;
+}
+
+.pokemon-sprite-large {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 80px rgba(255, 69, 0, 0.6));
+}
+
+.pokemon-fire-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 40%;
+  background: radial-gradient(ellipse at center, rgba(255, 69, 0, 0.4) 0%, transparent 70%);
+  filter: blur(40px);
+  animation: fireGlow 3s ease-in-out infinite;
+}
+
+@keyframes floatFire {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+@keyframes fireGlow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Hero Content */
+.hero-content-container {
+  position: relative;
+  z-index: 3;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hero-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Small Badge */
+.hero-badge-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(255, 69, 0, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.4);
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--orange-400);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--glow-orange-sm);
+}
+
+.fire-icon {
+  font-size: 1.2rem;
+  animation: flicker 2s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Large Title */
+.hero-title-large {
+  font-size: 5rem;
+  font-weight: 900;
+  font-family: var(--font-primary);
+  line-height: 1.1;
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -2px;
+}
+
+.title-line {
+  display: block;
+  color: var(--text-white);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.orange-glow {
+  background: var(--gradient-orange-intense);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 40px rgba(255, 69, 0, 0.6));
+  animation: textGlow 3s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0%, 100% { filter: drop-shadow(0 0 40px rgba(255, 69, 0, 0.6)); }
+  50% { filter: drop-shadow(0 0 60px rgba(255, 69, 0, 0.9)); }
+}
+
+/* Hero Description */
+.hero-description {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-gray-300);
+  margin-bottom: var(--spacing-xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hero Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: var(--spacing-2xl);
+  flex-wrap: wrap;
+}
+
+/* Mini Stats */
+.hero-mini-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-dark);
+}
+
+.mini-stat {
+  text-align: center;
+}
+
+.mini-stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: var(--font-primary);
+  background: var(--gradient-orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+.mini-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mini-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(249, 115, 22, 0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 1200px) {
+  .hero-pokemon-left,
+  .hero-pokemon-right {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 968px) {
+  .hero-title-large {
+    font-size: 3.5rem;
+  }
+  
+  .hero-pokemon-left {
+    left: -100px;
+    opacity: 0.4;
+  }
+  
+  .hero-pokemon-right {
+    right: -100px;
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 120px 20px 60px;
+  }
+  
+  .hero-title-large {
+    font-size: 2.5rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-pokemon-left,
+  .hero-pokemon-right {
+    display: none;
+  }
+  
+  .hero-mini-stats {
+    flex-wrap: wrap;
+  }
+  
+  .mini-stat-divider {
+    display: none;
+  }
+}
+
+PART D: ORANGE BUTTON SYSTEM
+5. Create Orange Button Components (style.css)
+css/* ========================================
+   ORANGE BUTTON SYSTEM
+   ======================================== */
+
+/* Primary Orange Button */
+.btn-orange-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   padding: 14px 32px;
-  background: linear-gradient(135deg, var(--gradient-orange-start), var(--gradient-orange-end));
+  background: var(--gradient-orange-intense);
   border: none;
   border-radius: var(--radius-full);
   color: var(--text-white);
@@ -206,42 +576,41 @@ css/* ========================================
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px var(--glow-orange);
+  box-shadow: var(--glow-orange-md);
 }
 
-.btn-primary::before,
-.btn-hero-primary::before {
+.btn-orange-primary::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s ease;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
 }
 
-.btn-primary:hover,
-.btn-hero-primary:hover {
+.btn-orange-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 32px var(--glow-orange);
+  box-shadow: var(--glow-orange-xl), var(--shadow-orange-intense);
 }
 
-.btn-primary:hover::before,
-.btn-hero-primary:hover::before {
+.btn-orange-primary:hover::before {
   left: 100%;
 }
 
-.btn-primary:active {
+.btn-orange-primary:active {
   transform: translateY(-1px);
 }
 
-/* Secondary Button (Outline) */
-.btn-secondary,
-.btn-hero-secondary {
+/* Secondary Orange Button (Outline) */
+.btn-orange-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   padding: 14px 32px;
   background: transparent;
-  border: 2px solid var(--accent-orange);
+  border: 2px solid var(--orange-500);
   border-radius: var(--radius-full);
   color: var(--text-white);
   font-size: 1rem;
@@ -250,119 +619,125 @@ css/* ========================================
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.btn-secondary::before {
+.btn-orange-secondary::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   width: 0;
   height: 0;
-  background: var(--accent-orange);
+  background: var(--orange-500);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: width 0.4s ease, height 0.4s ease;
+  transition: width 0.5s ease, height 0.5s ease;
   z-index: -1;
 }
 
-.btn-secondary:hover::before {
-  width: 300%;
-  height: 300%;
-}
-
-.btn-secondary:hover {
-  border-color: var(--accent-orange);
-  color: var(--text-white);
+.btn-orange-secondary:hover {
+  border-color: var(--orange-400);
+  box-shadow: var(--glow-orange-lg);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px var(--glow-orange);
 }
 
-/* Smaller Buttons */
+.btn-orange-secondary:hover::before {
+  width: 400%;
+  height: 400%;
+}
+
+/* Large Button Size */
+.btn-lg {
+  height: 58px;
+  padding: 0 40px;
+  font-size: 1.1rem;
+}
+
+/* Button Arrow Icon */
+.btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.btn-orange-primary:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* Small Button */
 .btn-sm {
-  padding: 10px 24px;
+  height: 42px;
+  padding: 0 24px;
   font-size: 0.9rem;
 }
 
-/* Icon Buttons */
-.btn-icon {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn-icon svg,
-.btn-icon img {
-  width: 20px;
-  height: 20px;
-}
-
-PART D: CARD COMPONENTS
-4. Create Glowing Card Styles (style.css)
+PART E: DARK GLASS CARDS WITH ORANGE ACCENTS
+6. Create Card Components (style.css)
 css/* ========================================
-   CARD COMPONENTS
+   DARK GLASS CARDS - ORANGE THEME
    ======================================== */
 
-/* Base Card */
-.glass-card {
-  background: var(--card-bg);
+/* Base Dark Glass Card */
+.dark-glass-card {
+  background: var(--card-bg-dark);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--card-border);
+  border: 1px solid var(--card-border-orange);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   position: relative;
   overflow: hidden;
   transition: all 0.4s ease;
+  box-shadow: var(--shadow-dark);
 }
 
-.glass-card::before {
+.dark-glass-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at top right, rgba(249, 115, 22, 0.1) 0%, transparent 60%);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
 }
 
-.glass-card:hover {
-  border-color: var(--card-border-glow);
+.dark-glass-card:hover {
+  border-color: var(--card-border-orange-hover);
   transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(255, 107, 53, 0.2);
+  box-shadow: var(--shadow-dark), var(--shadow-orange);
 }
 
-.glass-card:hover::before {
+.dark-glass-card:hover::before {
   opacity: 1;
 }
 
-/* Glowing Border Card */
-.glow-card {
+/* Orange Glow Card */
+.orange-glow-card {
   position: relative;
   background: var(--bg-dark-secondary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   overflow: hidden;
+  transition: all 0.4s ease;
 }
 
-.glow-card::before {
+.orange-glow-card::before {
   content: '';
   position: absolute;
   inset: -2px;
-  background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple), var(--accent-blue));
+  background: var(--gradient-orange-intense);
   border-radius: var(--radius-lg);
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: -1;
+  animation: borderRotate 3s linear infinite;
 }
 
-.glow-card::after {
+.orange-glow-card::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -371,25 +746,20 @@ css/* ========================================
   z-index: -1;
 }
 
-.glow-card:hover::before {
+.orange-glow-card:hover::before {
   opacity: 1;
-  animation: borderGlow 2s ease infinite;
 }
 
-@keyframes borderGlow {
-  0%, 100% {
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    filter: hue-rotate(45deg);
-  }
+@keyframes borderRotate {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
-/* Stat Card */
-.stat-card {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(168, 85, 247, 0.1));
+/* Stat Card - Orange Theme */
+.stat-card-orange {
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.1), rgba(249, 115, 22, 0.05));
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 107, 53, 0.3);
+  border: 1px solid rgba(249, 115, 22, 0.3);
   border-radius: var(--radius-xl);
   padding: var(--spacing-md);
   text-align: center;
@@ -398,39 +768,39 @@ css/* ========================================
   transition: all 0.3s ease;
 }
 
-.stat-card::before {
+.stat-card-orange::before {
   content: '';
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 107, 53, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 69, 0, 0.3) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.4s ease;
+  animation: rotateSlow 10s linear infinite;
 }
 
-.stat-card:hover::before {
+.stat-card-orange:hover::before {
   opacity: 1;
-  animation: pulse 2s ease infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.1); opacity: 0.7; }
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .stat-card-icon {
   font-size: 2.5rem;
   margin-bottom: var(--spacing-sm);
-  filter: drop-shadow(0 4px 12px var(--glow-orange));
+  filter: drop-shadow(var(--glow-orange-md));
 }
 
 .stat-card-number {
   font-size: 2.5rem;
   font-weight: 800;
   font-family: var(--font-primary);
-  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+  background: var(--gradient-orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -439,527 +809,19 @@ css/* ========================================
 
 .stat-card-label {
   font-size: 0.95rem;
-  color: var(--text-gray-300);
+  color: var(--text-gray-400);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
 }
 
-PART E: HERO SECTION UPDATE
-5. Transform Hero Section (index.html)
-REPLACE existing hero section with:
-html<section id="hero" class="hero-section">
-  <!-- Animated Background Layers -->
-  <div class="hero-bg-layer hero-bg-gradient"></div>
-  <div class="hero-bg-layer hero-bg-particles"></div>
-  
-  <!-- Pokemon/Nomekop Character Display -->
-  <div class="hero-characters">
-    <div class="character-display character-left">
-      <img src="assets/pokeSprites/lucario.png" alt="Lucario" class="pokemon-sprite" data-tilt="left">
-    </div>
-    <div class="character-display character-right">
-      <img src="assets/pokeSprites/charizard.png" alt="Charizard" class="pokemon-sprite" data-tilt="right">
-    </div>
-  </div>
-  
-  <!-- Main Hero Content -->
-  <div class="hero-content-wrapper">
-    <div class="hero-content">
-      <!-- Badge/Label -->
-      <div class="hero-badge">
-        <span class="badge-icon">⚡</span>
-        <span>Genesis Collection Coming Soon</span>
-      </div>
-      
-      <!-- Main Heading -->
-      <h1 class="hero-title">
-        <span class="title-line-1">A Complete Gaming</span>
-        <span class="title-line-2">Metaverse of Digital</span>
-        <span class="title-line-3 gradient-text">Monsters Awaits</span>
-      </h1>
-      
-      <!-- Subtitle -->
-      <p class="hero-subtitle">
-        Dive into an immersive gaming experience where you can catch, 
-        train, and battle with digital monsters. Own them as NFTs and 
-        trade them in a thriving marketplace.
-      </p>
-      
-      <!-- CTA Buttons -->
-      <div class="hero-cta-buttons">
-        <button class="btn-hero-primary" id="hero-signup-btn">
-          <span>Get Started</span>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
-          </svg>
-        </button>
-        <button class="btn-hero-secondary" id="hero-login-btn">
-          <span>Login</span>
-        </button>
-      </div>
-      
-      <!-- Stats Row -->
-      <div class="hero-stats">
-        <div class="hero-stat-item">
-          <div class="stat-number">$1.6M+</div>
-          <div class="stat-label">Trading Volume</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat-item">
-          <div class="stat-number">230K+</div>
-          <div class="stat-label">Active Trainers</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat-item">
-          <div class="stat-number">$50K+</div>
-          <div class="stat-label">NFTs Collection</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Decorative Elements -->
-  <div class="hero-decoration hero-decoration-top-left"></div>
-  <div class="hero-decoration hero-decoration-bottom-right"></div>
-</section>
-6. Hero Section Styling (style.css)
+PART F: SECTION STYLES - ORANGE THEME
+7. Update All Sections with Orange Theme (style.css)
 css/* ========================================
-   HERO SECTION
+   SECTIONS - ORANGE/DARK THEME
    ======================================== */
 
-.hero-section {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 120px 20px 80px;
-}
-
-/* Background Layers */
-.hero-bg-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.hero-bg-gradient {
-  background: 
-    radial-gradient(circle at 30% 40%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 70% 60%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(10, 10, 15, 0) 0%, rgba(10, 10, 15, 0.8) 100%);
-  z-index: 1;
-}
-
-/* Pokemon Character Displays */
-.hero-characters {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.character-display {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  filter: drop-shadow(0 20px 60px rgba(255, 107, 53, 0.4));
-}
-
-.character-left {
-  bottom: 10%;
-  left: 5%;
-  animation: floatLeft 6s ease-in-out infinite;
-}
-
-.character-right {
-  top: 15%;
-  right: 8%;
-  animation: floatRight 6s ease-in-out infinite 1s;
-}
-
-.pokemon-sprite {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 40px rgba(255, 107, 53, 0.6));
-}
-
-@keyframes floatLeft {
-  0%, 100% { transform: translateY(0) rotate(-5deg); }
-  50% { transform: translateY(-30px) rotate(-8deg); }
-}
-
-@keyframes floatRight {
-  0%, 100% { transform: translateY(0) rotate(5deg); }
-  50% { transform: translateY(-25px) rotate(8deg); }
-}
-
-/* Hero Content */
-.hero-content-wrapper {
-  position: relative;
-  z-index: 3;
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.hero-content {
-  max-width: 700px;
-  text-align: left;
-}
-
-/* Hero Badge */
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid rgba(255, 107, 53, 0.3);
-  border-radius: var(--radius-full);
-  color: var(--accent-orange);
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: var(--spacing-lg);
-  animation: badgePulse 2s ease infinite;
-}
-
-@keyframes badgePulse {
-  0%, 100% { box-shadow: 0 0 0 0 var(--glow-orange); }
-  50% { box-shadow: 0 0 20px 4px var(--glow-orange); }
-}
-
-.badge-icon {
-  font-size: 1.2rem;
-  animation: iconSpin 3s linear infinite;
-}
-
-@keyframes iconSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Hero Title */
-.hero-title {
-  font-size: 4.5rem;
-  font-weight: 900;
-  font-family: var(--font-primary);
-  line-height: 1.1;
-  margin-bottom: var(--spacing-md);
-  letter-spacing: -1px;
-}
-
-.title-line-1,
-.title-line-2,
-.title-line-3 {
-  display: block;
-  animation: slideInUp 0.8s ease forwards;
-  opacity: 0;
-}
-
-.title-line-1 {
-  animation-delay: 0.2s;
-}
-
-.title-line-2 {
-  animation-delay: 0.4s;
-}
-
-.title-line-3 {
-  animation-delay: 0.6s;
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple), var(--accent-blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% auto;
-  animation: gradientShift 3s ease infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* Hero Subtitle */
-.hero-subtitle {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: var(--text-gray-300);
-  margin-bottom: var(--spacing-xl);
-  max-width: 600px;
-  animation: fadeIn 1s ease forwards;
-  animation-delay: 0.8s;
-  opacity: 0;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-/* Hero CTA Buttons */
-.hero-cta-buttons {
-  display: flex;
-  gap: 16px;
-  margin-bottom: var(--spacing-2xl);
-  flex-wrap: wrap;
-  animation: fadeIn 1s ease forwards;
-  animation-delay: 1s;
-  opacity: 0;
-}
-
-.btn-hero-primary,
-.btn-hero-secondary {
-  height: 56px;
-  padding: 0 32px;
-  font-size: 1.1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Hero Stats */
-.hero-stats {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-lg);
-  background: rgba(26, 26, 36, 0.6);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
-  animation: fadeIn 1s ease forwards;
-  animation-delay: 1.2s;
-  opacity: 0;
-}
-
-.hero-stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-size: 1.8rem;
-  font-weight: 800;
-  font-family: var(--font-primary);
-  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 4px;
-}
-
-.stat-label {
-  font-size: 0.85rem;
-  color: var(--text-gray-400);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Decorative Elements */
-.hero-decoration {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.hero-decoration-top-left {
-  top: -100px;
-  left: -100px;
-  background: radial-gradient(circle, var(--accent-orange) 0%, transparent 70%);
-}
-
-.hero-decoration-bottom-right {
-  bottom: -100px;
-  right: -100px;
-  background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
-}
-
-/* Mobile Responsive */
-@media (max-width: 1200px) {
-  .character-left,
-  .character-right {
-    width: 300px;
-    height: 300px;
-  }
-}
-
-@media (max-width: 968px) {
-  .hero-section {
-    padding: 100px 20px 60px;
-  }
-  
-  .hero-title {
-    font-size: 3rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.1rem;
-  }
-  
-  .character-left {
-    bottom: 5%;
-    left: -50px;
-    width: 250px;
-    height: 250px;
-    opacity: 0.3;
-  }
-  
-  .character-right {
-    top: 10%;
-    right: -50px;
-    width: 250px;
-    height: 250px;
-    opacity: 0.3;
-  }
-  
-  .hero-stats {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-  }
-  
-  .stat-divider {
-    width: 100%;
-    height: 1px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-  
-  .hero-cta-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .btn-hero-primary,
-  .btn-hero-secondary {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .character-left,
-  .character-right {
-    display: none;
-  }
-}
-
-PART F: FEATURES SECTION UPDATE
-7. Update Features Section (index.html)
-ADD "How It Works" section with step cards:
-html<section id="how-it-works" class="how-it-works-section">
-  <div class="container">
-    <!-- Section Header -->
-    <div class="section-header">
-      <h2 class="section-title">
-        <span class="title-accent">How It</span> Works
-      </h2>
-      <p class="section-subtitle">
-        Start your journey in three simple steps
-      </p>
-    </div>
-    
-    <!-- Steps Grid -->
-    <div class="steps-grid">
-      <!-- Step 1 -->
-      <div class="step-card glow-card">
-        <div class="step-number">01</div>
-        <div class="step-icon">
-          <img src="assets/types/normal.png" alt="Create Account">
-        </div>
-        <h3 class="step-title">Create Account</h3>
-        <p class="step-description">
-          Sign up with your email or connect with social accounts. 
-          Set your unique trainer name and start your adventure.
-        </p>
-        <div class="step-arrow">→</div>
-      </div>
-      
-      <!-- Step 2 -->
-      <div class="step-card glow-card">
-        <div class="step-number">02</div>
-        <div class="step-icon starter-icons-wrapper">
-          <img src="assets/types/fire.png" alt="Fire" class="starter-icon">
-          <img src="assets/types/water.png" alt="Water" class="starter-icon">
-          <img src="assets/types/grass.png" alt="Grass" class="starter-icon">
-        </div>
-        <h3 class="step-title">Battle & Earn</h3>
-        <p class="step-description">
-          Choose your starter Nomekop and begin battling. 
-          Earn rewards, level up, and unlock rare creatures.
-        </p>
-        <div class="step-arrow">→</div>
-      </div>
-      
-      <!-- Step 3 -->
-      <div class="step-card glow-card">
-        <div class="step-number">03</div>
-        <div class="step-icon">
-          <img src="assets/types/dragon.png" alt="Play & Earn">
-        </div>
-        <h3 class="step-title">Play & Earn</h3>
-        <p class="step-description">
-          Trade in the marketplace, collect rare NFTs, and build 
-          your ultimate collection of digital monsters.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-8. How It Works Section Styling (style.css)
-css/* ========================================
-   HOW IT WORKS SECTION
-   ======================================== */
-
-.how-it-works-section {
-  padding: var(--spacing-3xl) 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* Section Header */
+/* Section Headers */
 .section-header {
   text-align: center;
   margin-bottom: var(--spacing-2xl);
@@ -971,10 +833,11 @@ css/* ========================================
   font-family: var(--font-primary);
   margin-bottom: var(--spacing-sm);
   line-height: 1.2;
+  color: var(--text-white);
 }
 
-.title-accent {
-  background: linear-gradient(135deg, var(--accent-orange), var(--accent-red));
+.section-title .title-accent {
+  background: var(--gradient-orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -987,46 +850,28 @@ css/* ========================================
   margin: 0 auto;
 }
 
-/* Steps Grid */
-.steps-grid {
+/* Features Section */
+.features-section {
+  padding: var(--spacing-3xl) 20px;
+  background: var(--bg-darkest);
+  position: relative;
+}
+
+.features-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--spacing-lg);
-  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Step Card */
-.step-card {
-  position: relative;
-  text-align: center;
-  padding: var(--spacing-xl);
-  transition: all 0.4s ease;
+.feature-card {
+  /* Use dark-glass-card class */
 }
 
-.step-card:hover {
-  transform: translateY(-12px);
-}
-
-/* Step Number */
-.step-number {
-  position: absolute;
-  top: var(--spacing-md);
-  right: var(--spacing-md);
-  font-size: 5rem;
-  font-weight: 900;
-  font-family: var(--font-primary);
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(168, 85, 247, 0.2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0.3;
-  line-height: 1;
-}
-
-/* Step Icon */
-.step-icon {
-  width: 120px;
-  height: 120px;
+.feature-icon {
+  width: 80px;
+  height: 80px;
   margin: 0 auto var(--spacing-md);
   display: flex;
   align-items: center;
@@ -1034,486 +879,175 @@ css/* ========================================
   position: relative;
 }
 
-.step-icon img {
-  width: 80px;
-  height: 80px;
+.feature-type-icon {
+  width: 64px;
+  height: 64px;
   object-fit: contain;
-  filter: drop-shadow(0 8px 24px var(--glow-orange));
+  filter: drop-shadow(var(--glow-orange-md));
   transition: transform 0.3s ease;
 }
 
-.step-card:hover .step-icon img {
-  transform: scale(1.15) rotate(5deg);
+.feature-card:hover .feature-type-icon {
+  transform: scale(1.2) rotate(-5deg);
 }
 
-/* Starter Icons */
-.starter-icons-wrapper {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
-.starter-icon {
-  width: 50px !important;
-  height: 50px !important;
-  animation: float 3s ease-in-out infinite;
-}
-
-.starter-icon:nth-child(2) {
-  animation-delay: 0.5s;
-}
-
-.starter-icon:nth-child(3) {
-  animation-delay: 1s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-/* Step Title */
-.step-title {
-  font-size: 1.8rem;
+.feature-title {
+  font-size: 1.5rem;
   font-weight: 700;
   font-family: var(--font-primary);
   color: var(--text-white);
   margin-bottom: var(--spacing-sm);
+  text-align: center;
 }
 
-/* Step Description */
-.step-description {
+.feature-description {
   font-size: 1rem;
   color: var(--text-gray-300);
   line-height: 1.7;
+  text-align: center;
 }
 
-/* Step Arrow */
-.step-arrow {
-  position: absolute;
-  top: 50%;
-  right: -30px;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: var(--accent-orange);
-  opacity: 0.5;
-  animation: arrowPulse 2s ease infinite;
+/* Showcase Section */
+.showcase-section {
+  padding: var(--spacing-3xl) 20px;
+  background: var(--bg-black);
+  position: relative;
 }
 
-.step-card:last-child .step-arrow {
-  display: none;
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-@keyframes arrowPulse {
-  0%, 100% { transform: translateY(-50%) translateX(0); }
-  50% { transform: translateY(-50%) translateX(10px); }
+.creature-card {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-md);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.creature-card:hover {
+  transform: translateY(-12px);
+}
+
+.creature-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.type-icon {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  filter: drop-shadow(var(--glow-orange-lg));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.creature-card:hover .type-icon {
+  transform: scale(1.2);
+  filter: drop-shadow(0 8px 40px rgba(255, 69, 0, 0.8));
+}
+
+.creature-name {
+  font-size: 1.5rem;
+  font-family: var(--font-primary);
+  color: var(--text-white);
+  margin-bottom: var(--spacing-xs);
+  font-weight: 700;
+}
+
+.creature-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: var(--spacing-sm);
+}
+
+.type-badge {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(249, 115, 22, 0.4));
+}
+
+.type-text {
+  font-size: 0.9rem;
+  color: var(--text-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Mobile Responsive */
 @media (max-width: 1024px) {
-  .steps-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
-  }
-  
-  .step-arrow {
-    top: auto;
-    bottom: -40px;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%) rotate(90deg);
-  }
-  
-  .section-title {
-    font-size: 2.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .section-subtitle {
-    font-size: 1rem;
-  }
-  
-  .step-number {
-    font-size: 3rem;
-  }
-  
-  .step-title {
-    font-size: 1.5rem;
-  }
-}
-
-PART G: COMMUNITY/CTA SECTION
-9. Add Community Section (index.html)
-html<section id="community" class="community-section">
-  <div class="container">
-    <div class="community-content glass-card">
-      <!-- Left Content -->
-      <div class="community-text">
-        <h2 class="community-title">
-          Join Our Community <br>
-          <span class="gradient-text">To Earn</span>
-        </h2>
-        <p class="community-description">
-          Connect with thousands of trainers worldwide. Share strategies, 
-          trade Nomekops, and participate in exclusive events. Join our 
-          vibrant community on Discord and Twitter.
-        </p>
-        
-        <!-- Social Buttons -->
-        <div class="social-buttons">
-          <a href="#" class="social-btn twitter-btn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
-            <span>Twitter</span>
-          </a>
-          
-          <a href="#" class="social-btn discord-btn">
-            <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor">
-              <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-            </svg>
-            <span>Discord</span>
-          </a>
-        </div>
-      </div>
-      
-      <!-- Right Stats -->
-      <div class="community-stats">
-        <div class="stat-card">
-          <div class="stat-card-icon">👥</div>
-          <div class="stat-card-number">230K+</div>
-          <div class="stat-card-label">Active Members</div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-card-icon">💬</div>
-          <div class="stat-card-number">50K+</div>
-          <div class="stat-card-label">Discord Members</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-10. Community Section Styling (style.css)
-css/* ========================================
-   COMMUNITY SECTION
-   ======================================== */
-
-.community-section {
-  padding: var(--spacing-3xl) 20px;
-  position: relative;
-}
-
-.community-content {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: var(--spacing-2xl);
-  align-items: center;
-  padding: var(--spacing-2xl);
-}
-
-.community-title {
-  font-size: 3rem;
-  font-weight: 900;
-  font-family: var(--font-primary);
-  line-height: 1.2;
-  margin-bottom: var(--spacing-md);
-}
-
-.community-description {
-  font-size: 1.1rem;
-  color: var(--text-gray-300);
-  line-height: 1.8;
-  margin-bottom: var(--spacing-lg);
-}
-
-/* Social Buttons */
-.social-buttons {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.social-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: 2px solid;
-}
-
-.twitter-btn {
-  background: rgba(0, 0, 0, 0.5);
-  border-color: #000;
-  color: var(--text-white);
-}
-
-.twitter-btn:hover {
-  background: #000;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-.discord-btn {
-  background: rgba(88, 101, 242, 0.1);
-  border-color: #5865F2;
-  color: #5865F2;
-}
-
-.discord-btn:hover {
-  background: #5865F2;
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4);
-}
-
-/* Community Stats */
-.community-stats {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-md);
-}
-
-/* Mobile Responsive */
-@media (max-width: 968px) {
-  .community-content {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
-  }
-  
-  .community-title {
-    font-size: 2.5rem;
-  }
-  
-  .social-buttons {
-    flex-direction: column;
-  }
-  
-  .social-btn {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .community-stats {
+  .showcase-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-PART H: JAVASCRIPT ENHANCEMENTS
-11. Add Interactive Animations (script.js)
-ADD at the beginning of script.js:
+@media (max-width: 768px) {
+  .showcase-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+PART G: FIRE PARTICLE SYSTEM
+8. Add Fire Particle JavaScript (script.js)
 javascript// ========================================
-// VISUAL ENHANCEMENTS & ANIMATIONS
+// FIRE PARTICLE SYSTEM
 // ========================================
 
-// Create particle background
-function createParticles() {
-  const particleContainer = document.createElement('div');
-  particleContainer.className = 'particle-container';
-  document.body.appendChild(particleContainer);
+function createFireParticles() {
+  const container = document.createElement('div');
+  container.className = 'fire-particles';
+  document.body.appendChild(container);
   
-  for (let i = 0; i < 30; i++) {
+  // Create 40 fire particles
+  for (let i = 0; i < 40; i++) {
     const particle = document.createElement('div');
-    particle.className = 'particle';
+    particle.className = 'fire-particle';
+    
+    // Random horizontal position
     particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 20 + 's';
-    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-    particleContainer.appendChild(particle);
+    
+    // Random animation delay
+    particle.style.animationDelay = Math.random() * 8 + 's';
+    
+    // Random animation duration (6-10 seconds)
+    particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+    
+    // Random size variation
+    const size = 2 + Math.random() * 3;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    
+    container.appendChild(particle);
   }
 }
 
-// Parallax effect for hero characters
-function initParallax() {
-  const characters = document.querySelectorAll('.pokemon-sprite');
-  
-  document.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX / window.innerWidth;
-    const mouseY = e.clientY / window.innerHeight;
-    
-    characters.forEach((character, index) => {
-      const speed = (index + 1) * 0.05;
-      const x = (mouseX - 0.5) * 50 * speed;
-      const y = (mouseY - 0.5) * 50 * speed;
-      
-      character.style.transform = `translate(${x}px, ${y}px)`;
-    });
-  });
-}
-
-// Scroll reveal animations
-function initScrollReveal() {
-  const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -100px 0px'
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-  
-  // Observe elements
-  const animateElements = document.querySelectorAll('.step-card, .stat-card, .glass-card');
-  animateElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
-}
-
-// Glowing cursor trail effect
-function initCursorGlow() {
-  const cursorGlow = document.createElement('div');
-  cursorGlow.className = 'cursor-glow';
-  document.body.appendChild(cursorGlow);
-  
-  let mouseX = 0;
-  let mouseY = 0;
-  let cursorX = 0;
-  let cursorY = 0;
-  
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-  
-  function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.1;
-    cursorY += (mouseY - cursorY) * 0.1;
-    
-    cursorGlow.style.left = cursorX + 'px';
-    cursorGlow.style.top = cursorY + 'px';
-    
-    requestAnimationFrame(animateCursor);
-  }
-  
-  animateCursor();
-}
-
-// Add cursor glow CSS
-const cursorGlowStyle = document.createElement('style');
-cursorGlowStyle.textContent = `
-  .cursor-glow {
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255, 107, 53, 0.15) 0%, transparent 70%);
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    mix-blend-mode: screen;
-    transition: opacity 0.3s ease;
-  }
-  
-  body:not(:hover) .cursor-glow {
-    opacity: 0;
-  }
-`;
-document.head.appendChild(cursorGlowStyle);
-
-// Stat number counter animation
-function animateCounters() {
-  const counters = document.querySelectorAll('.stat-card-number, .stat-number');
-  
-  const observerOptions = {
-    threshold: 0.5
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-        entry.target.classList.add('counted');
-        animateCounter(entry.target);
-      }
-    });
-  }, observerOptions);
-  
-  counters.forEach(counter => observer.observe(counter));
-}
-
-function animateCounter(element) {
-  const text = element.textContent;
-  const hasPlus = text.includes('+');
-  const hasDollar = text.includes('$');
-  const hasK = text.includes('K');
-  const hasM = text.includes('M');
-  
-  // Extract number
-  let targetValue = parseFloat(text.replace(/[^0-9.]/g, ''));
-  
-  if (hasK) targetValue *= 1000;
-  if (hasM) targetValue *= 1000000;
-  
-  let currentValue = 0;
-  const increment = targetValue / 60; // 60 frames
-  const duration = 2000; // 2 seconds
-  const stepTime = duration / 60;
-  
-  const timer = setInterval(() => {
-    currentValue += increment;
-    
-    if (currentValue >= targetValue) {
-      currentValue = targetValue;
-      clearInterval(timer);
-    }
-    
-    let displayValue = Math.floor(currentValue);
-    
-    // Format number
-    if (hasM) {
-      displayValue = (displayValue / 1000000).toFixed(1) + 'M';
-    } else if (hasK) {
-      displayValue = (displayValue / 1000).toFixed(0) + 'K';
-    }
-    
-    if (hasDollar) displayValue = '$' + displayValue;
-    if (hasPlus) displayValue += '+';
-    
-    element.textContent = displayValue;
-  }, stepTime);
-}
-
-// Initialize all effects on page load
+// Initialize fire particles on page load
 document.addEventListener('DOMContentLoaded', () => {
-  createParticles();
-  initParallax();
-  initScrollReveal();
-  initCursorGlow();
-  animateCounters();
-  
-  // Add smooth scroll behavior
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  });
+  createFireParticles();
 });
 
-PART I: NAVIGATION UPDATE
-12. Update Navigation Styling (style.css)
+PART H: NAVIGATION - ORANGE THEME
+9. Update Navigation Styling (style.css)
 css/* ========================================
-   NAVIGATION
+   NAVIGATION - ORANGE THEME
    ======================================== */
 
 #main-nav {
@@ -1527,125 +1061,180 @@ css/* ========================================
   align-items: center;
   justify-content: space-between;
   transition: all 0.3s ease;
+  background: transparent;
 }
 
 #main-nav.scrolled {
-  background: rgba(10, 10, 15, 0.95);
+  background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(249, 115, 22, 0.2);
   padding: 15px 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 69, 0, 0.1);
 }
 
 .nav-brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  text-decoration: none;
 }
 
 .nav-logo-icon {
   width: 40px;
   height: 40px;
-  filter: drop-shadow(0 4px 12px var(--glow-orange));
+  filter: drop-shadow(var(--glow-orange-md));
   transition: transform 0.3s ease;
 }
 
 .nav-brand:hover .nav-logo-icon {
   transform: rotate(360deg) scale(1.1);
+  filter: drop-shadow(var(--glow-orange-lg));
 }
 
 .nav-brand-text {
   font-size: 1.3rem;
   font-weight: 800;
   font-family: var(--font-primary);
-  background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+  background: var(--gradient-orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: 1px;
 }
 
-/* Add scroll listener for navigation */
-ADD to script.js:
-javascript// Navigation scroll effect
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('main-nav');
-  if (window.scrollY > 100) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
+/* Nav Login Button */
+.btn-nav-login {
+  height: 42px;
+  padding: 0 28px;
+  background: var(--gradient-orange-intense);
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--text-white);
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--glow-orange-sm);
+}
+
+.btn-nav-login:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-orange-md);
+}
+
+PART I: RESPONSIVE UPDATES
+10. Mobile Optimizations (style.css)
+css/* ========================================
+   RESPONSIVE - MOBILE OPTIMIZATIONS
+   ======================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --spacing-3xl: 60px;
+    --spacing-2xl: 48px;
+    --spacing-xl: 32px;
   }
-});
+  
+  .hero-title-large {
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .features-grid,
+  .showcase-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  #main-nav {
+    padding: 15px 20px;
+  }
+  
+  #main-nav.scrolled {
+    padding: 12px 20px;
+  }
+  
+  .nav-brand-text {
+    font-size: 1.1rem;
+  }
+}
 
 IMPLEMENTATION CHECKLIST
-13. Complete Implementation Steps
-Phase 1: Design System Setup
+11. Complete Implementation Steps
+Phase 1: Color System
 
-✅ Update CSS variables with new color palette
-✅ Add gradient definitions
-✅ Set up spacing and typography variables
-✅ Create glow effect variables
+✅ Update all CSS variables to orange/dark theme
+✅ Replace gradient definitions
+✅ Update glow effects to orange
+✅ Change shadow colors
 
-Phase 2: Global Styles
+Phase 2: Backgrounds
 
-✅ Update body background
-✅ Add animated background gradients
-✅ Create particle container
-✅ Set up base styles
+✅ Set body to pure black
+✅ Add orange radial gradients
+✅ Create fire particle system
+✅ Add fire overlay to hero
 
-Phase 3: Component Library
+Phase 3: Hero Section
 
-✅ Create modern button styles
-✅ Build glass card components
-✅ Design glow card components
-✅ Create stat card components
+✅ Update hero HTML structure
+✅ Add large Pokemon sprites
+✅ Style with orange gradients
+✅ Add fire glow effects
+✅ Update buttons to orange theme
 
-Phase 4: Hero Section
+Phase 4: Components
 
-✅ Restructure hero HTML
-✅ Add Pokemon character displays
-✅ Implement gradient text effects
-✅ Add animated stats row
-✅ Create parallax effects
+✅ Create orange button system
+✅ Build dark glass cards
+✅ Add orange glow cards
+✅ Style stat cards with orange
 
-Phase 5: Content Sections
+Phase 5: Sections
 
-✅ Update How It Works section
-✅ Add Community section
-✅ Style all section components
-✅ Implement responsive layouts
+✅ Update all section headers
+✅ Apply orange accents
+✅ Add dark backgrounds
+✅ Update card styles
 
-Phase 6: JavaScript Effects
+Phase 6: Effects
 
-✅ Create particle system
-✅ Add parallax mouse tracking
-✅ Implement scroll reveal animations
-✅ Add cursor glow effect
-✅ Create counter animations
-✅ Add navigation scroll effect
+✅ Add fire particles
+✅ Create glow animations
+✅ Add hover effects
+✅ Implement transitions
 
-Phase 7: Testing & Polish
+Phase 7: Navigation
+
+✅ Update nav styling
+✅ Add orange logo glow
+✅ Style nav buttons
+✅ Add scroll effects
+
+Phase 8: Polish
 
 ✅ Test all animations
 ✅ Verify responsive design
-✅ Check cross-browser compatibility
+✅ Check all colors
 ✅ Optimize performance
-✅ Test on mobile devices
-✅ Validate accessibility
 
 
 EXPECTED OUTCOME
 After implementing this prompt, your landing page will have:
-✅ Dark, immersive gaming aesthetic matching the reference
-✅ Vibrant orange/purple/blue gradients throughout
-✅ Glowing card effects with modern glass morphism
-✅ Animated particle background for depth
-✅ Pokemon character displays with parallax effects
-✅ Modern button designs with gradient and glow effects
-✅ Stat cards with animations and counter effects
-✅ Scroll reveal animations for engagement
-✅ Cursor glow trail for interactivity
-✅ Professional typography with gaming fonts
+✅ Pure black background with orange fire accents
+✅ Vibrant orange gradients as primary accent color
+✅ Large cinematic Pokemon displays with fire glow effects
+✅ Orange gradient buttons with glow and shine effects
+✅ Dark glass-morphism cards with orange borders
+✅ Fire particle system creating atmospheric depth
+✅ Dramatic shadows and glows in orange tones
+✅ Professional gaming aesthetic matching reference image
+✅ Smooth animations and transitions throughout
 ✅ Fully responsive design for all devices
-✅ Smooth transitions and micro-interactions
+✅ Cohesive orange/dark theme across entire page

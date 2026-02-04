@@ -11,8 +11,56 @@ const supabaseClient = createClient(
 let currentUser = null;
 let currentProfile = null;
 
+// ===================================
+// 2. FIRE PARTICLE SYSTEM
+// ===================================
+
+function createFireParticles() {
+  const container = document.createElement("div");
+  container.className = "fire-particles";
+  document.body.appendChild(container);
+
+  // Create 40 fire particles
+  for (let i = 0; i < 40; i++) {
+    const particle = document.createElement("div");
+    particle.className = "fire-particle";
+
+    // Random horizontal position
+    particle.style.left = Math.random() * 100 + "%";
+
+    // Random animation delay
+    particle.style.animationDelay = Math.random() * 8 + "s";
+
+    // Random animation duration (6-10 seconds)
+    particle.style.animationDuration = 6 + Math.random() * 4 + "s";
+
+    // Random size variation
+    const size = 2 + Math.random() * 3;
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+
+    container.appendChild(particle);
+  }
+}
+
+// Add scroll effect for navbar
+function initNavbarScroll() {
+  const navbar = document.querySelector(".navbar");
+  if (navbar) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  }
+}
+
 // Check auth state on page load
 window.addEventListener("DOMContentLoaded", async () => {
+  createFireParticles();
+  initNavbarScroll();
   await checkAuthState();
   initAuthListeners();
 });
