@@ -245,14 +245,14 @@ main {
   width: 80px;
   height: 40px;
   filter: drop-shadow(var(--glow-orange-md));
-  transform: scale(1.8);
+  transform: scale(2);
 }
 
 .nav-cta {
   height: 42px;
   padding: 0 28px;
-  background: var(--gradient-orange-intense);
-  border: none;
+  background: transparent;
+  border: 2px solid var(--orange-500);
   border-radius: var(--radius-full);
   color: var(--text-white);
   font-size: 0.95rem;
@@ -267,7 +267,9 @@ main {
 
 .nav-cta:hover {
   transform: translateY(-2px);
-  box-shadow: var(--glow-orange-md);
+  background: var(--orange-500);
+  border-color: var(--orange-400);
+  box-shadow: var(--glow-orange-lg);
 }
 
 .nav-cta:active {
@@ -428,13 +430,12 @@ main {
 
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-black);
   overflow: hidden;
-  padding: 140px 20px 80px;
+  padding: 100px 20px 80px;
 }
 
 /* Fire Overlay */
@@ -689,7 +690,6 @@ main {
    5. ORANGE BUTTON SYSTEM
    =================================== */
 
-/* Primary Orange Button */
 .btn-orange-primary {
   position: relative;
   display: inline-flex;
@@ -740,7 +740,6 @@ main {
   transform: translateY(-1px);
 }
 
-/* Secondary Orange Button (Outline) */
 .btn-orange-secondary {
   display: inline-flex;
   align-items: center;
@@ -788,7 +787,6 @@ main {
   height: 400%;
 }
 
-/* Large Button Size */
 .btn-lg {
   height: 58px;
   padding: 0 40px;
