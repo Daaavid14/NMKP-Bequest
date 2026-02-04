@@ -20,30 +20,32 @@ function createFireParticles() {
   container.className = "fire-particles";
   document.body.appendChild(container);
 
-  // Create 40 fire particles
   for (let i = 0; i < 40; i++) {
     const particle = document.createElement("div");
     particle.className = "fire-particle";
 
-    // Random horizontal position
     particle.style.left = Math.random() * 100 + "%";
 
-    // Random animation delay
     particle.style.animationDelay = Math.random() * 8 + "s";
 
-    // Random animation duration (6-10 seconds)
     particle.style.animationDuration = 6 + Math.random() * 4 + "s";
 
-    // Random size variation
     const size = 2 + Math.random() * 3;
     particle.style.width = size + "px";
     particle.style.height = size + "px";
+
+    particle.style.bottom = Math.random() * 40 + "vh";
+
+    particle.style.opacity = 0.6 + Math.random() * 0.4;
+
+    particle.style.animationName = "riseUp";
+    particle.style.animationTimingFunction = "ease-out";
+    particle.style.animationIterationCount = "infinite";
 
     container.appendChild(particle);
   }
 }
 
-// Add scroll effect for navbar
 function initNavbarScroll() {
   const navbar = document.querySelector(".navbar");
   if (navbar) {
@@ -57,7 +59,6 @@ function initNavbarScroll() {
   }
 }
 
-// Check auth state on page load
 window.addEventListener("DOMContentLoaded", async () => {
   createFireParticles();
   initNavbarScroll();
@@ -65,7 +66,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   initAuthListeners();
 });
 
-// Check current authentication state
 async function checkAuthState() {
   try {
     const {

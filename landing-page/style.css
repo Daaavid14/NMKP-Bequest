@@ -1,5 +1,5 @@
 /* ===================================
-   1. CSS RESET & BASE STYLES - ORANGE/DARK THEME
+    BASE STYLES - ORANGE/DARK THEME
    =================================== */
 
 * {
@@ -10,6 +10,9 @@
 
 html {
   scroll-behavior: smooth;
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
 }
 
 body {
@@ -21,7 +24,6 @@ body {
   position: relative;
 }
 
-/* Dark Background with Orange Glow Accents */
 body::before {
   content: "";
   position: fixed;
@@ -60,7 +62,6 @@ body::before {
   }
 }
 
-/* Fire Particle Container */
 .fire-particles {
   position: fixed;
   top: 0;
@@ -74,25 +75,27 @@ body::before {
 
 .fire-particle {
   position: absolute;
-  width: 3px;
-  height: 3px;
+  width: 10px;
+  height: 10px;
   background: var(--orange-500);
   border-radius: 50%;
-  box-shadow: var(--glow-orange-sm);
-  opacity: 0;
-  animation: riseUp 8s infinite ease-out;
+  box-shadow: var(--glow-orange-lg);
+  opacity: 0.9;
+  animation: riseUp 1s infinite ease-out;
+  mix-blend-mode: screen;
+  filter: blur(1px);
 }
 
 @keyframes riseUp {
   0% {
-    opacity: 0;
+    opacity: 0.3;
     transform: translateY(0) scale(1);
   }
   10% {
-    opacity: 0.8;
+    opacity: 1;
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.8;
   }
   100% {
     opacity: 0;
@@ -100,7 +103,6 @@ body::before {
   }
 }
 
-/* Main Content */
 main {
   position: relative;
   z-index: 2;
@@ -111,14 +113,12 @@ main {
    =================================== */
 
 :root {
-  /* Background Colors - Deep Darks */
   --bg-black: #000000;
   --bg-darkest: #0a0a0a;
   --bg-dark: #121212;
   --bg-dark-secondary: #1a1a1a;
   --bg-dark-tertiary: #242424;
 
-  /* Orange Palette - Primary Accent */
   --orange-50: #fff7ed;
   --orange-100: #ffedd5;
   --orange-200: #fed7aa;
@@ -130,13 +130,13 @@ main {
   --orange-800: #9a3412;
   --orange-900: #7c2d12;
 
-  /* Primary Orange Gradient */
   --gradient-orange: linear-gradient(
     135deg,
     #ff6b35 0%,
     #ff8c42 50%,
     #ffa552 100%
   );
+
   --gradient-orange-intense: linear-gradient(
     135deg,
     #ff4500 0%,
@@ -151,11 +151,9 @@ main {
     #ffb870 100%
   );
 
-  /* Red/Orange Mix */
   --red-orange-500: #ff4500;
   --red-orange-600: #ff3d00;
 
-  /* Text Colors */
   --text-white: #ffffff;
   --text-gray-50: #fafafa;
   --text-gray-100: #f5f5f5;
@@ -165,25 +163,21 @@ main {
   --text-gray-500: #737373;
   --text-gray-600: #525252;
 
-  /* Glow Effects - Orange */
   --glow-orange-sm: 0 0 10px rgba(249, 115, 22, 0.3);
   --glow-orange-md: 0 0 20px rgba(249, 115, 22, 0.4);
   --glow-orange-lg: 0 0 40px rgba(249, 115, 22, 0.5);
   --glow-orange-xl: 0 0 60px rgba(249, 115, 22, 0.6);
   --glow-fire: 0 0 80px rgba(255, 69, 0, 0.6);
 
-  /* Card Backgrounds */
   --card-bg-dark: rgba(18, 18, 18, 0.85);
   --card-bg-darker: rgba(10, 10, 10, 0.9);
   --card-border-orange: rgba(249, 115, 22, 0.3);
   --card-border-orange-hover: rgba(249, 115, 22, 0.6);
 
-  /* Shadows - Dark with Orange Tint */
   --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.8);
   --shadow-orange: 0 8px 32px rgba(249, 115, 22, 0.3);
   --shadow-orange-intense: 0 12px 48px rgba(255, 69, 0, 0.4);
 
-  /* Border Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -191,7 +185,6 @@ main {
   --radius-2xl: 32px;
   --radius-full: 9999px;
 
-  /* Spacing */
   --spacing-xs: 8px;
   --spacing-sm: 16px;
   --spacing-md: 24px;
@@ -201,11 +194,9 @@ main {
   --spacing-3xl: 96px;
   --spacing-4xl: 128px;
 
-  /* Typography */
   --font-primary: "Orbitron", sans-serif;
   --font-secondary: "Inter", sans-serif;
 
-  /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.4s ease;
@@ -821,7 +812,7 @@ main {
 }
 
 /* ===================================
-   6. FORM & BUTTON STYLES (Legacy)
+   FORM & BUTTON STYLES (Legacy)
    =================================== */
 
 .waitlist-form {
@@ -936,32 +927,8 @@ main {
   }
 }
 
-.secondary-text {
-  font-size: 1rem;
-  color: var(--accent-cyan);
-  margin-bottom: 2rem;
-  font-weight: 500;
-  animation: fadeInUp 1s ease 1s backwards;
-}
-
-.trust-indicators {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: fadeInUp 1s ease 1.2s backwards;
-}
-
-.indicator {
-  font-size: 1rem;
-  color: var(--text-gray);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 /* ===================================
-   8. PARTICLE ANIMATION
+   PARTICLE ANIMATION
    =================================== */
 
 .particle {
@@ -2032,19 +1999,6 @@ main {
   .nav-cta {
     padding: 0.6rem 1.2rem;
     font-size: 0.85rem;
-  }
-
-  .trust-indicators {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .indicator {
-    font-size: 0.9rem;
-  }
-
-  .scroll-indicator {
-    bottom: 2rem;
   }
 
   .modal-content {
@@ -3221,7 +3175,6 @@ body.modal-open {
   margin-bottom: 10px;
 }
 
-/* Base Social Button */
 .btn-social {
   height: 44px;
   padding: 0 14px;
@@ -3257,14 +3210,12 @@ body.modal-open {
   outline-offset: 2px;
 }
 
-/* Social Icon */
 .social-icon {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
 }
 
-/* Google Button Specific */
 .btn-google {
   border-color: 2px solid rgba(255, 255, 255, 0.2);
   background: rgba(66, 133, 244, 0.05);
@@ -3276,7 +3227,6 @@ body.modal-open {
   box-shadow: var(--glow-orange-md);
 }
 
-/* Facebook Button Specific */
 .btn-facebook {
   border-color: 2px solid rgba(255, 255, 255, 0.2);
   background: rgba(24, 119, 242, 0.05);
@@ -3288,7 +3238,6 @@ body.modal-open {
   box-shadow: var(--glow-orange-md);
 }
 
-/* Loading State for Social Buttons */
 .btn-social.loading {
   pointer-events: none;
   opacity: 0.7;
@@ -3305,7 +3254,9 @@ body.modal-open {
   animation: spin 0.6s linear infinite;
 }
 
+/* ///////////////// */
 /* Mobile Responsive */
+/* ///////////////// */
 @media (max-width: 768px) {
   .social-auth-buttons {
     grid-template-columns: 1fr;
@@ -3323,7 +3274,6 @@ body.modal-open {
   }
 }
 
-/* Small Mobile */
 @media (max-width: 480px) {
   .btn-social {
     font-size: 0.9rem;
@@ -3331,7 +3281,6 @@ body.modal-open {
   }
 
   .btn-social span {
-    /* Hide text on very small screens, show icon only */
     display: none;
   }
 
@@ -3441,7 +3390,6 @@ body.modal-open {
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   .btn-social {
     border-width: 3px;
