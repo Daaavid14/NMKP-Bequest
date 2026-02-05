@@ -49,19 +49,219 @@ function createFireParticles() {
 function initNavbarScroll() {
   const navbar = document.querySelector(".navbar");
   if (navbar) {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) {
+    let lastScroll = 0;
+    let ticking = false;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      if (scrollY > 50) {
         navbar.classList.add("scrolled");
       } else {
         navbar.classList.remove("scrolled");
+      }
+
+      // Update active nav item based on scroll position
+      updateActiveNavItem();
+
+      lastScroll = scrollY;
+      ticking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScroll);
+        ticking = true;
       }
     });
   }
 }
 
+// ===================================
+// 3. NAVIGATION FUNCTIONALITY
+// ===================================
+
+// Mobile Menu Toggle
+function initMobileMenu() {
+  const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const mobileMenuClose = document.getElementById("mobileMenuClose");
+  const mobileNavLinks = document.querySelectorAll(
+    ".mobile-nav-link:not(.mobile-dropdown-trigger)",
+  );
+
+  if (mobileMenuToggle && mobileMenu) {
+    // Toggle mobile menu
+    mobileMenuToggle.addEventListener("click", () => {
+      const isActive = mobileMenu.classList.toggle("active");
+      mobileMenuToggle.classList.toggle("active");
+      document.body.classList.toggle("mobile-menu-open");
+    });
+
+    // Close mobile menu
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener("click", closeMobileMenu);
+    }
+
+    // Close menu when clicking on nav links
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        closeMobileMenu();
+      });
+    });
+
+    // Close menu when clicking outside
+    mobileMenu.addEventListener("click", (e) => {
+      if (e.target === mobileMenu) {
+        closeMobileMenu();
+      }
+    });
+  }
+}
+
+function closeMobileMenu() {
+  const mobileMenu = document.getElementById("mobileMenu");
+  const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+
+  if (mobileMenu && mobileMenuToggle) {
+    mobileMenu.classList.remove("active");
+    mobileMenuToggle.classList.remove("active");
+    document.body.classList.remove("mobile-menu-open");
+  }
+}
+
+// Mobile Dropdown Toggle
+function initMobileDropdowns() {
+  const mobileDropdowns = document.querySelectorAll(".mobile-dropdown");
+
+  mobileDropdowns.forEach((dropdown) => {
+    const trigger = dropdown.querySelector(".mobile-dropdown-trigger");
+
+    if (trigger) {
+      trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        dropdown.classList.toggle("active");
+
+        // Close other dropdowns
+        mobileDropdowns.forEach((otherDropdown) => {
+          if (otherDropdown !== dropdown) {
+            otherDropdown.classList.remove("active");
+          }
+        });
+      });
+    }
+  });
+}
+
+// Desktop Dropdown Functionality (for touch devices)
+function initDesktopDropdowns() {
+  const dropdowns = document.querySelectorAll(".dropdown");
+
+  dropdowns.forEach((dropdown) => {
+    const trigger = dropdown.querySelector(".dropdown-trigger");
+
+    if (trigger) {
+      // For touch devices, toggle on click
+      trigger.addEventListener("click", (e) => {
+        if (window.innerWidth > 1023) {
+          e.preventDefault();
+          dropdown.classList.toggle("active");
+
+          // Close other dropdowns
+          dropdowns.forEach((otherDropdown) => {
+            if (otherDropdown !== dropdown) {
+              otherDropdown.classList.remove("active");
+            }
+          });
+        }
+      });
+    }
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".dropdown")) {
+      dropdowns.forEach((dropdown) => {
+        dropdown.classList.remove("active");
+      });
+    }
+  });
+}
+
+// Update Active Navigation Item based on scroll position
+function updateActiveNavItem() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+  const scrollY = window.scrollY;
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 100;
+    const sectionHeight = section.offsetHeight;
+    const sectionId = section.getAttribute("id");
+
+    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${sectionId}`) {
+          link.classList.add("active");
+        }
+      });
+    }
+  });
+
+  // If at the top of the page, activate Home
+  if (scrollY < 100) {
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === "#hero") {
+        link.classList.add("active");
+      }
+    });
+  }
+}
+
+// Smooth scroll for navigation links
+function initSmoothScroll() {
+  const navLinks = document.querySelectorAll('a[href^="#"]');
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+
+      // Only handle smooth scroll for anchor links to sections
+      if (href.startsWith("#") && href.length > 1) {
+        const target = document.querySelector(href);
+
+        if (target) {
+          e.preventDefault();
+          const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
+          });
+
+          // Close mobile menu if open
+          closeMobileMenu();
+        }
+      }
+    });
+  });
+}
+
+// Initialize all navigation functionality
+function initNavigation() {
+  initNavbarScroll();
+  initMobileMenu();
+  initMobileDropdowns();
+  initDesktopDropdowns();
+  initSmoothScroll();
+  updateActiveNavItem();
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
   createFireParticles();
-  initNavbarScroll();
+  initNavigation();
   await checkAuthState();
   initAuthListeners();
 });
