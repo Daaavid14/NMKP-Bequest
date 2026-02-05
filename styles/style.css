@@ -2426,13 +2426,8 @@ body.mobile-menu-open {
 .social-proof {
   position: relative;
   padding: 100px 2rem;
-  background: linear-gradient(
-    180deg,
-    var(--bg-dark) 0%,
-    var(--primary-blue) 50%,
-    var(--bg-dark) 100%
-  );
-  overflow: hidden;
+  background: url(/backgrounds/heroBackground.jpg) center center / cover
+    no-repeat;
 }
 
 .social-proof::before {
@@ -2654,7 +2649,6 @@ body.mobile-menu-open {
     var(--secondary-light-purple)
   );
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 8px;
 }
