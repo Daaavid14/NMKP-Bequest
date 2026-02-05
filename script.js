@@ -11,13 +11,61 @@ const supabaseClient = createClient(
 let currentUser = null;
 let currentProfile = null;
 
-// Check auth state on page load
+// ===================================
+// 2. FIRE PARTICLE SYSTEM
+// ===================================
+
+function createFireParticles() {
+  const container = document.createElement("div");
+  container.className = "fire-particles";
+  document.body.appendChild(container);
+
+  for (let i = 0; i < 40; i++) {
+    const particle = document.createElement("div");
+    particle.className = "fire-particle";
+
+    particle.style.left = Math.random() * 100 + "%";
+
+    particle.style.animationDelay = Math.random() * 8 + "s";
+
+    particle.style.animationDuration = 6 + Math.random() * 4 + "s";
+
+    const size = 2 + Math.random() * 3;
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+
+    particle.style.bottom = Math.random() * 40 + "vh";
+
+    particle.style.opacity = 0.6 + Math.random() * 0.4;
+
+    particle.style.animationName = "riseUp";
+    particle.style.animationTimingFunction = "ease-out";
+    particle.style.animationIterationCount = "infinite";
+
+    container.appendChild(particle);
+  }
+}
+
+function initNavbarScroll() {
+  const navbar = document.querySelector(".navbar");
+  if (navbar) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  }
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
+  createFireParticles();
+  initNavbarScroll();
   await checkAuthState();
   initAuthListeners();
 });
 
-// Check current authentication state
 async function checkAuthState() {
   try {
     const {
@@ -346,7 +394,7 @@ function preloadTypeSprites() {
 
   typeSprites.forEach((type) => {
     const img = new Image();
-    img.src = `../assets/types/${type}.png`;
+    img.src = `./assets/types/${type}.png`;
     img.onerror = function () {
       console.warn(`Failed to load sprite: ${type}.png`);
     };
