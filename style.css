@@ -2081,6 +2081,11 @@ body.mobile-menu-open {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
+.step-icon img {
+  width: 100px;
+  height: 100px;
+}
+
 .step-title {
   font-family: "Orbitron", sans-serif;
   font-size: 1.75rem;
@@ -2423,7 +2428,7 @@ body.mobile-menu-open {
 
   .step-number {
     font-size: 3.5rem;
-    top: -15px;
+    top: -60px;
   }
 }
 @media (max-width: 399px) {
