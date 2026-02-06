@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Nomekop Bequest Whitepaper - Technical documentation explaining blockchain mechanics, PKC tokenomics, and our vision for the future of gaming."
+    />
+    <title>Whitepaper | Nomekop Bequest</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/whitepaper.css" />
+    <link rel="icon" href="/backgrounds/pokemonBall.png" />
+  </head>
+  <body>
+    <nav id="main-nav" class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <a href="/">
+            <img src="/backgrounds/nomekop.png" alt="Nomekop Bequest Logo" />
+          </a>
+        </div>
+
+        <div class="nav-auth">
+          <a href="/" class="nav-cta">Back to Home</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="doc-container">
+      <div class="doc-hero">
+        <h1>Nomekop Bequest Whitepaper</h1>
+        <p class="subtitle">Building the Future of Blockchain Gaming</p>
+        <div class="doc-meta">
+          <span>Version 1.0</span>
+          <span>Last Updated: February 2026</span>
+          <span>PKC Token</span>
+        </div>
+      </div>
+
+      <div class="breadcrumb">
+        <a href="/">Home</a> &gt; <a href="#more">More</a> &gt; Whitepaper
+      </div>
+
+      <div class="doc-content-wrapper">
+        <aside class="toc">
+          <h3>Table of Contents</h3>
+          <ul>
+            <li><a href="#executive-summary">Executive Summary</a></li>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#vision">Vision & Mission</a></li>
+            <li><a href="#game-mechanics">Game Mechanics</a></li>
+            <li><a href="#blockchain">Blockchain Integration</a></li>
+            <li><a href="#nft-system">NFT System</a></li>
+            <li><a href="#tokenomics">PKC Tokenomics</a></li>
+            <li><a href="#gameplay">Gameplay Features</a></li>
+            <li><a href="#marketplace">Marketplace & Economy</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#technical">Technical Architecture</a></li>
+            <li><a href="#security">Security & Audits</a></li>
+            <li><a href="#team">Team & Partners</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+          </ul>
+        </aside>
+
+        <main class="doc-content">
+          <section id="executive-summary">
+            <h2>1. Executive Summary</h2>
+            <p>
+              Nomekop Bequest represents a paradigm shift in blockchain gaming,
+              combining the beloved creature-collection gameplay with true
+              digital ownership through NFT technology. Built on a robust
+              blockchain infrastructure, Nomekop Bequest enables players to
+              truly own their digital creatures, trade them freely, and
+              participate in a thriving player-driven economy.
+            </p>
+            <div class="highlight-box">
+              <p>
+                <strong>Key Innovation:</strong> Nomekop Bequest bridges the gap
+                between traditional gaming entertainment and blockchain
+                technology, creating an ecosystem where gameplay skill and
+                strategic thinking directly translate to real-world value
+                through the PKC token.
+              </p>
+            </div>
+            <p>
+              Our platform introduces the PKC (Nomekop) utility token as the
+              backbone of the in-game economy, facilitating breeding,
+              marketplace transactions, staking rewards, and community
+              governance. Each Nomekop creature is a unique NFT with verifiable
+              scarcity, immutable ownership, and cross-platform
+              interoperability.
+            </p>
+          </section>
+
+          <section id="introduction">
+            <h2>2. Introduction</h2>
+            <p>
+              The gaming industry has long struggled with a fundamental problem:
+              players invest countless hours and resources into digital assets
+              they never truly own. When a game shuts down or a publisher
+              changes terms, years of progress can vanish instantly. Nomekop
+              Bequest solves this by leveraging blockchain technology to give
+              players genuine ownership of their assets.
+            </p>
+            <h3>2.1 The Problem</h3>
+            <p>
+              Traditional gaming platforms face several critical limitations:
+            </p>
+            <ul>
+              <li>Players cannot truly own in-game assets</li>
+              <li>
+                No ability to trade assets outside controlled marketplaces
+              </li>
+              <li>Centralized control of game economies leads to inflation</li>
+              <li>Zero interoperability between games</li>
+              <li>
+                Publishers can arbitrarily change rules or shut down services
+              </li>
+            </ul>
+            <h3>2.2 The Solution</h3>
+            <p>
+              Nomekop Bequest addresses these challenges through blockchain
+              technology, enabling:
+            </p>
+            <ul>
+              <li>True ownership via NFTs stored on decentralized networks</li>
+              <li>Open marketplace with player-determined pricing</li>
+              <li>Transparent, verifiable scarcity through smart contracts</li>
+              <li>Community governance over game economics</li>
+              <li>Potential for cross-game interoperability</li>
+            </ul>
+          </section>
+
+          <section id="vision">
+            <h2>3. Vision & Mission</h2>
+            <h3>3.1 Our Vision</h3>
+            <p>
+              To create the world's premier blockchain gaming ecosystem where
+              players have true ownership, creative freedom, and economic
+              opportunity while enjoying engaging, skill-based gameplay.
+            </p>
+            <h3>3.2 Our Mission</h3>
+            <p>We are committed to:</p>
+            <ul>
+              <li>Empowering players with true digital ownership</li>
+              <li>Building a sustainable, player-driven economy</li>
+              <li>
+                Creating engaging gameplay that rewards skill and strategy
+              </li>
+              <li>Fostering an inclusive community of trainers worldwide</li>
+              <li>
+                Pushing the boundaries of what's possible in blockchain gaming
+              </li>
+            </ul>
+          </section>
+
+          <section id="game-mechanics">
+            <h2>4. Game Mechanics</h2>
+            <h3>4.1 Core Gameplay Loop</h3>
+            <p>
+              Nomekop Bequest features a deep, strategic gameplay system
+              centered around collecting, training, and battling unique
+              creatures called Nomekops. Each Nomekop has distinct stats,
+              abilities, and evolutionary paths that create endless strategic
+              possibilities.
+            </p>
+            <h3>4.2 Battle System</h3>
+            <p>Our turn-based combat system features:</p>
+            <ul>
+              <li>Type advantages and disadvantages (18 distinct types)</li>
+              <li>Over 200 unique abilities with different effects</li>
+              <li>Status conditions and battlefield effects</li>
+              <li>Team synergy bonuses</li>
+              <li>Competitive ranked matchmaking</li>
+            </ul>
+            <h3>4.3 Breeding Mechanics</h3>
+            <p>
+              Players can breed Nomekops to create offspring with inherited
+              traits. The breeding system requires PKC tokens as a breeding fee,
+              creating natural token utility and demand. Offspring can inherit:
+            </p>
+            <ul>
+              <li>Parent stats with genetic variance</li>
+              <li>Rare abilities from either parent</li>
+              <li>Unique cosmetic traits</li>
+              <li>Shiny variants (extremely rare)</li>
+            </ul>
+          </section>
+
+          <section id="blockchain">
+            <h2>5. Blockchain Integration</h2>
+            <h3>5.1 Smart Contract Architecture</h3>
+            <p>
+              Nomekop Bequest is built on a layer-2 Ethereum scaling solution to
+              ensure fast transactions and low gas fees while maintaining the
+              security of the Ethereum network. Our smart contracts handle:
+            </p>
+            <ul>
+              <li>NFT minting and ownership verification</li>
+              <li>Marketplace transactions and escrow</li>
+              <li>Breeding mechanics and token burns</li>
+              <li>Staking rewards distribution</li>
+              <li>Governance voting mechanisms</li>
+            </ul>
+            <h3>5.2 Why Blockchain?</h3>
+            <div class="highlight-box">
+              <p>
+                Blockchain technology provides immutable proof of ownership,
+                transparent game mechanics, and enables a truly open marketplace
+                where players retain full control of their assets.
+              </p>
+            </div>
+          </section>
+
+          <section id="nft-system">
+            <h2>6. NFT System</h2>
+            <h3>6.1 Nomekop NFTs</h3>
+            <p>
+              Each Nomekop creature is a unique ERC-721 NFT with metadata stored
+              on IPFS for decentralization. NFT properties include:
+            </p>
+            <ul>
+              <li><strong>Species:</strong> One of 251 unique species</li>
+              <li>
+                <strong>Stats:</strong> HP, Attack, Defense, Speed, Special
+                attributes
+              </li>
+              <li><strong>Level:</strong> 1-100 progression system</li>
+              <li><strong>Abilities:</strong> Up to 4 learned abilities</li>
+              <li>
+                <strong>Nature:</strong> Personality trait affecting stat growth
+              </li>
+              <li>
+                <strong>Rarity:</strong> Common, Uncommon, Rare, Epic, Legendary
+              </li>
+            </ul>
+            <h3>6.2 Genesis Collection</h3>
+            <p>
+              The Genesis Collection consists of 10,000 first-edition Nomekops
+              with special benefits:
+            </p>
+            <ul>
+              <li>Exclusive cosmetic variants</li>
+              <li>Enhanced breeding success rates</li>
+              <li>Governance voting power multiplier (1.5x)</li>
+              <li>Lifetime staking reward bonus (+10%)</li>
+              <li>Priority access to new features</li>
+            </ul>
+          </section>
+
+          <section id="tokenomics">
+            <h2>7. PKC Tokenomics</h2>
+            <h3>7.1 Token Overview</h3>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-value">1B</div>
+                <div class="stat-label">Total Supply</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">PKC</div>
+                <div class="stat-label">Token Symbol</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">ERC-20</div>
+                <div class="stat-label">Token Standard</div>
+              </div>
+            </div>
+
+            <h3>7.2 Token Utility</h3>
+            <p>PKC tokens serve multiple purposes within the ecosystem:</p>
+            <ul>
+              <li>
+                <strong>Breeding Fees:</strong> Required to breed Nomekops
+                (burns tokens)
+              </li>
+              <li>
+                <strong>Marketplace Currency:</strong> Primary trading currency
+              </li>
+              <li>
+                <strong>Staking Rewards:</strong> Earn passive income by staking
+              </li>
+              <li>
+                <strong>Governance:</strong> Vote on game development decisions
+              </li>
+              <li>
+                <strong>In-Game Purchases:</strong> Items, cosmetics, boosts
+              </li>
+              <li>
+                <strong>Tournament Entry:</strong> Competitive event
+                participation
+              </li>
+            </ul>
+
+            <h3>7.3 Token Distribution</h3>
+            <ul>
+              <li>30% - Play-to-Earn Rewards (vested over 5 years)</li>
+              <li>20% - Community Treasury (governance controlled)</li>
+              <li>15% - Team & Advisors (2-year vesting, 1-year cliff)</li>
+              <li>15% - Private Sale (6-month vesting)</li>
+              <li>10% - Public Sale</li>
+              <li>10% - Ecosystem Development & Partnerships</li>
+            </ul>
+
+            <h3>7.4 Deflationary Mechanisms</h3>
+            <p>
+              To maintain long-term value, PKC implements multiple token burn
+              mechanisms:
+            </p>
+            <ul>
+              <li>10% of breeding fees permanently burned</li>
+              <li>5% of marketplace transaction fees burned</li>
+              <li>Seasonal tournament prize pool burns</li>
+              <li>Buyback and burn from protocol revenue</li>
+            </ul>
+          </section>
+
+          <section id="gameplay">
+            <h2>8. Gameplay Features</h2>
+            <h3>8.1 Adventure Mode</h3>
+            <p>
+              Explore vast regions filled with wild Nomekops, challenging
+              trainers, and legendary encounters. Complete quests to earn PKC
+              rewards and rare items.
+            </p>
+            <h3>8.2 Competitive Battles</h3>
+            <p>
+              Ranked PvP system with seasonal leagues, MMR-based matchmaking,
+              and substantial PKC prize pools for top performers.
+            </p>
+            <h3>8.3 Breeding & Genetics</h3>
+            <p>
+              Deep breeding system allowing players to create optimal Nomekops
+              through selective breeding and genetic planning.
+            </p>
+            <h3>8.4 Guilds & Social Features</h3>
+            <p>
+              Form guilds with other trainers, participate in guild wars, and
+              earn exclusive rewards through cooperative gameplay.
+            </p>
+          </section>
+
+          <section id="marketplace">
+            <h2>9. Marketplace & Economy</h2>
+            <h3>9.1 Decentralized Marketplace</h3>
+            <p>
+              Our peer-to-peer marketplace enables trustless trading of Nomekops
+              and items. Features include:
+            </p>
+            <ul>
+              <li>Direct wallet-to-wallet transfers</li>
+              <li>Auction and fixed-price listings</li>
+              <li>Advanced filtering and search</li>
+              <li>Price history and analytics</li>
+              <li>2.5% platform fee (0.5% burned, 2% to treasury)</li>
+            </ul>
+            <h3>9.2 Economic Sustainability</h3>
+            <p>
+              The Nomekop economy is designed for long-term sustainability
+              through:
+            </p>
+            <ul>
+              <li>Balanced token emission schedules</li>
+              <li>Multiple deflationary mechanisms</li>
+              <li>Diverse earning opportunities</li>
+              <li>Community governance over economic parameters</li>
+            </ul>
+          </section>
+
+          <section id="roadmap">
+            <h2>10. Roadmap</h2>
+            <h3>Q1 2026 - Foundation</h3>
+            <ul>
+              <li>✓ Smart contract deployment</li>
+              <li>✓ Genesis NFT mint</li>
+              <li>✓ PKC token launch</li>
+              <li>Platform beta launch</li>
+            </ul>
+            <h3>Q2 2026 - Expansion</h3>
+            <ul>
+              <li>Full game launch</li>
+              <li>Competitive ranked system</li>
+              <li>Mobile app release</li>
+              <li>First major tournament ($100K prize pool)</li>
+            </ul>
+            <h3>Q3 2026 - Enhancement</h3>
+            <ul>
+              <li>Guild system implementation</li>
+              <li>New region expansion (50+ new species)</li>
+              <li>Breeding system V2</li>
+              <li>Governance portal launch</li>
+            </ul>
+            <h3>Q4 2026 - Innovation</h3>
+            <ul>
+              <li>VR compatibility</li>
+              <li>Cross-chain bridge</li>
+              <li>Esports league establishment</li>
+              <li>Major partnerships announcement</li>
+            </ul>
+          </section>
+
+          <section id="technical">
+            <h2>11. Technical Architecture</h2>
+            <h3>11.1 Technology Stack</h3>
+            <ul>
+              <li><strong>Blockchain:</strong> Ethereum Layer-2 (Polygon)</li>
+              <li><strong>Smart Contracts:</strong> Solidity 0.8+</li>
+              <li><strong>Storage:</strong> IPFS for metadata and assets</li>
+              <li><strong>Backend:</strong> Node.js, GraphQL</li>
+              <li><strong>Frontend:</strong> React, Web3.js</li>
+              <li><strong>Database:</strong> PostgreSQL, Redis</li>
+            </ul>
+            <h3>11.2 Scalability</h3>
+            <p>Our layer-2 solution provides:</p>
+            <ul>
+              <li>Transaction throughput: 7,000+ TPS</li>
+              <li>Average transaction cost: <$0.01</li>
+              <li>Confirmation time: 2-3 seconds</li>
+              <li>Ethereum security guarantees</li>
+            </ul>
+          </section>
+
+          <section id="security">
+            <h2>12. Security & Audits</h2>
+            <h3>12.1 Smart Contract Audits</h3>
+            <p>
+              All smart contracts have been audited by leading blockchain
+              security firms:
+            </p>
+            <ul>
+              <li>CertiK - Completed January 2026</li>
+              <li>Quantstamp - Completed January 2026</li>
+              <li>Trail of Bits - Scheduled February 2026</li>
+            </ul>
+            <h3>12.2 Security Measures</h3>
+            <ul>
+              <li>Multi-signature treasury wallets</li>
+              <li>Time-locked governance changes</li>
+              <li>Emergency pause functionality</li>
+              <li>Bug bounty program ($500K pool)</li>
+              <li>Regular penetration testing</li>
+            </ul>
+          </section>
+
+          <section id="team">
+            <h2>13. Team & Partners</h2>
+            <h3>13.1 Core Team</h3>
+            <p>
+              Our team consists of veterans from leading gaming and blockchain
+              companies including Nintendo, Pokémon Company, Riot Games,
+              Ethereum Foundation, and Coinbase.
+            </p>
+            <h3>13.2 Advisors</h3>
+            <p>
+              We're proud to work with industry-leading advisors in gaming,
+              blockchain technology, economics, and community building.
+            </p>
+            <h3>13.3 Partners</h3>
+            <p>Strategic partnerships with:</p>
+            <ul>
+              <li>Major blockchain infrastructure providers</li>
+              <li>Leading NFT marketplaces</li>
+              <li>Esports organizations</li>
+              <li>Gaming guilds and communities</li>
+            </ul>
+          </section>
+
+          <section id="conclusion">
+            <h2>14. Conclusion</h2>
+            <p>
+              Nomekop Bequest represents the future of gaming—a world where
+              players truly own their assets, skill equals value, and
+              communities govern their own destinies. By combining beloved
+              gaming mechanics with cutting-edge blockchain technology, we're
+              creating an ecosystem that benefits all participants.
+            </p>
+            <div class="highlight-box">
+              <p>
+                <strong>Join us</strong> as we build the future of gaming, one
+                Nomekop at a time. Together, we'll create a gaming metaverse
+                where your time, effort, and creativity have real, lasting
+                value.
+              </p>
+            </div>
+            <p>
+              For more information, join our community on Discord, follow us on
+              social media, or reach out to our team directly. We're excited to
+              have you on this journey.
+            </p>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        style="display: inline-block; margin-right: 8px; vertical-align: middle"
+      >
+        <path
+          d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+        />
+      </svg>
+      Print
+    </button>
+
+    <script src="/script.js"></script>
+  </body>
+</html>

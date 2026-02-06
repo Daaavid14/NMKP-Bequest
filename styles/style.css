@@ -477,6 +477,27 @@ main {
   transform: translateY(0);
 }
 
+#navDashboardBtn {
+  background: linear-gradient(
+    135deg,
+    var(--yellow-500) 0%,
+    var(--yellow-400) 100%
+  );
+  border-color: var(--yellow-400);
+  color: var(--bg-black);
+  font-weight: 800;
+}
+
+#navDashboardBtn:hover {
+  background: linear-gradient(
+    135deg,
+    var(--yellow-400) 0%,
+    var(--yellow-300) 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(249, 226, 22, 0.6);
+}
+
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
@@ -1893,7 +1914,7 @@ body.mobile-menu-open {
 
 .how-it-works {
   position: relative;
-  padding: 120px 2rem;
+  padding: 50px 2rem;
   background: linear-gradient(
     180deg,
     var(--bg-dark) 0%,
@@ -2167,7 +2188,7 @@ body.mobile-menu-open {
   }
 
   .how-it-works {
-    padding: 100px 1.5rem;
+    padding: 40px 1.5rem;
   }
 
   .how-it-works-heading {
@@ -2345,7 +2366,7 @@ body.mobile-menu-open {
   }
 
   .how-it-works {
-    padding: 80px 1.5rem;
+    padding: 30px 1.5rem;
   }
 
   .how-it-works-heading {
@@ -2490,7 +2511,6 @@ body.mobile-menu-open {
   transform: translateY(0);
 }
 
-/* Stats Row */
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2619,9 +2639,9 @@ body.mobile-menu-open {
   color: var(--text-gray);
 }
 
-/* ===================================
-   14. FOOTER STYLES
-   =================================== */
+/* ===============
+   FOOTER STYLES
+   =============== */
 
 .footer {
   background: var(--bg-dark);
@@ -2744,9 +2764,9 @@ body.mobile-menu-open {
   color: rgba(255, 255, 255, 0.3);
 }
 
-/* ===================================
-   16. RESPONSIVE - SOCIAL PROOF
-   =================================== */
+/* ===============================
+   RESPONSIVE - SOCIAL PROOF
+   =============================== */
 
 @media (max-width: 1023px) {
   .stats-row {
@@ -2886,9 +2906,9 @@ body.mobile-menu-open {
   }
 }
 
-/* ================================
+/* ======================
    AUTHENTICATION STYLES
-   ================================ */
+   ======================*/
 
 .auth-cta-group {
   display: flex;
@@ -3267,9 +3287,9 @@ body.modal-open {
   color: #ef4444;
 }
 
-/* ===================================
+/* ======================
    USERNAME MODAL STYLES
-   =================================== */
+   ====================== */
 
 .username-modal {
   max-width: 500px;

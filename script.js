@@ -1,5 +1,5 @@
 // ===================================
-// 1. SUPABASE INITIALIZATION
+// SUPABASE INITIALIZATION
 // ===================================
 
 const { createClient } = window.supabase;
@@ -12,7 +12,7 @@ let currentUser = null;
 let currentProfile = null;
 
 // ===================================
-// 2. FIRE PARTICLE SYSTEM
+// FIRE PARTICLE SYSTEM
 // ===================================
 
 function createFireParticles() {
@@ -61,7 +61,6 @@ function initNavbarScroll() {
         navbar.classList.remove("scrolled");
       }
 
-      // Update active nav item based on scroll position
       updateActiveNavItem();
 
       lastScroll = scrollY;
@@ -81,7 +80,6 @@ function initNavbarScroll() {
 // 3. NAVIGATION FUNCTIONALITY
 // ===================================
 
-// Mobile Menu Toggle
 function initMobileMenu() {
   const mobileMenuToggle = document.getElementById("mobileMenuToggle");
   const mobileMenu = document.getElementById("mobileMenu");
@@ -91,26 +89,22 @@ function initMobileMenu() {
   );
 
   if (mobileMenuToggle && mobileMenu) {
-    // Toggle mobile menu
     mobileMenuToggle.addEventListener("click", () => {
       const isActive = mobileMenu.classList.toggle("active");
       mobileMenuToggle.classList.toggle("active");
       document.body.classList.toggle("mobile-menu-open");
     });
 
-    // Close mobile menu
     if (mobileMenuClose) {
       mobileMenuClose.addEventListener("click", closeMobileMenu);
     }
 
-    // Close menu when clicking on nav links
     mobileNavLinks.forEach((link) => {
       link.addEventListener("click", () => {
         closeMobileMenu();
       });
     });
 
-    // Close menu when clicking outside
     mobileMenu.addEventListener("click", (e) => {
       if (e.target === mobileMenu) {
         closeMobileMenu();
@@ -130,7 +124,6 @@ function closeMobileMenu() {
   }
 }
 
-// Mobile Dropdown Toggle
 function initMobileDropdowns() {
   const mobileDropdowns = document.querySelectorAll(".mobile-dropdown");
 
@@ -142,7 +135,6 @@ function initMobileDropdowns() {
         e.preventDefault();
         dropdown.classList.toggle("active");
 
-        // Close other dropdowns
         mobileDropdowns.forEach((otherDropdown) => {
           if (otherDropdown !== dropdown) {
             otherDropdown.classList.remove("active");
@@ -153,7 +145,6 @@ function initMobileDropdowns() {
   });
 }
 
-// Desktop Dropdown Functionality (for touch devices)
 function initDesktopDropdowns() {
   const dropdowns = document.querySelectorAll(".dropdown");
 
@@ -161,13 +152,11 @@ function initDesktopDropdowns() {
     const trigger = dropdown.querySelector(".dropdown-trigger");
 
     if (trigger) {
-      // For touch devices, toggle on click
       trigger.addEventListener("click", (e) => {
         if (window.innerWidth > 1023) {
           e.preventDefault();
           dropdown.classList.toggle("active");
 
-          // Close other dropdowns
           dropdowns.forEach((otherDropdown) => {
             if (otherDropdown !== dropdown) {
               otherDropdown.classList.remove("active");
@@ -178,7 +167,6 @@ function initDesktopDropdowns() {
     }
   });
 
-  // Close dropdowns when clicking outside
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".dropdown")) {
       dropdowns.forEach((dropdown) => {
@@ -188,7 +176,6 @@ function initDesktopDropdowns() {
   });
 }
 
-// Update Active Navigation Item based on scroll position
 function updateActiveNavItem() {
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".nav-link");
@@ -209,7 +196,6 @@ function updateActiveNavItem() {
     }
   });
 
-  // If at the top of the page, activate Home
   if (scrollY < 100) {
     navLinks.forEach((link) => {
       link.classList.remove("active");
@@ -220,7 +206,6 @@ function updateActiveNavItem() {
   }
 }
 
-// Smooth scroll for navigation links
 function initSmoothScroll() {
   const navLinks = document.querySelectorAll('a[href^="#"]');
 
@@ -228,20 +213,18 @@ function initSmoothScroll() {
     link.addEventListener("click", (e) => {
       const href = link.getAttribute("href");
 
-      // Only handle smooth scroll for anchor links to sections
       if (href.startsWith("#") && href.length > 1) {
         const target = document.querySelector(href);
 
         if (target) {
           e.preventDefault();
-          const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+          const offsetTop = target.offsetTop - 80;
 
           window.scrollTo({
             top: offsetTop,
             behavior: "smooth",
           });
 
-          // Close mobile menu if open
           closeMobileMenu();
         }
       }
@@ -249,7 +232,6 @@ function initSmoothScroll() {
   });
 }
 
-// Initialize all navigation functionality
 function initNavigation() {
   initNavbarScroll();
   initMobileMenu();
@@ -329,12 +311,22 @@ function initAuthListeners() {
 
 function updateNavigationForLoggedInUser() {
   const navLoginBtn = document.getElementById("navLoginBtn");
+  const heroSignupBtn = document.getElementById("heroSignupBtn");
+  const heroDashboardBtn = document.getElementById("heroDashboardBtn");
+  const mobileLoginBtn = document.getElementById("mobileLoginBtn");
+  const mobileSignupBtn = document.getElementById("mobileSignupBtn");
+  const mobileDashboardBtn = document.getElementById("mobileDashboardBtn");
   const userMenu = document.getElementById("userMenu");
   const navUsername = document.getElementById("navUsername");
   const dropdownUsername = document.getElementById("dropdownUsername");
   const dropdownEmail = document.getElementById("dropdownEmail");
 
   if (navLoginBtn) navLoginBtn.style.display = "none";
+  if (heroSignupBtn) heroSignupBtn.style.display = "none";
+  if (heroDashboardBtn) heroDashboardBtn.style.display = "block";
+  if (mobileLoginBtn) mobileLoginBtn.style.display = "none";
+  if (mobileSignupBtn) mobileSignupBtn.style.display = "none";
+  if (mobileDashboardBtn) mobileDashboardBtn.style.display = "block";
   if (userMenu) userMenu.style.display = "block";
 
   const displayName = currentProfile?.username || "Trainer";
@@ -345,9 +337,19 @@ function updateNavigationForLoggedInUser() {
 
 function updateNavigationForLoggedOutUser() {
   const navLoginBtn = document.getElementById("navLoginBtn");
+  const heroSignupBtn = document.getElementById("heroSignupBtn");
+  const heroDashboardBtn = document.getElementById("heroDashboardBtn");
+  const mobileLoginBtn = document.getElementById("mobileLoginBtn");
+  const mobileSignupBtn = document.getElementById("mobileSignupBtn");
+  const mobileDashboardBtn = document.getElementById("mobileDashboardBtn");
   const userMenu = document.getElementById("userMenu");
 
   if (navLoginBtn) navLoginBtn.style.display = "block";
+  if (heroSignupBtn) heroSignupBtn.style.display = "block";
+  if (heroDashboardBtn) heroDashboardBtn.style.display = "none";
+  if (mobileLoginBtn) mobileLoginBtn.style.display = "block";
+  if (mobileSignupBtn) mobileSignupBtn.style.display = "block";
+  if (mobileDashboardBtn) mobileDashboardBtn.style.display = "none";
   if (userMenu) userMenu.style.display = "none";
 }
 
@@ -570,7 +572,6 @@ if (usernameForm) {
 
       updateNavigationForLoggedInUser();
 
-      // Reload page immediately to show updated username
       window.location.reload();
     } catch (error) {
       console.error("Error updating username:", error);
@@ -611,7 +612,6 @@ if (document.readyState === "loading") {
 // 2. IMAGE ERROR HANDLING
 // ===================================
 
-// Add fallback handling for type sprite images
 document.addEventListener("DOMContentLoaded", function () {
   const typeSprites = document.querySelectorAll(".type-sprite");
 
@@ -640,13 +640,11 @@ document.addEventListener("DOMContentLoaded", function () {
 // ===================================
 
 function validateEmail(email) {
-  // Email format validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
 
 function validatePassword(password) {
-  // At least 8 characters, one uppercase, one number, one special character
   const minLength = password.length >= 8;
   const hasUppercase = /[A-Z]/.test(password);
   const hasNumber = /\d/.test(password);
@@ -669,7 +667,6 @@ const modalOverlay = document.getElementById("modalOverlay");
 const loginModal = document.getElementById("loginModal");
 const signupModal = document.getElementById("signupModal");
 
-// Open modal
 function openModal(modalType) {
   const modal = modalType === "login" ? loginModal : signupModal;
 
@@ -677,51 +674,43 @@ function openModal(modalType) {
   modal.classList.add("active");
   document.body.classList.add("modal-open");
 
-  // Focus on first input
   setTimeout(() => {
     const firstInput = modal.querySelector(".form-input");
     if (firstInput) firstInput.focus();
   }, 100);
 }
 
-// Close modal
 function closeModal() {
   modalOverlay.classList.remove("active");
   loginModal.classList.remove("active");
   signupModal.classList.remove("active");
   document.body.classList.remove("modal-open");
 
-  // Clear forms
   clearForm("login");
   clearForm("signup");
 }
 
-// Clear form
 function clearForm(formType) {
   const form = document.getElementById(`${formType}Form`);
   if (!form) return;
 
   form.reset();
 
-  // Clear error messages
   form.querySelectorAll(".form-error-msg").forEach((msg) => {
     msg.classList.remove("visible");
     msg.textContent = "";
   });
 
-  // Clear error states
   form.querySelectorAll(".form-input").forEach((input) => {
     input.classList.remove("error");
   });
 
-  // Clear form messages
   const message = document.getElementById(`${formType}Message`);
   if (message) {
     message.classList.remove("visible", "success", "error");
     message.textContent = "";
   }
 
-  // Reset button state
   const submitBtn = form.querySelector(".form-submit-btn");
   if (submitBtn) {
     submitBtn.classList.remove("loading");
@@ -729,7 +718,6 @@ function clearForm(formType) {
   }
 }
 
-// Switch between login and signup
 function switchModal(fromType, toType) {
   const fromModal = document.getElementById(`${fromType}Modal`);
   const toModal = document.getElementById(`${toType}Modal`);
@@ -739,16 +727,13 @@ function switchModal(fromType, toType) {
 
   clearForm(fromType);
 
-  // Focus on first input
   setTimeout(() => {
     const firstInput = toModal.querySelector(".form-input");
     if (firstInput) firstInput.focus();
   }, 100);
 }
 
-// Event listeners for modal triggers
 document.addEventListener("DOMContentLoaded", function () {
-  // All buttons with data-modal attribute
   document.querySelectorAll("[data-modal]").forEach((btn) => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -757,26 +742,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Close buttons
   document.querySelectorAll(".modal-close").forEach((btn) => {
     btn.addEventListener("click", closeModal);
   });
 
-  // Close on overlay click
   modalOverlay.addEventListener("click", function (e) {
     if (e.target === modalOverlay) {
       closeModal();
     }
   });
 
-  // Close on Escape key
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && modalOverlay.classList.contains("active")) {
       closeModal();
     }
   });
 
-  // Switch between modals
   document
     .getElementById("switchToSignup")
     ?.addEventListener("click", function (e) {
@@ -791,7 +772,20 @@ document.addEventListener("DOMContentLoaded", function () {
       switchModal("signup", "login");
     });
 
-  // Forgot password link (placeholder)
+  document
+    .getElementById("heroDashboardBtn")
+    ?.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = "/dashboard.html";
+    });
+
+  document
+    .getElementById("mobileDashboardBtn")
+    ?.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = "/dashboard.html";
+    });
+
   document
     .getElementById("forgotPasswordLink")
     ?.addEventListener("click", function (e) {
@@ -809,7 +803,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // 5. FORM VALIDATION
 // ===================================
 
-// Show error message
 function showError(inputId, message) {
   const input = document.getElementById(inputId);
   const errorMsg = document.getElementById(`${inputId}Error`);
@@ -821,7 +814,6 @@ function showError(inputId, message) {
   }
 }
 
-// Clear error message
 function clearError(inputId) {
   const input = document.getElementById(inputId);
   const errorMsg = document.getElementById(`${inputId}Error`);
@@ -833,7 +825,6 @@ function clearError(inputId) {
   }
 }
 
-// Show form message
 function showMessage(formType, message, type) {
   const messageEl = document.getElementById(`${formType}Message`);
   if (!messageEl) return;
@@ -843,7 +834,6 @@ function showMessage(formType, message, type) {
   messageEl.classList.add("visible", type);
 }
 
-// Clear all errors in form
 function clearAllErrors(formType) {
   const form = document.getElementById(`${formType}Form`);
   if (!form) return;
@@ -858,9 +848,7 @@ function clearAllErrors(formType) {
   });
 }
 
-// Real-time validation on input
 document.addEventListener("DOMContentLoaded", function () {
-  // Clear errors on input
   document.querySelectorAll(".form-input").forEach((input) => {
     input.addEventListener("input", function () {
       if (this.classList.contains("error")) {
@@ -887,7 +875,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let hasError = false;
 
-    // Validate email
     if (!email) {
       showError("loginEmail", "Email is required");
       hasError = true;
@@ -896,7 +883,6 @@ document.addEventListener("DOMContentLoaded", function () {
       hasError = true;
     }
 
-    // Validate password
     if (!password) {
       showError("loginPassword", "Password is required");
       hasError = true;
@@ -904,7 +890,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (hasError) return;
 
-    // Submit login
     await handleLogin(email, password);
   });
 });
@@ -912,7 +897,6 @@ document.addEventListener("DOMContentLoaded", function () {
 async function handleLogin(email, password) {
   const submitBtn = document.getElementById("loginSubmitBtn");
 
-  // Show loading state
   submitBtn.classList.add("loading");
   submitBtn.disabled = true;
 
@@ -931,10 +915,8 @@ async function handleLogin(email, password) {
 
     console.log("Login successful:", data.user.email);
 
-    // Close modal - auth listener will handle the rest
     setTimeout(() => {
       closeModal();
-      // Auth listener will check if username is set and update navigation
     }, 800);
   } catch (error) {
     submitBtn.classList.remove("loading");
@@ -970,7 +952,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let hasError = false;
 
-    // Validate email
     if (!email) {
       showError("signupEmail", "Email is required");
       hasError = true;
@@ -979,7 +960,6 @@ document.addEventListener("DOMContentLoaded", function () {
       hasError = true;
     }
 
-    // Validate password
     if (!password) {
       showError("signupPassword", "Password is required");
       hasError = true;
@@ -998,7 +978,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Validate confirm password
     if (!confirmPassword) {
       showError("signupConfirmPassword", "Please confirm your password");
       hasError = true;
@@ -1007,7 +986,6 @@ document.addEventListener("DOMContentLoaded", function () {
       hasError = true;
     }
 
-    // Validate terms
     if (!termsChecked) {
       showError("termsCheckbox", "You must agree to the Terms of Service");
       hasError = true;
@@ -1015,7 +993,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (hasError) return;
 
-    // Submit signup
     await handleSignup(email, password);
   });
 });
@@ -1023,7 +1000,6 @@ document.addEventListener("DOMContentLoaded", function () {
 async function handleSignup(email, password) {
   const submitBtn = document.getElementById("signupSubmitBtn");
 
-  // Show loading state
   submitBtn.classList.add("loading");
   submitBtn.disabled = true;
 
@@ -1047,11 +1023,9 @@ async function handleSignup(email, password) {
 
     console.log("Signup successful:", data.user.email);
 
-    // Update current user and profile
     currentUser = data.user;
     await loadUserProfile(data.user.id);
 
-    // Close signup modal and immediately show username modal
     closeModal();
     openUsernameModal();
   } catch (error) {
@@ -1068,13 +1042,7 @@ async function handleSignup(email, password) {
 }
 
 // ===================================
-// 3. SMOOTH SCROLL FOR NAVIGATION CTA
-// ===================================
-
-// Note: Nav CTA now opens signup modal instead of scrolling
-
-// ===================================
-// 4. NAVIGATION SCROLL EFFECT
+// NAVIGATION SCROLL EFFECT
 // ===================================
 
 const navbar = document.querySelector(".navbar");
@@ -1087,9 +1055,9 @@ window.addEventListener("scroll", function () {
   }
 });
 
-// ===================================
-// 5. PARTICLE BACKGROUND ANIMATION
-// ===================================
+// ==============================
+// PARTICLE BACKGROUND ANIMATION
+// ==============================
 
 function createParticles() {
   const particleContainer = document.getElementById("particleContainer");
@@ -1099,21 +1067,17 @@ function createParticles() {
     const particle = document.createElement("div");
     particle.classList.add("particle");
 
-    // Random size
     const size = Math.random() * 4 + 1;
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
 
-    // Random horizontal position
     particle.style.left = `${Math.random() * 100}%`;
 
-    // Random animation duration and delay
     const duration = Math.random() * 15 + 10;
     const delay = Math.random() * 5;
     particle.style.animationDuration = `${duration}s`;
     particle.style.animationDelay = `${delay}s`;
 
-    // Random opacity
     particle.style.opacity = Math.random() * 0.5 + 0.2;
 
     particleContainer.appendChild(particle);
@@ -1125,10 +1089,8 @@ function createParticles() {
 // ===================================
 
 window.addEventListener("load", function () {
-  // Create particles
   createParticles();
 
-  // Add loaded class to body for any additional animations
   document.body.classList.add("loaded");
 });
 
@@ -1146,7 +1108,6 @@ if (scrollIndicator) {
     });
   });
 
-  // Hide scroll indicator on scroll
   window.addEventListener("scroll", function () {
     if (window.scrollY > 100) {
       scrollIndicator.style.opacity = "0";
@@ -1162,7 +1123,6 @@ if (scrollIndicator) {
 // 8. ADDITIONAL FORM ENHANCEMENTS
 // ===================================
 
-// Clear error on input
 emailInput.addEventListener("input", function () {
   if (emailInput.classList.contains("error")) {
     emailInput.classList.remove("error");
@@ -1170,7 +1130,6 @@ emailInput.addEventListener("input", function () {
   }
 });
 
-// Add focus/blur animations
 emailInput.addEventListener("focus", function () {
   this.parentElement.classList.add("focused");
 });
@@ -1183,7 +1142,6 @@ emailInput.addEventListener("blur", function () {
 // 9. PERFORMANCE OPTIMIZATION
 // ===================================
 
-// Debounce scroll event for better performance
 let scrollTimeout;
 window.addEventListener(
   "scroll",
@@ -1192,9 +1150,7 @@ window.addEventListener(
       window.cancelAnimationFrame(scrollTimeout);
     }
 
-    scrollTimeout = window.requestAnimationFrame(function () {
-      // Scroll-based animations can go here
-    });
+    scrollTimeout = window.requestAnimationFrame(function () {});
   },
   { passive: true },
 );
@@ -1203,7 +1159,6 @@ window.addEventListener(
 // 10. ACCESSIBILITY ENHANCEMENTS
 // ===================================
 
-// Trap focus in modal when open
 modal.addEventListener("keydown", function (e) {
   if (!modal.classList.contains("active")) return;
 
@@ -1236,47 +1191,38 @@ function initFeaturesAnimation() {
 
   if (!featuresSection) return;
 
-  // Intersection Observer options
   const observerOptions = {
     threshold: 0.2,
     rootMargin: "0px",
   };
 
-  // Callback function for when section enters viewport
   const observerCallback = (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Animate heading
         if (featuresHeading) {
           featuresHeading.classList.add("animate");
         }
 
-        // Animate subheading
         if (featuresSubheading) {
           featuresSubheading.classList.add("animate");
         }
 
-        // Animate cards with stagger
         featureCards.forEach((card, index) => {
           setTimeout(() => {
             card.classList.add("animate");
-          }, 150 * index); // 150ms stagger between each card
+          }, 150 * index);
         });
 
-        // Unobserve after animation to prevent re-triggering
         observer.unobserve(entry.target);
       }
     });
   };
 
-  // Create observer
   const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-  // Observe features section
   observer.observe(featuresSection);
 }
 
-// Initialize features animation when DOM is ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initFeaturesAnimation);
 } else {
@@ -1295,47 +1241,38 @@ function initShowcaseAnimation() {
 
   if (!showcaseSection) return;
 
-  // Intersection Observer options
   const observerOptions = {
     threshold: 0.15,
     rootMargin: "0px",
   };
 
-  // Callback function for when section enters viewport
   const observerCallback = (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Animate heading
         if (showcaseHeading) {
           showcaseHeading.classList.add("animate");
         }
 
-        // Animate subheading
         if (showcaseSubheading) {
           showcaseSubheading.classList.add("animate");
         }
 
-        // Animate creature cards with stagger
         creatureCards.forEach((card, index) => {
           setTimeout(() => {
             card.classList.add("animate");
-          }, 100 * index); // 100ms stagger between each card
+          }, 100 * index);
         });
 
-        // Unobserve after animation to prevent re-triggering
         observer.unobserve(entry.target);
       }
     });
   };
 
-  // Create observer
   const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-  // Observe showcase section
   observer.observe(showcaseSection);
 }
 
-// Initialize showcase animation when DOM is ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initShowcaseAnimation);
 } else {
@@ -1346,23 +1283,15 @@ if (document.readyState === "loading") {
 // 13. CREATURE CARD INTERACTION
 // ===================================
 
-// Add click interaction for creature cards (optional enhancement)
 function initCreatureCardInteraction() {
   const creatureCards = document.querySelectorAll(".creature-card");
 
   creatureCards.forEach((card) => {
     card.addEventListener("click", function () {
-      // Add a subtle pulse effect on click
       this.style.animation = "none";
       setTimeout(() => {
         this.style.animation = "";
       }, 10);
-
-      // You can add more interactions here:
-      // - Show creature details modal
-      // - Flip card to show stats
-      // - Play sound effect
-      // - etc.
 
       console.log(
         "Clicked creature:",
@@ -1372,7 +1301,6 @@ function initCreatureCardInteraction() {
   });
 }
 
-// Initialize card interactions
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initCreatureCardInteraction);
 } else {
@@ -1380,7 +1308,7 @@ if (document.readyState === "loading") {
 }
 
 // ===================================
-// 14. HOW IT WORKS SECTION SCROLL ANIMATION
+// HOW IT WORKS - SCROLL ANIMATION
 // ===================================
 
 function initHowItWorksAnimation() {
@@ -1393,47 +1321,38 @@ function initHowItWorksAnimation() {
 
   if (!howItWorksSection) return;
 
-  // Intersection Observer options
   const observerOptions = {
     threshold: 0.2,
     rootMargin: "0px",
   };
 
-  // Callback function for when section enters viewport
   const observerCallback = (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Animate heading
         if (howItWorksHeading) {
           howItWorksHeading.classList.add("animate");
         }
 
-        // Animate subheading
         if (howItWorksSubheading) {
           howItWorksSubheading.classList.add("animate");
         }
 
-        // Animate step cards with stagger
         stepCards.forEach((card, index) => {
           setTimeout(() => {
             card.classList.add("animate");
-          }, 200 * index); // 200ms stagger between each step
+          }, 200 * index);
         });
 
-        // Unobserve after animation to prevent re-triggering
         observer.unobserve(entry.target);
       }
     });
   };
 
-  // Create observer
   const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-  // Observe how-it-works section
   observer.observe(howItWorksSection);
 }
 
-// Initialize how-it-works animation when DOM is ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initHowItWorksAnimation);
 } else {
@@ -1455,31 +1374,25 @@ function initSocialProofAnimation() {
 
   if (!socialProofSection) return;
 
-  // Intersection Observer options
   const observerOptions = {
     threshold: 0.2,
     rootMargin: "0px",
   };
 
-  // Callback function for when section enters viewport
   const observerCallback = (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Animate heading
         if (socialProofHeading) {
           socialProofHeading.classList.add("animate");
         }
 
-        // Animate subheading
         if (socialProofSubheading) {
           socialProofSubheading.classList.add("animate");
         }
 
-        // Animate stat cards with stagger
         statCards.forEach((card, index) => {
           setTimeout(() => {
             card.classList.add("animate");
-            // Animate counter for numeric stats
             const numberEl = card.querySelector(".stat-number");
             const target = numberEl.getAttribute("data-target");
             if (target) {
@@ -1488,30 +1401,25 @@ function initSocialProofAnimation() {
           }, 100 * index);
         });
 
-        // Animate testimonials with stagger
         testimonialCards.forEach((card, index) => {
           setTimeout(
             () => {
               card.classList.add("animate");
             },
             150 * index + 400,
-          ); // Start after stats
+          );
         });
 
-        // Unobserve after animation
         observer.unobserve(entry.target);
       }
     });
   };
 
-  // Create observer
   const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-  // Observe social proof section
   observer.observe(socialProofSection);
 }
 
-// Counter animation function
 function animateCounter(element, target, duration) {
   let current = 0;
   const increment = target / (duration / 16);
@@ -1528,7 +1436,6 @@ function animateCounter(element, target, duration) {
   }, 16);
 }
 
-// Initialize social proof animation
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initSocialProofAnimation);
 } else {
@@ -1536,10 +1443,9 @@ if (document.readyState === "loading") {
 }
 
 // ===================================
-// 17. SMOOTH SCROLL FOR ALL LINKS
+// SMOOTH SCROLL FOR ALL LINKS
 // ===================================
 
-// Smooth scroll for all anchor links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     const href = this.getAttribute("href");
@@ -1557,10 +1463,9 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 // ===================================
-// 18. SOCIAL AUTHENTICATION
+// OCIAL AUTHENTICATION
 // ===================================
 
-// Get all social auth buttons
 const googleLoginBtn = document.getElementById("login-google-btn");
 const facebookLoginBtn = document.getElementById("login-facebook-btn");
 const googleSignupBtn = document.getElementById("signup-google-btn");
@@ -1601,7 +1506,6 @@ async function handleGoogleAuth() {
     console.error("Google auth error:", error);
     alert("Failed to authenticate with Google. Please try again.");
   } finally {
-    // Remove loading state
     googleButtons.forEach((btn) => {
       btn.classList.remove("loading");
       btn.disabled = false;
@@ -1614,7 +1518,6 @@ async function handleGoogleAuth() {
 async function handleFacebookAuth() {
   console.log("Facebook authentication initiated");
 
-  // Show loading state
   const facebookButtons = document.querySelectorAll(".btn-facebook");
   facebookButtons.forEach((btn) => {
     btn.classList.add("loading");
@@ -1636,14 +1539,12 @@ async function handleFacebookAuth() {
 
     // if (error) throw error;
 
-    // SUCCESS
     alert("Facebook authentication successful! (Integration needed)");
     closeAllModals();
   } catch (error) {
     console.error("Facebook auth error:", error);
     alert("Failed to authenticate with Facebook. Please try again.");
   } finally {
-    // Remove loading state
     facebookButtons.forEach((btn) => {
       btn.classList.remove("loading");
       btn.disabled = false;
@@ -1653,7 +1554,6 @@ async function handleFacebookAuth() {
 
 // ========== ATTACH EVENT LISTENERS ==========
 
-// Google auth buttons
 if (googleLoginBtn) {
   googleLoginBtn.addEventListener("click", handleGoogleAuth);
 }
@@ -1661,7 +1561,6 @@ if (googleSignupBtn) {
   googleSignupBtn.addEventListener("click", handleGoogleAuth);
 }
 
-// Facebook auth buttons
 if (facebookLoginBtn) {
   facebookLoginBtn.addEventListener("click", handleFacebookAuth);
 }
@@ -1671,9 +1570,7 @@ if (facebookSignupBtn) {
 
 // ========== OAUTH CALLBACK HANDLER ==========
 
-// Handle OAuth redirect callback
 window.addEventListener("DOMContentLoaded", () => {
-  // Check if URL has OAuth callback parameters
   const urlParams = new URLSearchParams(window.location.search);
   const accessToken = urlParams.get("access_token");
   const error = urlParams.get("error");
@@ -1681,26 +1578,22 @@ window.addEventListener("DOMContentLoaded", () => {
   if (error) {
     console.error("OAuth error:", error);
     alert("Authentication failed. Please try again.");
-    // Redirect to clean URL
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 
   if (accessToken) {
     console.log("OAuth successful, access token received");
-    // Handle successful authentication
-    // Store token, redirect to dashboard, etc.
 
-    // Clean URL
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 });
 
-// ===================================
-// 19. CONSOLE WELCOME MESSAGE
-// ===================================
+// ========================
+// CONSOLE WELCOME MESSAGE
+// ========================
 
 console.log(
-  "%c🎮 NOMEKOP BEQUEST 🎮",
+  "%c NOMEKOP BEQUEST ",
   "color: #00fff5; font-size: 24px; font-weight: bold;",
 );
 console.log(
