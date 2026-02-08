@@ -12,7 +12,7 @@ let currentUser = null;
 let currentProfile = null;
 
 // ===================================
-// FIRE PARTICLE SYSTEM
+// SPARKLE PARTICLE SYSTEM (COC STYLE)
 // ===================================
 
 function createFireParticles() {
@@ -20,26 +20,33 @@ function createFireParticles() {
   container.className = "fire-particles";
   document.body.appendChild(container);
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 50; i++) {
     const particle = document.createElement("div");
     particle.className = "fire-particle";
 
+    // Random horizontal position
     particle.style.left = Math.random() * 100 + "%";
 
-    particle.style.animationDelay = Math.random() * 8 + "s";
+    // Staggered animation start
+    particle.style.animationDelay = Math.random() * 6 + "s";
 
-    particle.style.animationDuration = 6 + Math.random() * 4 + "s";
+    // Varying animation duration for sparkles
+    particle.style.animationDuration = 2 + Math.random() * 2 + "s";
 
-    const size = 2 + Math.random() * 3;
+    // Smaller particles for sparkle effect
+    const size = 4 + Math.random() * 4;
     particle.style.width = size + "px";
     particle.style.height = size + "px";
 
-    particle.style.bottom = Math.random() * 40 + "vh";
+    // Start from bottom 60% of viewport
+    particle.style.bottom = Math.random() * 60 + "vh";
 
-    particle.style.opacity = 0.6 + Math.random() * 0.4;
+    // Varying opacity
+    particle.style.opacity = 0.7 + Math.random() * 0.3;
 
-    particle.style.animationName = "riseUp";
-    particle.style.animationTimingFunction = "ease-out";
+    // Sparkle float animation
+    particle.style.animationName = "sparkleFloat";
+    particle.style.animationTimingFunction = "ease-in-out";
     particle.style.animationIterationCount = "infinite";
 
     container.appendChild(particle);
@@ -945,9 +952,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const email = document.getElementById("signupEmail").value.trim();
     const password = document.getElementById("signupPassword").value;
-    const confirmPassword = document.getElementById(
-      "signupConfirmPassword",
-    ).value;
     const termsChecked = document.getElementById("termsCheckbox").checked;
 
     let hasError = false;
@@ -976,14 +980,6 @@ document.addEventListener("DOMContentLoaded", function () {
         showError("signupPassword", errorMsg);
         hasError = true;
       }
-    }
-
-    if (!confirmPassword) {
-      showError("signupConfirmPassword", "Please confirm your password");
-      hasError = true;
-    } else if (password !== confirmPassword) {
-      showError("signupConfirmPassword", "Passwords do not match");
-      hasError = true;
     }
 
     if (!termsChecked) {
@@ -1594,10 +1590,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
 console.log(
   "%c NOMEKOP BEQUEST ",
-  "color: #00fff5; font-size: 24px; font-weight: bold;",
+  "color: #F4D03F; font-size: 24px; font-weight: bold; text-shadow: 2px 2px 0 #D4AC0D;",
 );
 console.log(
   "%cWelcome, Trainer! Ready to own your adventure?",
-  "color: #8b5cf6; font-size: 14px;",
+  "color: #5DADE2; font-size: 14px;",
 );
-console.log("%cLaunching Q2 2026 🚀", "color: #ff006e; font-size: 12px;");
+console.log("%cLaunching Q2 2026 🚀", "color: #1ABC9C; font-size: 12px;");
