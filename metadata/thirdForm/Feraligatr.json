@@ -1,0 +1,44 @@
+{
+  "name": "Feraligatr",
+  "description": "Feraligatr — Water-type Big Jaw Pokémon. Evolved from Croconaw at Level 30.",
+  "image": "ipfs://REPLACE_WITH_THIRD_IMAGE_CID/Feraligatr.gif",
+  "external_url": "https://yourgame.com/pokemon/feraligatr",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Feraligatr" },
+    { "trait_type": "Level", "value": 30 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Third" },
+    { "trait_type": "HP", "value": 440 },
+    { "trait_type": "ATK", "value": 105 },
+    { "trait_type": "DEF", "value": 100 },
+    { "trait_type": "SPD", "value": 78 },
+    { "trait_type": "Type", "value": "Water" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 2 },
+
+    { "trait_type": "Skill 1 Name", "value": "Hydro Pump" },
+    { "trait_type": "Skill 1 Attack", "value": 110 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 3 },
+    { "trait_type": "Skill 1 Effect", "value": "none" },
+
+    { "trait_type": "Skill 2 Name", "value": "Crunch" },
+    { "trait_type": "Skill 2 Attack", "value": 90 },
+    { "trait_type": "Skill 2 Shield", "value": 5 },
+    { "trait_type": "Skill 2 Cost", "value": 2 },
+    { "trait_type": "Skill 2 Effect", "value": "def_debuff" },
+
+    { "trait_type": "Skill 3 Name", "value": "Ice Fang" },
+    { "trait_type": "Skill 3 Attack", "value": 80 },
+    { "trait_type": "Skill 3 Shield", "value": 10 },
+    { "trait_type": "Skill 3 Cost", "value": 2 },
+    { "trait_type": "Skill 3 Effect", "value": "freeze" },
+
+    { "trait_type": "Skill 4 Name", "value": "Dragon Dance" },
+    { "trait_type": "Skill 4 Attack", "value": 20 },
+    { "trait_type": "Skill 4 Shield", "value": 35 },
+    { "trait_type": "Skill 4 Cost", "value": 2 },
+    { "trait_type": "Skill 4 Effect", "value": "atk_boost" }
+  ]
+}

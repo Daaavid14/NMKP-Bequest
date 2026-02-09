@@ -1,0 +1,44 @@
+{
+  "name": "Pidgeot",
+  "description": "Pidgeot — Normal/Flying-type Bird Pokémon. Evolved from Pidgeotto at Level 36.",
+  "image": "ipfs://REPLACE_WITH_THIRD_IMAGE_CID/Pidgeot.gif",
+  "external_url": "https://yourgame.com/pokemon/pidgeot",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Pidgeot" },
+    { "trait_type": "Level", "value": 30 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Third" },
+    { "trait_type": "HP", "value": 416 },
+    { "trait_type": "ATK", "value": 80 },
+    { "trait_type": "DEF", "value": 75 },
+    { "trait_type": "SPD", "value": 101 },
+    { "trait_type": "Type", "value": "Flying" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Hurricane" },
+    { "trait_type": "Skill 1 Attack", "value": 110 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 3 },
+    { "trait_type": "Skill 1 Effect", "value": "confuse" },
+
+    { "trait_type": "Skill 2 Name", "value": "Aerial Ace" },
+    { "trait_type": "Skill 2 Attack", "value": 80 },
+    { "trait_type": "Skill 2 Shield", "value": 5 },
+    { "trait_type": "Skill 2 Cost", "value": 2 },
+    { "trait_type": "Skill 2 Effect", "value": "never_miss" },
+
+    { "trait_type": "Skill 3 Name", "value": "Quick Attack" },
+    { "trait_type": "Skill 3 Attack", "value": 60 },
+    { "trait_type": "Skill 3 Shield", "value": 5 },
+    { "trait_type": "Skill 3 Cost", "value": 1 },
+    { "trait_type": "Skill 3 Effect", "value": "priority" },
+
+    { "trait_type": "Skill 4 Name", "value": "Feather Dance" },
+    { "trait_type": "Skill 4 Attack", "value": 15 },
+    { "trait_type": "Skill 4 Shield", "value": 30 },
+    { "trait_type": "Skill 4 Cost", "value": 1 },
+    { "trait_type": "Skill 4 Effect", "value": "atk_debuff" }
+  ]
+}

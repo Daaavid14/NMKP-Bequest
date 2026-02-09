@@ -1,0 +1,44 @@
+{
+  "name": "Machamp",
+  "description": "Machamp — Fighting-type Superpower Pokémon. Evolved from Machoke at Level 36.",
+  "image": "ipfs://REPLACE_WITH_THIRD_IMAGE_CID/Machamp.gif",
+  "external_url": "https://yourgame.com/pokemon/machamp",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Machamp" },
+    { "trait_type": "Level", "value": 30 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Third" },
+    { "trait_type": "HP", "value": 450 },
+    { "trait_type": "ATK", "value": 130 },
+    { "trait_type": "DEF", "value": 80 },
+    { "trait_type": "SPD", "value": 55 },
+    { "trait_type": "Type", "value": "Fighting" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Cross Chop" },
+    { "trait_type": "Skill 1 Attack", "value": 95 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 2 },
+    { "trait_type": "Skill 1 Effect", "value": "critical" },
+
+    { "trait_type": "Skill 2 Name", "value": "Dynamic Punch" },
+    { "trait_type": "Skill 2 Attack", "value": 110 },
+    { "trait_type": "Skill 2 Shield", "value": 5 },
+    { "trait_type": "Skill 2 Cost", "value": 3 },
+    { "trait_type": "Skill 2 Effect", "value": "confuse" },
+
+    { "trait_type": "Skill 3 Name", "value": "Seismic Toss" },
+    { "trait_type": "Skill 3 Attack", "value": 90 },
+    { "trait_type": "Skill 3 Shield", "value": 5 },
+    { "trait_type": "Skill 3 Cost", "value": 2 },
+    { "trait_type": "Skill 3 Effect", "value": "fixed_damage" },
+
+    { "trait_type": "Skill 4 Name", "value": "Bulk Up" },
+    { "trait_type": "Skill 4 Attack", "value": 20 },
+    { "trait_type": "Skill 4 Shield", "value": 40 },
+    { "trait_type": "Skill 4 Cost", "value": 2 },
+    { "trait_type": "Skill 4 Effect", "value": "atk_boost" }
+  ]
+}

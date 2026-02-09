@@ -1,0 +1,44 @@
+{
+  "name": "Electivire",
+  "description": "Electivire — Electric-type Thunderbolt Pokémon. Evolved from Electabuzz at Level 30.",
+  "image": "ipfs://REPLACE_WITH_THIRD_IMAGE_CID/Electivire.gif",
+  "external_url": "https://yourgame.com/pokemon/electivire",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Electivire" },
+    { "trait_type": "Level", "value": 30 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Third" },
+    { "trait_type": "HP", "value": 430 },
+    { "trait_type": "ATK", "value": 123 },
+    { "trait_type": "DEF", "value": 67 },
+    { "trait_type": "SPD", "value": 95 },
+    { "trait_type": "Type", "value": "Electric" },
+    { "trait_type": "Rarity", "value": "Uncommon" },
+    { "trait_type": "Generation", "value": 4 },
+
+    { "trait_type": "Skill 1 Name", "value": "Thunder Punch" },
+    { "trait_type": "Skill 1 Attack", "value": 85 },
+    { "trait_type": "Skill 1 Shield", "value": 10 },
+    { "trait_type": "Skill 1 Cost", "value": 2 },
+    { "trait_type": "Skill 1 Effect", "value": "paralyze" },
+
+    { "trait_type": "Skill 2 Name", "value": "Thunder" },
+    { "trait_type": "Skill 2 Attack", "value": 120 },
+    { "trait_type": "Skill 2 Shield", "value": 5 },
+    { "trait_type": "Skill 2 Cost", "value": 3 },
+    { "trait_type": "Skill 2 Effect", "value": "paralyze" },
+
+    { "trait_type": "Skill 3 Name", "value": "Cross Chop" },
+    { "trait_type": "Skill 3 Attack", "value": 90 },
+    { "trait_type": "Skill 3 Shield", "value": 5 },
+    { "trait_type": "Skill 3 Cost", "value": 2 },
+    { "trait_type": "Skill 3 Effect", "value": "critical" },
+
+    { "trait_type": "Skill 4 Name", "value": "Light Screen" },
+    { "trait_type": "Skill 4 Attack", "value": 15 },
+    { "trait_type": "Skill 4 Shield", "value": 45 },
+    { "trait_type": "Skill 4 Cost", "value": 2 },
+    { "trait_type": "Skill 4 Effect", "value": "def_boost" }
+  ]
+}

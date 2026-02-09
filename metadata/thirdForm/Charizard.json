@@ -1,0 +1,44 @@
+{
+  "name": "Charizard",
+  "description": "Charizard — Fire/Flying-type Flame Pokémon. Evolved from Charmeleon at Level 36.",
+  "image": "ipfs://REPLACE_WITH_THIRD_IMAGE_CID/Charizard.gif",
+  "external_url": "https://yourgame.com/pokemon/charizard",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Charizard" },
+    { "trait_type": "Level", "value": 30 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Third" },
+    { "trait_type": "HP", "value": 430 },
+    { "trait_type": "ATK", "value": 84 },
+    { "trait_type": "DEF", "value": 78 },
+    { "trait_type": "SPD", "value": 100 },
+    { "trait_type": "Type", "value": "Fire" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Flamethrower" },
+    { "trait_type": "Skill 1 Attack", "value": 95 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 2 },
+    { "trait_type": "Skill 1 Effect", "value": "burn" },
+
+    { "trait_type": "Skill 2 Name", "value": "Dragon Claw" },
+    { "trait_type": "Skill 2 Attack", "value": 90 },
+    { "trait_type": "Skill 2 Shield", "value": 10 },
+    { "trait_type": "Skill 2 Cost", "value": 2 },
+    { "trait_type": "Skill 2 Effect", "value": "none" },
+
+    { "trait_type": "Skill 3 Name", "value": "Fire Blast" },
+    { "trait_type": "Skill 3 Attack", "value": 120 },
+    { "trait_type": "Skill 3 Shield", "value": 5 },
+    { "trait_type": "Skill 3 Cost", "value": 3 },
+    { "trait_type": "Skill 3 Effect", "value": "burn" },
+
+    { "trait_type": "Skill 4 Name", "value": "Air Slash" },
+    { "trait_type": "Skill 4 Attack", "value": 80 },
+    { "trait_type": "Skill 4 Shield", "value": 10 },
+    { "trait_type": "Skill 4 Cost", "value": 2 },
+    { "trait_type": "Skill 4 Effect", "value": "flinch" }
+  ]
+}

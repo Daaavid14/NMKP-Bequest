@@ -1226,16 +1226,23 @@ if (document.readyState === "loading") {
 }
 
 // ===================================
-// 12. SHOWCASE SECTION SCROLL ANIMATION
+// SHOWCASE MARQUEE CAROUSEL
 // ===================================
 
-function initShowcaseAnimation() {
+function initShowcaseCarousel() {
   const showcaseSection = document.querySelector("#showcase");
   const showcaseHeading = document.querySelector(".showcase-heading");
   const showcaseSubheading = document.querySelector(".showcase-subheading");
-  const creatureCards = document.querySelectorAll(".creature-card");
+  const track = document.querySelector(".carousel-track");
 
-  if (!showcaseSection) return;
+  if (!showcaseSection || !track) return;
+
+  const cards = track.querySelectorAll(".creature-card");
+  cards.forEach((card) => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    track.appendChild(clone);
+  });
 
   const observerOptions = {
     threshold: 0.15,
@@ -1248,31 +1255,22 @@ function initShowcaseAnimation() {
         if (showcaseHeading) {
           showcaseHeading.classList.add("animate");
         }
-
         if (showcaseSubheading) {
           showcaseSubheading.classList.add("animate");
         }
-
-        creatureCards.forEach((card, index) => {
-          setTimeout(() => {
-            card.classList.add("animate");
-          }, 100 * index);
-        });
-
         observer.unobserve(entry.target);
       }
     });
   };
 
   const observer = new IntersectionObserver(observerCallback, observerOptions);
-
   observer.observe(showcaseSection);
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initShowcaseAnimation);
+  document.addEventListener("DOMContentLoaded", initShowcaseCarousel);
 } else {
-  initShowcaseAnimation();
+  initShowcaseCarousel();
 }
 
 // ===================================
@@ -1280,21 +1278,23 @@ if (document.readyState === "loading") {
 // ===================================
 
 function initCreatureCardInteraction() {
-  const creatureCards = document.querySelectorAll(".creature-card");
+  const track = document.querySelector(".carousel-track");
+  if (track) {
+    track.addEventListener("click", function (e) {
+      const card = e.target.closest(".creature-card");
+      if (!card) return;
 
-  creatureCards.forEach((card) => {
-    card.addEventListener("click", function () {
-      this.style.animation = "none";
+      card.style.animation = "none";
       setTimeout(() => {
-        this.style.animation = "";
+        card.style.animation = "";
       }, 10);
 
-      console.log(
-        "Clicked creature:",
-        this.querySelector(".creature-name").textContent,
-      );
+      const name = card.querySelector(".creature-name");
+      if (name) {
+        console.log("Clicked creature:", name.textContent);
+      }
     });
-  });
+  }
 }
 
 if (document.readyState === "loading") {

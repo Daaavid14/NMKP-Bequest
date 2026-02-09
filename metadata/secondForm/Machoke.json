@@ -1,0 +1,44 @@
+{
+  "name": "Machoke",
+  "description": "Machoke — Fighting-type Superpower Pokémon. Evolved from Machop at Level 28.",
+  "image": "ipfs://REPLACE_WITH_SECOND_IMAGE_CID/Machoke.gif",
+  "external_url": "https://yourgame.com/pokemon/machoke",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Machoke" },
+    { "trait_type": "Level", "value": 16 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Second" },
+    { "trait_type": "HP", "value": 390 },
+    { "trait_type": "ATK", "value": 100 },
+    { "trait_type": "DEF", "value": 70 },
+    { "trait_type": "SPD", "value": 45 },
+    { "trait_type": "Type", "value": "Fighting" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Karate Chop" },
+    { "trait_type": "Skill 1 Attack", "value": 65 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 1 },
+    { "trait_type": "Skill 1 Effect", "value": "critical" },
+
+    { "trait_type": "Skill 2 Name", "value": "Submission" },
+    { "trait_type": "Skill 2 Attack", "value": 85 },
+    { "trait_type": "Skill 2 Shield", "value": 5 },
+    { "trait_type": "Skill 2 Cost", "value": 2 },
+    { "trait_type": "Skill 2 Effect", "value": "recoil" },
+
+    { "trait_type": "Skill 3 Name", "value": "Seismic Toss" },
+    { "trait_type": "Skill 3 Attack", "value": 85 },
+    { "trait_type": "Skill 3 Shield", "value": 5 },
+    { "trait_type": "Skill 3 Cost", "value": 2 },
+    { "trait_type": "Skill 3 Effect", "value": "fixed_damage" },
+
+    { "trait_type": "Skill 4 Name", "value": "Bulk Up" },
+    { "trait_type": "Skill 4 Attack", "value": 20 },
+    { "trait_type": "Skill 4 Shield", "value": 35 },
+    { "trait_type": "Skill 4 Cost", "value": 1 },
+    { "trait_type": "Skill 4 Effect", "value": "atk_boost" }
+  ]
+}

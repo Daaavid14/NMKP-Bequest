@@ -1,0 +1,44 @@
+{
+  "name": "Machop",
+  "description": "Machop — Fighting-type Superpower Pokémon. Evolves at Level 28.",
+  "image": "ipfs://REPLACE_WITH_BASE_IMAGE_CID/Machop.gif",
+  "external_url": "https://yourgame.com/pokemon/machop",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Machop" },
+    { "trait_type": "Level", "value": 1 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Base" },
+    { "trait_type": "HP", "value": 320 },
+    { "trait_type": "ATK", "value": 80 },
+    { "trait_type": "DEF", "value": 50 },
+    { "trait_type": "SPD", "value": 35 },
+    { "trait_type": "Type", "value": "Fighting" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Karate Chop" },
+    { "trait_type": "Skill 1 Attack", "value": 55 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 1 },
+    { "trait_type": "Skill 1 Effect", "value": "critical" },
+
+    { "trait_type": "Skill 2 Name", "value": "Low Kick" },
+    { "trait_type": "Skill 2 Attack", "value": 50 },
+    { "trait_type": "Skill 2 Shield", "value": 10 },
+    { "trait_type": "Skill 2 Cost", "value": 1 },
+    { "trait_type": "Skill 2 Effect", "value": "none" },
+
+    { "trait_type": "Skill 3 Name", "value": "Focus Energy" },
+    { "trait_type": "Skill 3 Attack", "value": 15 },
+    { "trait_type": "Skill 3 Shield", "value": 25 },
+    { "trait_type": "Skill 3 Cost", "value": 1 },
+    { "trait_type": "Skill 3 Effect", "value": "atk_boost" },
+
+    { "trait_type": "Skill 4 Name", "value": "Seismic Toss" },
+    { "trait_type": "Skill 4 Attack", "value": 80 },
+    { "trait_type": "Skill 4 Shield", "value": 5 },
+    { "trait_type": "Skill 4 Cost", "value": 2 },
+    { "trait_type": "Skill 4 Effect", "value": "fixed_damage" }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "Weedle",
+  "description": "Weedle — Bug/Poison-type Hairy Bug Pokémon. Evolves at Level 7.",
+  "image": "ipfs://REPLACE_WITH_BASE_IMAGE_CID/Weedle.gif",
+  "external_url": "https://yourgame.com/pokemon/weedle",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Weedle" },
+    { "trait_type": "Level", "value": 1 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Base" },
+    { "trait_type": "HP", "value": 280 },
+    { "trait_type": "ATK", "value": 35 },
+    { "trait_type": "DEF", "value": 30 },
+    { "trait_type": "SPD", "value": 50 },
+    { "trait_type": "Type", "value": "Bug" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Poison Sting" },
+    { "trait_type": "Skill 1 Attack", "value": 35 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 1 },
+    { "trait_type": "Skill 1 Effect", "value": "poison" },
+
+    { "trait_type": "Skill 2 Name", "value": "String Shot" },
+    { "trait_type": "Skill 2 Attack", "value": 10 },
+    { "trait_type": "Skill 2 Shield", "value": 20 },
+    { "trait_type": "Skill 2 Cost", "value": 1 },
+    { "trait_type": "Skill 2 Effect", "value": "spd_debuff" },
+
+    { "trait_type": "Skill 3 Name", "value": "Bug Bite" },
+    { "trait_type": "Skill 3 Attack", "value": 60 },
+    { "trait_type": "Skill 3 Shield", "value": 5 },
+    { "trait_type": "Skill 3 Cost", "value": 2 },
+    { "trait_type": "Skill 3 Effect", "value": "none" },
+
+    { "trait_type": "Skill 4 Name", "value": "Struggle" },
+    { "trait_type": "Skill 4 Attack", "value": 50 },
+    { "trait_type": "Skill 4 Shield", "value": 0 },
+    { "trait_type": "Skill 4 Cost", "value": 1 },
+    { "trait_type": "Skill 4 Effect", "value": "recoil" }
+  ]
+}

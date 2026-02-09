@@ -1,0 +1,44 @@
+{
+  "name": "Venasaur",
+  "description": "Venasaur — Grass/Poison-type Seed Pokémon. Evolved from Ivysaur at Level 32.",
+  "image": "ipfs://REPLACE_WITH_THIRD_IMAGE_CID/Venasaur.gif",
+  "external_url": "https://yourgame.com/pokemon/venasaur",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Venasaur" },
+    { "trait_type": "Level", "value": 30 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Third" },
+    { "trait_type": "HP", "value": 430 },
+    { "trait_type": "ATK", "value": 82 },
+    { "trait_type": "DEF", "value": 83 },
+    { "trait_type": "SPD", "value": 80 },
+    { "trait_type": "Type", "value": "Grass" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Solar Beam" },
+    { "trait_type": "Skill 1 Attack", "value": 120 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 3 },
+    { "trait_type": "Skill 1 Effect", "value": "none" },
+
+    { "trait_type": "Skill 2 Name", "value": "Sludge Bomb" },
+    { "trait_type": "Skill 2 Attack", "value": 95 },
+    { "trait_type": "Skill 2 Shield", "value": 5 },
+    { "trait_type": "Skill 2 Cost", "value": 2 },
+    { "trait_type": "Skill 2 Effect", "value": "poison" },
+
+    { "trait_type": "Skill 3 Name", "value": "Seed Bomb" },
+    { "trait_type": "Skill 3 Attack", "value": 90 },
+    { "trait_type": "Skill 3 Shield", "value": 10 },
+    { "trait_type": "Skill 3 Cost", "value": 2 },
+    { "trait_type": "Skill 3 Effect", "value": "none" },
+
+    { "trait_type": "Skill 4 Name", "value": "Leech Seed" },
+    { "trait_type": "Skill 4 Attack", "value": 35 },
+    { "trait_type": "Skill 4 Shield", "value": 30 },
+    { "trait_type": "Skill 4 Cost", "value": 2 },
+    { "trait_type": "Skill 4 Effect", "value": "heal" }
+  ]
+}

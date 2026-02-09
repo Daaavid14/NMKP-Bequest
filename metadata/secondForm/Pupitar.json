@@ -1,0 +1,44 @@
+{
+  "name": "Pupitar",
+  "description": "Pupitar — Rock/Ground-type Hard Shell Pokémon. Evolved from Larvitar at Level 30.",
+  "image": "ipfs://REPLACE_WITH_SECOND_IMAGE_CID/Pupitar.gif",
+  "external_url": "https://yourgame.com/pokemon/pupitar",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Pupitar" },
+    { "trait_type": "Level", "value": 16 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Second" },
+    { "trait_type": "HP", "value": 320 },
+    { "trait_type": "ATK", "value": 84 },
+    { "trait_type": "DEF", "value": 70 },
+    { "trait_type": "SPD", "value": 51 },
+    { "trait_type": "Type", "value": "Rock" },
+    { "trait_type": "Rarity", "value": "Rare" },
+    { "trait_type": "Generation", "value": 2 },
+
+    { "trait_type": "Skill 1 Name", "value": "Rock Slide" },
+    { "trait_type": "Skill 1 Attack", "value": 80 },
+    { "trait_type": "Skill 1 Shield", "value": 10 },
+    { "trait_type": "Skill 1 Cost", "value": 2 },
+    { "trait_type": "Skill 1 Effect", "value": "flinch" },
+
+    { "trait_type": "Skill 2 Name", "value": "Thrash" },
+    { "trait_type": "Skill 2 Attack", "value": 90 },
+    { "trait_type": "Skill 2 Shield", "value": 0 },
+    { "trait_type": "Skill 2 Cost", "value": 2 },
+    { "trait_type": "Skill 2 Effect", "value": "confuse" },
+
+    { "trait_type": "Skill 3 Name", "value": "Sandstorm" },
+    { "trait_type": "Skill 3 Attack", "value": 25 },
+    { "trait_type": "Skill 3 Shield", "value": 35 },
+    { "trait_type": "Skill 3 Cost", "value": 1 },
+    { "trait_type": "Skill 3 Effect", "value": "def_boost" },
+
+    { "trait_type": "Skill 4 Name", "value": "Dark Pulse" },
+    { "trait_type": "Skill 4 Attack", "value": 80 },
+    { "trait_type": "Skill 4 Shield", "value": 5 },
+    { "trait_type": "Skill 4 Cost", "value": 2 },
+    { "trait_type": "Skill 4 Effect", "value": "flinch" }
+  ]
+}

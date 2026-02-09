@@ -1,0 +1,44 @@
+{
+  "name": "Ghastly",
+  "description": "Ghastly — Ghost/Poison-type Gas Pokémon. Evolves at Level 25.",
+  "image": "ipfs://REPLACE_WITH_BASE_IMAGE_CID/Ghastly.gif",
+  "external_url": "https://yourgame.com/pokemon/ghastly",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Ghastly" },
+    { "trait_type": "Level", "value": 1 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Base" },
+    { "trait_type": "HP", "value": 264 },
+    { "trait_type": "ATK", "value": 100 },
+    { "trait_type": "DEF", "value": 30 },
+    { "trait_type": "SPD", "value": 80 },
+    { "trait_type": "Type", "value": "Ghost" },
+    { "trait_type": "Rarity", "value": "Uncommon" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Lick" },
+    { "trait_type": "Skill 1 Attack", "value": 35 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 1 },
+    { "trait_type": "Skill 1 Effect", "value": "paralyze" },
+
+    { "trait_type": "Skill 2 Name", "value": "Shadow Ball" },
+    { "trait_type": "Skill 2 Attack", "value": 80 },
+    { "trait_type": "Skill 2 Shield", "value": 5 },
+    { "trait_type": "Skill 2 Cost", "value": 2 },
+    { "trait_type": "Skill 2 Effect", "value": "def_debuff" },
+
+    { "trait_type": "Skill 3 Name", "value": "Hypnosis" },
+    { "trait_type": "Skill 3 Attack", "value": 10 },
+    { "trait_type": "Skill 3 Shield", "value": 15 },
+    { "trait_type": "Skill 3 Cost", "value": 1 },
+    { "trait_type": "Skill 3 Effect", "value": "sleep" },
+
+    { "trait_type": "Skill 4 Name", "value": "Confuse Ray" },
+    { "trait_type": "Skill 4 Attack", "value": 15 },
+    { "trait_type": "Skill 4 Shield", "value": 20 },
+    { "trait_type": "Skill 4 Cost", "value": 1 },
+    { "trait_type": "Skill 4 Effect", "value": "confuse" }
+  ]
+}

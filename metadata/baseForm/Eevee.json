@@ -1,0 +1,44 @@
+{
+  "name": "Eevee",
+  "description": "Eevee — Normal-type Evolution Pokémon. Evolves at Level 25.",
+  "image": "ipfs://REPLACE_WITH_BASE_IMAGE_CID/Eevee.gif",
+  "external_url": "https://yourgame.com/pokemon/eevee",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Eevee" },
+    { "trait_type": "Level", "value": 1 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Base" },
+    { "trait_type": "HP", "value": 314 },
+    { "trait_type": "ATK", "value": 55 },
+    { "trait_type": "DEF", "value": 50 },
+    { "trait_type": "SPD", "value": 55 },
+    { "trait_type": "Type", "value": "Normal" },
+    { "trait_type": "Rarity", "value": "Uncommon" },
+    { "trait_type": "Generation", "value": 1 },
+
+    { "trait_type": "Skill 1 Name", "value": "Tackle" },
+    { "trait_type": "Skill 1 Attack", "value": 40 },
+    { "trait_type": "Skill 1 Shield", "value": 10 },
+    { "trait_type": "Skill 1 Cost", "value": 1 },
+    { "trait_type": "Skill 1 Effect", "value": "none" },
+
+    { "trait_type": "Skill 2 Name", "value": "Quick Attack" },
+    { "trait_type": "Skill 2 Attack", "value": 50 },
+    { "trait_type": "Skill 2 Shield", "value": 5 },
+    { "trait_type": "Skill 2 Cost", "value": 1 },
+    { "trait_type": "Skill 2 Effect", "value": "priority" },
+
+    { "trait_type": "Skill 3 Name", "value": "Sand Attack" },
+    { "trait_type": "Skill 3 Attack", "value": 15 },
+    { "trait_type": "Skill 3 Shield", "value": 20 },
+    { "trait_type": "Skill 3 Cost", "value": 1 },
+    { "trait_type": "Skill 3 Effect", "value": "acc_debuff" },
+
+    { "trait_type": "Skill 4 Name", "value": "Swift" },
+    { "trait_type": "Skill 4 Attack", "value": 65 },
+    { "trait_type": "Skill 4 Shield", "value": 10 },
+    { "trait_type": "Skill 4 Cost", "value": 2 },
+    { "trait_type": "Skill 4 Effect", "value": "never_miss" }
+  ]
+}

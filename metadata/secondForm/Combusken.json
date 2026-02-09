@@ -1,0 +1,44 @@
+{
+  "name": "Combusken",
+  "description": "Combusken — Fire/Fighting-type Young Fowl Pokémon. Evolved from Torchic at Level 16.",
+  "image": "ipfs://REPLACE_WITH_SECOND_IMAGE_CID/Combusken.gif",
+  "external_url": "https://yourgame.com/pokemon/combusken",
+
+  "attributes": [
+    { "trait_type": "Species", "value": "Combusken" },
+    { "trait_type": "Level", "value": 16 },
+    { "trait_type": "Experience", "value": 0 },
+    { "trait_type": "Evolution Stage", "value": "Second" },
+    { "trait_type": "HP", "value": 350 },
+    { "trait_type": "ATK", "value": 85 },
+    { "trait_type": "DEF", "value": 60 },
+    { "trait_type": "SPD", "value": 55 },
+    { "trait_type": "Type", "value": "Fire" },
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Generation", "value": 3 },
+
+    { "trait_type": "Skill 1 Name", "value": "Double Kick" },
+    { "trait_type": "Skill 1 Attack", "value": 65 },
+    { "trait_type": "Skill 1 Shield", "value": 5 },
+    { "trait_type": "Skill 1 Cost", "value": 1 },
+    { "trait_type": "Skill 1 Effect", "value": "multi_hit" },
+
+    { "trait_type": "Skill 2 Name", "value": "Flame Charge" },
+    { "trait_type": "Skill 2 Attack", "value": 60 },
+    { "trait_type": "Skill 2 Shield", "value": 10 },
+    { "trait_type": "Skill 2 Cost", "value": 1 },
+    { "trait_type": "Skill 2 Effect", "value": "spd_boost" },
+
+    { "trait_type": "Skill 3 Name", "value": "Slash" },
+    { "trait_type": "Skill 3 Attack", "value": 75 },
+    { "trait_type": "Skill 3 Shield", "value": 5 },
+    { "trait_type": "Skill 3 Cost", "value": 2 },
+    { "trait_type": "Skill 3 Effect", "value": "critical" },
+
+    { "trait_type": "Skill 4 Name", "value": "Bulk Up" },
+    { "trait_type": "Skill 4 Attack", "value": 20 },
+    { "trait_type": "Skill 4 Shield", "value": 30 },
+    { "trait_type": "Skill 4 Cost", "value": 1 },
+    { "trait_type": "Skill 4 Effect", "value": "atk_boost" }
+  ]
+}
