@@ -1,12 +1,7 @@
-// ===================================
-// NOMEKOP BEQUEST - DASHBOARD SCRIPT
-// ===================================
-// Handles authentication, data loading, navigation,
-// and all interactive dashboard functionality.
 
-// ===================================
-// 1. SUPABASE INITIALIZATION
-// ===================================
+// =========================
+// SUPABASE INITIALIZATION
+// ========================
 
 const { createClient } = window.supabase;
 const supabaseClient = createClient(
@@ -22,15 +17,85 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 let refreshInterval = null;
 
 // ===================================
-// 2. AUTHENTICATION CHECK
+// THEME MANAGEMENT (Dark/Light Mode)
 // ===================================
+
+function getStoredTheme() {
+  return localStorage.getItem("nmkp-theme") || "system";
+}
+
+function getEffectiveTheme(preference) {
+  if (preference === "system") {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  return preference;
+}
+
+function applyTheme(theme) {
+  const effective = getEffectiveTheme(theme);
+  
+  document.documentElement.classList.add("theme-transition");
+  document.documentElement.setAttribute("data-theme", effective);
+  
+  setTimeout(() => {
+    document.documentElement.classList.remove("theme-transition");
+  }, 350);
+
+  const themeSelect = document.getElementById("themeSelect");
+  if (themeSelect) {
+    themeSelect.value = theme;
+  }
+
+  localStorage.setItem("nmkp-theme", theme);
+  console.log(`Theme set: ${theme} (effective: ${effective})`);
+}
+
+function initThemeToggle() {
+  const themeToggleBtn = document.getElementById("themeToggle");
+  const themeSelect = document.getElementById("themeSelect");
+  const storedTheme = getStoredTheme();
+
+  applyTheme(storedTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+    });
+  }
+
+  if (themeSelect) {
+    themeSelect.value = storedTheme;
+    themeSelect.addEventListener("change", () => {
+      applyTheme(themeSelect.value);
+    });
+  }
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (getStoredTheme() === "system") {
+      applyTheme("system");
+    }
+  });
+}
+
+(function() {
+  const stored = localStorage.getItem("nmkp-theme") || "system";
+  const effective = stored === "system"
+    ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+    : stored;
+  document.documentElement.setAttribute("data-theme", effective);
+})();
+
+// =====================
+// AUTHENTICATION CHECK
+// =====================
 
 async function checkAuth() {
   try {
     const { data: { session } } = await supabaseClient.auth.getSession();
 
     if (!session) {
-      // Not authenticated — redirect to landing page
       window.location.href = "index.html";
       return false;
     }
@@ -45,16 +110,15 @@ async function checkAuth() {
   }
 }
 
-// Listen for auth state changes
 supabaseClient.auth.onAuthStateChange((event, session) => {
   if (event === "SIGNED_OUT" || !session) {
     window.location.href = "index.html";
   }
 });
 
-// ===================================
-// 3. DATA LOADING
-// ===================================
+// =============
+// DATA LOADING
+// =============
 
 async function loadUserProfile() {
   try {
@@ -133,9 +197,9 @@ async function loadAllDashboardData() {
   return { profile, settings, activities, wallets };
 }
 
-// ===================================
-// 4. UI UPDATE FUNCTIONS
-// ===================================
+// ====================
+// UI UPDATE FUNCTIONS
+// ====================
 
 function updateNavUserInfo() {
   const displayName = currentProfile?.username || currentProfile?.display_name || "Trainer";
@@ -152,7 +216,6 @@ function updateNavUserInfo() {
 }
 
 function updateStats() {
-  // Simulated stats — in production these come from DB tables
   const pkcBalance = currentProfile?.experience_points || 350;
   const nomekopCount = 12;
   const battlesWon = 47;
@@ -163,16 +226,13 @@ function updateStats() {
   animateCounter("statBattles", battlesWon);
   setTextContent("statRank", `#${globalRank.toLocaleString()}`);
 
-  // Nav PKC pill
   setTextContent("navPkcBalance", pkcBalance.toLocaleString());
 
-  // Wallet section
   setTextContent("walletBalance", `${pkcBalance.toLocaleString()} PKC`);
   const usdValue = (pkcBalance * 0.12).toFixed(2);
   setTextContent("walletUsd", `≈ $${usdValue} USD`);
   setTextContent("walletChange", "+2.35% (24h)");
 
-  // Battle stats
   const totalBattles = 63;
   const wins = battlesWon;
   const losses = totalBattles - wins;
@@ -183,7 +243,6 @@ function updateStats() {
   setTextContent("totalLossesStat", losses);
   setTextContent("winRateStat", `${winRate}%`);
 
-  // Leaderboard user row
   setTextContent("lbUserRank", globalRank.toLocaleString());
   setTextContent("lbUserName", currentProfile?.username || "You");
   setTextContent("lbUserWins", `${wins} W`);
@@ -276,9 +335,9 @@ function populateRecommendedCarousel() {
   `).join("");
 }
 
-// ===================================
-// 5. DATE DISPLAY
-// ===================================
+// ============
+// DATE DISPLAY
+// ============
 
 function updateWelcomeDate() {
   const el = document.getElementById("welcomeDate");
@@ -288,9 +347,9 @@ function updateWelcomeDate() {
   el.textContent = `📅 ${now.toLocaleDateString("en-US", options)}`;
 }
 
-// ===================================
-// 6. SPARKLE PARTICLES
-// ===================================
+// =================
+// SPARKLE PARTICLES
+// =================
 
 function createSparkleParticles() {
   const container = document.createElement("div");
@@ -312,9 +371,9 @@ function createSparkleParticles() {
   }
 }
 
-// ===================================
-// 7. SIDEBAR NAVIGATION & ROUTING
-// ===================================
+// ============================
+// SIDEBAR NAVIGATION & ROUTING
+// ============================
 
 function initSidebarNavigation() {
   const sidebarLinks = document.querySelectorAll(".sidebar-link");
@@ -328,7 +387,6 @@ function initSidebarNavigation() {
     });
   });
 
-  // Also handle data-section buttons elsewhere (e.g. "View All Quests", "Go to Marketplace")
   document.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-section]");
     if (btn && !btn.classList.contains("sidebar-link")) {
@@ -338,13 +396,11 @@ function initSidebarNavigation() {
     }
   });
 
-  // Handle URL hash on load
   const hash = window.location.hash.replace("#", "");
   if (hash && document.getElementById(`section-${hash}`)) {
     navigateToSection(hash);
   }
 
-  // Handle browser back/forward
   window.addEventListener("hashchange", () => {
     const h = window.location.hash.replace("#", "");
     if (h && document.getElementById(`section-${h}`)) {
@@ -357,27 +413,24 @@ function navigateToSection(sectionId) {
   switchSection(sectionId);
   window.location.hash = sectionId;
   closeSidebar();
-  // Scroll main content to top
   const main = document.getElementById("main-content");
   if (main) main.scrollTop = 0;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function switchSection(sectionId) {
-  // Update sections
   document.querySelectorAll(".dashboard-section").forEach(s => s.classList.remove("active"));
   const target = document.getElementById(`section-${sectionId}`);
   if (target) target.classList.add("active");
 
-  // Update sidebar active state
   document.querySelectorAll(".sidebar-link").forEach(l => l.classList.remove("active"));
   const activeLink = document.querySelector(`.sidebar-link[data-section="${sectionId}"]`);
   if (activeLink) activeLink.classList.add("active");
 }
 
-// ===================================
-// 8. SIDEBAR TOGGLE (Mobile/Tablet)
-// ===================================
+// =============================
+// SIDEBAR TOGGLE (Mobile/Tablet)
+// =============================
 
 function initSidebarToggle() {
   const toggle = document.getElementById("sidebarToggle");
@@ -403,9 +456,9 @@ function closeSidebar() {
   if (overlay) overlay.classList.remove("active");
 }
 
-// ===================================
-// 9. NOTIFICATION BELL
-// ===================================
+// ================
+// NOTIFICATION BELL
+// ================
 
 function initNotifications() {
   const bell = document.getElementById("notifBell");
@@ -435,7 +488,6 @@ function initNotifications() {
     });
   }
 
-  // Show sample notifications
   showSampleNotifications();
 }
 
@@ -467,9 +519,9 @@ function showSampleNotifications() {
   `).join("");
 }
 
-// ===================================
-// 10. USER DROPDOWN MENU
-// ===================================
+// =================
+// USER DROPDOWN MENU
+// =================
 
 function initUserMenu() {
   const menu = document.getElementById("userNavMenu");
@@ -504,9 +556,9 @@ function initUserMenu() {
   }
 }
 
-// ===================================
-// 11. SEARCH FUNCTIONALITY
-// ===================================
+// ====================
+// SEARCH FUNCTIONALITY
+// ====================
 
 function initSearch() {
   const input = document.getElementById("globalSearch");
@@ -554,7 +606,6 @@ function initSearch() {
     }, 300);
   });
 
-  // Click search result to navigate
   results.addEventListener("click", (e) => {
     const item = e.target.closest(".search-result-item");
     if (item && item.dataset.section) {
@@ -564,7 +615,6 @@ function initSearch() {
     }
   });
 
-  // Close search on outside click
   document.addEventListener("click", (e) => {
     if (!input.contains(e.target) && !results.contains(e.target)) {
       results.classList.remove("active");
@@ -572,9 +622,9 @@ function initSearch() {
   });
 }
 
-// ===================================
-// 12. FAQ ACCORDION
-// ===================================
+// =============
+// FAQ ACCORDION
+// =============
 
 function initFaqAccordion() {
   document.querySelectorAll(".faq-question").forEach(btn => {
@@ -582,21 +632,18 @@ function initFaqAccordion() {
       const item = btn.closest(".faq-item");
       const isOpen = item.classList.contains("open");
 
-      // Close all
       document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
 
-      // Toggle clicked
       if (!isOpen) item.classList.add("open");
     });
   });
 }
 
-// ===================================
-// 13. TAB SWITCHING
-// ===================================
+// =============
+// TAB SWITCHING
+// =============
 
 function initTabs() {
-  // Generic tab bars
   document.querySelectorAll(".tab-bar").forEach(bar => {
     bar.querySelectorAll(".tab-item").forEach(tab => {
       tab.addEventListener("click", () => {
@@ -606,7 +653,6 @@ function initTabs() {
     });
   });
 
-  // Quest section tabs
   document.querySelectorAll(".quest-tab").forEach(tab => {
     tab.addEventListener("click", () => {
       document.querySelectorAll(".quest-tab").forEach(t => t.classList.remove("active"));
@@ -620,9 +666,9 @@ function initTabs() {
   });
 }
 
-// ===================================
-// 14. STAKING PERIOD SELECTOR
-// ===================================
+// =======================
+// STAKING PERIOD SELECTOR
+// =======================
 
 function initStaking() {
   document.querySelectorAll(".stake-period").forEach(period => {
@@ -633,26 +679,23 @@ function initStaking() {
   });
 }
 
-// ===================================
-// 15. MODAL MANAGEMENT
-// ===================================
+// ================
+// MODAL MANAGEMENT
+// ================
 
 function initModals() {
-  // Buy PKC
   const buyBtn = document.getElementById("buyPkcBtn");
   const buyModal = document.getElementById("buyPkcModal");
   if (buyBtn && buyModal) {
     buyBtn.addEventListener("click", () => buyModal.classList.add("active"));
   }
 
-  // Send PKC
   const sendBtn = document.getElementById("sendPkcBtn");
   const sendModal = document.getElementById("sendPkcModal");
   if (sendBtn && sendModal) {
     sendBtn.addEventListener("click", () => sendModal.classList.add("active"));
   }
 
-  // Close modals
   document.querySelectorAll(".modal-overlay").forEach(overlay => {
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay) overlay.classList.remove("active");
@@ -665,7 +708,6 @@ function initModals() {
     });
   });
 
-  // Close on Escape
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       document.querySelectorAll(".modal-overlay.active").forEach(m => m.classList.remove("active"));
@@ -673,9 +715,9 @@ function initModals() {
   });
 }
 
-// ===================================
-// 16. SUPPORT FORM
-// ===================================
+// ============
+// SUPPORT FORM
+// ============
 
 function initSupportForm() {
   const form = document.getElementById("supportForm");
@@ -692,11 +734,9 @@ function initSupportForm() {
       return;
     }
 
-    // Show success (in production, this would create a support ticket via API)
     alert("✅ Support ticket submitted! We'll get back to you within 24 hours.");
     form.reset();
 
-    // Add to tickets list
     const ticketsList = document.getElementById("myTicketsList");
     if (ticketsList) {
       ticketsList.innerHTML = `
@@ -713,9 +753,9 @@ function initSupportForm() {
   });
 }
 
-// ===================================
-// 17. FILTER CHIPS (Marketplace)
-// ===================================
+// ==========================
+// FILTER CHIPS (Marketplace)
+// ==========================
 
 function initFilterChips() {
   document.querySelectorAll(".filter-chip").forEach(chip => {
@@ -725,9 +765,9 @@ function initFilterChips() {
   });
 }
 
-// ===================================
-// 18. CSV EXPORT
-// ===================================
+// ==========
+// CSV EXPORT
+// ==========
 
 function initExportCsv() {
   const btn = document.getElementById("exportCsvBtn");
@@ -752,14 +792,13 @@ function initExportCsv() {
   });
 }
 
-// ===================================
-// 19. REALTIME SUBSCRIPTIONS
-// ===================================
+// ======================
+// REALTIME SUBSCRIPTIONS
+// ======================
 
 function initRealtimeSubscriptions() {
   if (!currentUser) return;
 
-  // Listen for profile changes
   supabaseClient
     .channel("profile-changes")
     .on(
@@ -779,7 +818,6 @@ function initRealtimeSubscriptions() {
     )
     .subscribe();
 
-  // Listen for new activity
   supabaseClient
     .channel("activity-changes")
     .on(
@@ -792,14 +830,12 @@ function initRealtimeSubscriptions() {
       },
       (payload) => {
         console.log("New activity:", payload.new);
-        // Refresh the activity feed
         loadActivityLogs().then(updateActivityFeed);
       }
     )
     .subscribe();
 }
 
-// Auto-refresh every 30 seconds
 function startAutoRefresh() {
   refreshInterval = setInterval(async () => {
     if (currentUser) {
@@ -810,9 +846,9 @@ function startAutoRefresh() {
   }, 30000);
 }
 
-// ===================================
-// 20. UTILITY FUNCTIONS
-// ===================================
+// =================
+// UTILITY FUNCTIONS
+// =================
 
 function setTextContent(id, text) {
   const el = document.getElementById(id);
@@ -865,7 +901,6 @@ function animateCounter(elementId, target) {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
 
-    // Ease out cubic
     const eased = 1 - Math.pow(1 - progress, 3);
     const current = Math.floor(start + (target - start) * eased);
 
@@ -883,9 +918,9 @@ function animateCounter(elementId, target) {
   requestAnimationFrame(tick);
 }
 
-// ===================================
-// 21. KEYBOARD ACCESSIBILITY
-// ===================================
+// ======================
+// KEYBOARD ACCESSIBILITY
+// ======================
 
 function initKeyboardNav() {
   // Allow Enter/Space to activate sidebar links
@@ -900,12 +935,11 @@ function initKeyboardNav() {
   });
 }
 
-// ===================================
-// 22. SETTINGS CHANGE HANDLERS
-// ===================================
+// ========================
+// SETTINGS CHANGE HANDLERS
+// ========================
 
 function initSettingsHandlers() {
-  // Save settings on toggle/select change
   const settingsElements = [
     "sfxToggle", "musicToggle", "onlineStatusToggle",
     "friendRequestToggle", "twoFaToggle", "masterVolume",
@@ -920,12 +954,10 @@ function initSettingsHandlers() {
                       el.type === "range" ? "input" : "change";
 
     el.addEventListener(eventType, () => {
-      // In production, save to Supabase
       console.log(`Setting changed: ${id} =`, el.type === "checkbox" ? el.checked : el.value);
     });
   });
 
-  // Delete account
   const deleteBtn = document.getElementById("deleteAccountBtn");
   if (deleteBtn) {
     deleteBtn.addEventListener("click", () => {
@@ -939,7 +971,6 @@ function initSettingsHandlers() {
     });
   }
 
-  // Change password
   const changePwBtn = document.getElementById("changePasswordBtn");
   if (changePwBtn) {
     changePwBtn.addEventListener("click", async () => {
@@ -957,22 +988,18 @@ function initSettingsHandlers() {
   }
 }
 
-// ===================================
-// 23. PAGE INITIALIZATION
-// ===================================
+// ===================
+// PAGE INITIALIZATION
+// ===================
 
 async function initDashboard() {
-  // 1. Check authentication
   const isAuthed = await checkAuth();
   if (!isAuthed) return;
 
-  // 2. Create visual effects
   createSparkleParticles();
 
-  // 3. Load all data
   const { profile, settings, activities, wallets } = await loadAllDashboardData();
 
-  // 4. Update UI with loaded data
   updateNavUserInfo();
   updateWelcomeDate();
   updateStats();
@@ -981,7 +1008,6 @@ async function initDashboard() {
   updateWalletUI(wallets);
   populateRecommendedCarousel();
 
-  // 5. Initialize all interactive features
   initSidebarNavigation();
   initSidebarToggle();
   initNotifications();
@@ -996,18 +1022,16 @@ async function initDashboard() {
   initExportCsv();
   initKeyboardNav();
   initSettingsHandlers();
+  initThemeToggle();
 
-  // 6. Start realtime & auto-refresh
   initRealtimeSubscriptions();
   startAutoRefresh();
 
   console.log("Dashboard initialized successfully!");
 }
 
-// Start everything on DOM ready
 window.addEventListener("DOMContentLoaded", initDashboard);
 
-// Cleanup on page unload
 window.addEventListener("beforeunload", () => {
   if (refreshInterval) clearInterval(refreshInterval);
 });

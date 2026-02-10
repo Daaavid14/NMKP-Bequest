@@ -2133,7 +2133,6 @@ body.mobile-menu-open {
   z-index: 10;
 }
 
-/* --- Card Inner (handles front/back flip potential) --- */
 .carousel-card-inner {
   position: relative;
   width: 100%;
