@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nomekop Bequest Dashboard - Manage your Nomekops, PKC wallet, battles, and more." />
+  <title>Dashboard | Nomekop Bequest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="dashboard-style.css" />
+  <link rel="icon" href="backgrounds/pokemonBall.png" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+
+  <!-- ===================================
+       TOP NAVIGATION BAR
+       =================================== -->
+  <nav class="dashboard-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-left">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
+      <div class="nav-logo">
+        <a href="index.html" title="Back to Home">
+          <img src="backgrounds/nomekop.png" alt="Nomekop Bequest Logo" />
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <div class="nav-search">
+        <span class="nav-search-icon">🔍</span>
+        <input type="text" id="globalSearch" placeholder="Search Nomekops, trainers, items..." aria-label="Search" autocomplete="off" />
+        <div class="search-results-dropdown" id="searchResults" role="listbox"></div>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="pkc-balance-pill" id="pkcBalancePill" aria-label="PKC Balance" data-section="wallet">
+        <span class="pkc-coin-icon">₱</span>
+        <span id="navPkcBalance">0</span> PKC
+      </button>
+
+      <div class="notification-bell-wrapper" style="position:relative;">
+        <button class="notification-bell" id="notifBell" aria-label="Notifications">
+          🔔
+          <span class="notification-badge" id="notifBadge" style="display:none;">0</span>
+        </button>
+        <div class="notification-dropdown" id="notifDropdown" role="menu">
+          <div class="notification-header">
+            <span>Notifications</span>
+            <button class="btn-sm" id="markAllRead" style="font-size:0.72rem;border:none;box-shadow:none;padding:4px 10px;">Mark all read</button>
+          </div>
+          <div class="notification-list" id="notifList">
+            <div class="empty-state" style="padding:24px;">
+              <span class="empty-icon">🔕</span>
+              <p class="empty-text">No notifications yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Menu -->
+      <div class="user-nav-menu" id="userNavMenu">
+        <button class="user-nav-trigger" id="userNavTrigger" aria-haspopup="true" aria-expanded="false">
+          <span class="user-nav-avatar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 6.5C6.75 3.6005 9.1005 1.25 12 1.25C14.8995 1.25 17.25 3.6005 17.25 6.5C17.25 9.3995 14.8995 11.75 12 11.75C9.1005 11.75 6.75 9.3995 6.75 6.5Z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M4.25 18.5714C4.25 15.6325 6.63249 13.25 9.57143 13.25H14.4286C17.3675 13.25 19.75 15.6325 19.75 18.5714C19.75 20.8792 17.8792 22.75 15.5714 22.75H8.42857C6.12081 22.75 4.25 20.8792 4.25 18.5714Z"/>
+            </svg>
+          </span>
+          <span class="user-nav-name" id="navDisplayName">Trainer</span>
+          <span class="user-nav-arrow">▼</span>
+        </button>
+        <div class="user-nav-dropdown" role="menu">
+          <div class="user-nav-dropdown-header">
+            <div class="avatar-lg">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 6.5C6.75 3.6005 9.1005 1.25 12 1.25C14.8995 1.25 17.25 3.6005 17.25 6.5C17.25 9.3995 14.8995 11.75 12 11.75C9.1005 11.75 6.75 9.3995 6.75 6.5Z"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.25 18.5714C4.25 15.6325 6.63249 13.25 9.57143 13.25H14.4286C17.3675 13.25 19.75 15.6325 19.75 18.5714C19.75 20.8792 17.8792 22.75 15.5714 22.75H8.42857C6.12081 22.75 4.25 20.8792 4.25 18.5714Z"/>
+              </svg>
+            </div>
+            <div class="dd-username" id="ddUsername">Trainer</div>
+            <div class="dd-email" id="ddEmail">trainer@example.com</div>
+          </div>
+          <div class="dd-divider"></div>
+          <a href="#settings" class="sidebar-nav-link" data-section="settings">⚙️ Settings</a>
+          <div class="dd-divider"></div>
+          <button class="logout-item" id="logoutBtn">🚪 Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================================
+       SIDEBAR NAVIGATION
+       =================================== -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <aside class="dashboard-sidebar" id="dashboardSidebar" role="navigation" aria-label="Dashboard navigation">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item">
+        <a href="#overview" class="sidebar-link active" data-section="overview" role="menuitem">
+          <span class="sidebar-icon">🏠</span> Overview
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#collection" class="sidebar-link" data-section="collection" role="menuitem">
+          <span class="sidebar-icon">📦</span> My Collection
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#wallet" class="sidebar-link" data-section="wallet" role="menuitem">
+          <span class="sidebar-icon">💰</span> PKC Wallet
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#marketplace" class="sidebar-link" data-section="marketplace" role="menuitem">
+          <span class="sidebar-icon">🏪</span> Marketplace
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#battles" class="sidebar-link" data-section="battles" role="menuitem">
+          <span class="sidebar-icon">⚔️</span> Battles
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#tournaments" class="sidebar-link" data-section="tournaments" role="menuitem">
+          <span class="sidebar-icon">🏆</span> Tournaments
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#quests" class="sidebar-link" data-section="quests" role="menuitem">
+          <span class="sidebar-icon">📜</span> Quests
+          <span class="sidebar-badge" id="questBadge">3</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#settings" class="sidebar-link" data-section="settings" role="menuitem">
+          <span class="sidebar-icon">⚙️</span> Settings
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#support" class="sidebar-link" data-section="support" role="menuitem">
+          <span class="sidebar-icon">❓</span> Support
+        </a>
+      </li>
+    </ul>
+    <div class="sidebar-footer">
+      <div class="trainer-level">
+        ⭐ Trainer Lv. <span id="sidebarLevel">1</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================================
+       MAIN CONTENT AREA
+       =================================== -->
+  <main class="dashboard-main" id="main-content">
+
+    <!-- ===== SECTION: OVERVIEW ===== -->
+    <section class="dashboard-section active" id="section-overview" aria-label="Overview">
+      <div class="welcome-banner">
+        <div class="welcome-text">
+          <h1>Welcome Back, <span class="username-highlight" id="welcomeUsername">Trainer</span>!</h1>
+          <p>Ready for another adventure? Here's your progress today.</p>
+        </div>
+        <div class="welcome-date" id="welcomeDate"></div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <span class="stat-icon">🪙</span>
+          <div class="stat-value" id="statPkc" data-target="0">0</div>
+          <div class="stat-label">PKC Balance</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🐾</span>
+          <div class="stat-value" id="statNomekops" data-target="0">0</div>
+          <div class="stat-label">Total Nomekops</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">⚔️</span>
+          <div class="stat-value" id="statBattles" data-target="0">0</div>
+          <div class="stat-label">Battles Won</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🏆</span>
+          <div class="stat-value" id="statRank" data-target="0">#-</div>
+          <div class="stat-label">Global Rank</div>
+        </div>
+      </div>
+
+      <div class="content-row">
+        <!-- Recent Activity -->
+        <div class="dashboard-card">
+          <div class="card-title"><span class="title-icon">📋</span> Recent Activity</div>
+          <div class="activity-list" id="activityList">
+            <div class="empty-state" style="padding:24px;">
+              <span class="empty-icon">📭</span>
+              <p class="empty-text">No recent activity. Start your adventure!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily Quests Preview -->
+        <div class="dashboard-card">
+          <div class="card-title"><span class="title-icon">📜</span> Daily Quests</div>
+          <div id="dailyQuestsPreview">
+            <div class="quest-item">
+              <span class="quest-icon">⚔️</span>
+              <div class="quest-info">
+                <div class="quest-name">Win 3 Battles</div>
+                <div class="quest-progress-bar"><div class="quest-progress-fill" style="width:66%"></div></div>
+                <div class="quest-progress-text">2 / 3</div>
+              </div>
+              <div class="quest-reward">
+                <div class="reward-amount">+50 PKC</div>
+                <div class="reward-label">Reward</div>
+              </div>
+            </div>
+            <div class="quest-item">
+              <span class="quest-icon">🪙</span>
+              <div class="quest-info">
+                <div class="quest-name">Earn 100 PKC</div>
+                <div class="quest-progress-bar"><div class="quest-progress-fill" style="width:70%"></div></div>
+                <div class="quest-progress-text">70 / 100</div>
+              </div>
+              <div class="quest-reward">
+                <div class="reward-amount">+25 PKC</div>
+                <div class="reward-label">Reward</div>
+              </div>
+            </div>
+            <div class="quest-item">
+              <span class="quest-icon">🏪</span>
+              <div class="quest-info">
+                <div class="quest-name">Visit Marketplace</div>
+                <div class="quest-progress-bar"><div class="quest-progress-fill" style="width:0%"></div></div>
+                <div class="quest-progress-text">0 / 1</div>
+              </div>
+              <div class="quest-reward">
+                <div class="reward-amount">+10 PKC</div>
+                <div class="reward-label">Reward</div>
+              </div>
+            </div>
+          </div>
+          <button class="btn-primary btn-sm" style="margin-top:12px;width:100%;" data-section="quests">View All Quests</button>
+        </div>
+      </div>
+
+      <!-- Tournament Banner -->
+      <div class="tournament-banner" id="tournamentBanner">
+        <div class="banner-text">
+          <h3>🏆 Genesis Tournament — Now Live!</h3>
+          <p>Compete for a 10,000 PKC prize pool. Entry is free for all trainers!</p>
+        </div>
+        <button class="btn-primary" data-section="tournaments">Join Now</button>
+      </div>
+
+      <!-- Recommended Nomekops -->
+      <div class="dashboard-card">
+        <div class="card-title"><span class="title-icon">✨</span> Recommended Nomekops</div>
+        <div class="nft-carousel" id="recommendedCarousel">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: MY COLLECTION ===== -->
+    <section class="dashboard-section" id="section-collection" aria-label="My Collection">
+      <div class="section-header"><h2 class="ribbon-title">📦 My Collection</h2></div>
+
+      <!-- Filters -->
+      <div class="marketplace-filters">
+        <input type="text" class="settings-input" id="collectionSearch" placeholder="Search by name or ID..." style="flex:1;max-width:300px;" />
+        <select class="settings-select" id="collectionTypeFilter">
+          <option value="">All Types</option>
+          <option value="fire">🔥 Fire</option>
+          <option value="water">💧 Water</option>
+          <option value="grass">🌿 Grass</option>
+          <option value="electric">⚡ Electric</option>
+          <option value="psychic">🔮 Psychic</option>
+          <option value="fighting">👊 Fighting</option>
+          <option value="poison">☠️ Poison</option>
+          <option value="ground">🏔️ Ground</option>
+          <option value="flying">🕊️ Flying</option>
+          <option value="bug">🐛 Bug</option>
+          <option value="ghost">👻 Ghost</option>
+          <option value="dragon">🐉 Dragon</option>
+          <option value="ice">❄️ Ice</option>
+          <option value="normal">⚪ Normal</option>
+          <option value="rock">🪨 Rock</option>
+        </select>
+        <select class="settings-select" id="collectionSort">
+          <option value="name">Sort: Name</option>
+          <option value="level">Sort: Level</option>
+          <option value="rarity">Sort: Rarity</option>
+          <option value="date">Sort: Date Acquired</option>
+        </select>
+      </div>
+
+      <div class="nft-grid" id="collectionGrid">
+        <!-- Populated by JS or empty state -->
+        <div class="empty-state" style="grid-column:1/-1;">
+          <span class="empty-icon">📦</span>
+          <div class="empty-title">Your collection is empty!</div>
+          <p class="empty-text">Start catching Nomekops to fill your collection.</p>
+          <button class="btn-primary" data-section="marketplace">Go to Marketplace</button>
+        </div>
+      </div>
+
+      <div class="pagination" id="collectionPagination" style="display:none;">
+        <button class="page-btn" data-page="prev">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn" data-page="next">›</button>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: PKC WALLET ===== -->
+    <section class="dashboard-section" id="section-wallet" aria-label="PKC Wallet">
+      <div class="section-header"><h2 class="ribbon-title">💰 PKC Wallet</h2></div>
+
+      <div class="dashboard-card wallet-balance-card">
+        <span class="stat-icon" style="font-size:3rem;">🪙</span>
+        <div class="balance-amount" id="walletBalance">0 PKC</div>
+        <div class="balance-usd" id="walletUsd">≈ $0.00 USD</div>
+        <div class="balance-change positive" id="walletChange">+0.00% (24h)</div>
+        <div class="wallet-actions">
+          <button class="btn-primary" id="buyPkcBtn">🛒 Buy PKC</button>
+          <button class="btn-secondary" id="sendPkcBtn">📤 Send PKC</button>
+          <button class="btn-primary" id="stakePkcBtn">📈 Stake PKC</button>
+          <button class="btn-secondary" id="txHistoryBtn">📜 History</button>
+        </div>
+      </div>
+
+      <div class="content-row equal">
+        <!-- Staking -->
+        <div class="dashboard-card">
+          <div class="card-title"><span class="title-icon">📈</span> Staking</div>
+          <p style="font-size:0.88rem;color:var(--text-medium);margin-bottom:14px;">Lock your PKC to earn passive rewards!</p>
+          <div class="staking-options">
+            <div class="stake-period active" data-days="30">
+              <div class="period-days">30 Days</div>
+              <div class="period-apy">5% APY</div>
+            </div>
+            <div class="stake-period" data-days="90">
+              <div class="period-days">90 Days</div>
+              <div class="period-apy">10% APY</div>
+            </div>
+            <div class="stake-period" data-days="180">
+              <div class="period-days">180 Days</div>
+              <div class="period-apy">18% APY</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+            <input type="number" class="settings-input" id="stakeAmount" placeholder="Amount to stake" style="flex:1;" min="0" />
+            <button class="btn-primary btn-sm">Stake Now</button>
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-light);">Currently staked: <strong id="currentStaked">0 PKC</strong></p>
+        </div>
+
+        <!-- Earning Summary -->
+        <div class="dashboard-card">
+          <div class="card-title"><span class="title-icon">📊</span> Earning Summary</div>
+          <div class="earning-chart-placeholder"></div>
+          <div class="chart-legend">
+            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:var(--gold-500);"></span> Battles (35%)</div>
+            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:var(--green-400);"></span> Quests (20%)</div>
+            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:var(--bg-blue-400);"></span> Staking (25%)</div>
+            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:var(--red-400);"></span> Sales (20%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transaction History -->
+      <div class="dashboard-card">
+        <div class="card-title" style="justify-content:space-between;">
+          <span><span class="title-icon">📜</span> Transaction History</span>
+          <button class="btn-secondary btn-sm" id="exportCsvBtn">📥 Export CSV</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="tx-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="txTableBody">
+              <tr>
+                <td>Feb 10, 2026</td>
+                <td><span class="tx-type earned">⬆️ Earned</span></td>
+                <td style="font-weight:600;color:#27ae60;">+50 PKC</td>
+                <td><span class="tx-status completed">Completed</span></td>
+                <td>Battle Reward</td>
+              </tr>
+              <tr>
+                <td>Feb 9, 2026</td>
+                <td><span class="tx-type staked">🔒 Staked</span></td>
+                <td style="font-weight:600;color:#8e44ad;">-200 PKC</td>
+                <td><span class="tx-status completed">Completed</span></td>
+                <td>30-day Stake</td>
+              </tr>
+              <tr>
+                <td>Feb 8, 2026</td>
+                <td><span class="tx-type received">⬇️ Received</span></td>
+                <td style="font-weight:600;color:#2980b9;">+100 PKC</td>
+                <td><span class="tx-status completed">Completed</span></td>
+                <td>Welcome Bonus</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: MARKETPLACE ===== -->
+    <section class="dashboard-section" id="section-marketplace" aria-label="Marketplace">
+      <div class="section-header"><h2 class="ribbon-title">🏪 Marketplace</h2></div>
+
+      <div class="tab-bar">
+        <button class="tab-item active" data-tab="browse">Browse NFTs</button>
+        <button class="tab-item" data-tab="my-listings">My Listings</button>
+        <button class="tab-item" data-tab="sell">Sell NFT</button>
+      </div>
+
+      <div class="marketplace-filters" id="marketplaceFilters">
+        <input type="text" class="settings-input" id="marketSearch" placeholder="Search by name, ID, or seller..." style="flex:1;max-width:300px;" />
+        <select class="settings-select" id="marketTypeFilter">
+          <option value="">All Types</option>
+          <option value="fire">🔥 Fire</option>
+          <option value="water">💧 Water</option>
+          <option value="grass">🌿 Grass</option>
+          <option value="electric">⚡ Electric</option>
+          <option value="dragon">🐉 Dragon</option>
+        </select>
+        <select class="settings-select" id="marketSort">
+          <option value="recent">Recently Listed</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="trending">Trending</option>
+        </select>
+      </div>
+
+      <div class="nft-grid" id="marketplaceGrid">
+        <!-- Sample marketplace cards -->
+        <div class="nft-card marketplace-nft-card">
+          <div class="nft-image">🔥</div>
+          <div class="nft-name">Flamewing #0042</div>
+          <div class="nft-type-badges"><span class="type-badge fire">Fire</span><span class="type-badge flying">Flying</span></div>
+          <div class="price-tag">🪙 250 PKC</div>
+          <div class="seller-info">by @DragonMaster</div>
+          <button class="btn-primary btn-sm" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="nft-card marketplace-nft-card">
+          <div class="nft-image">💧</div>
+          <div class="nft-name">Aquascale #0108</div>
+          <div class="nft-type-badges"><span class="type-badge water">Water</span><span class="type-badge dragon">Dragon</span></div>
+          <div class="price-tag">🪙 380 PKC</div>
+          <div class="seller-info">by @WaterTrainer</div>
+          <button class="btn-primary btn-sm" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="nft-card marketplace-nft-card">
+          <div class="nft-image">⚡</div>
+          <div class="nft-name">Voltpaw #0217</div>
+          <div class="nft-type-badges"><span class="type-badge electric">Electric</span></div>
+          <div class="price-tag">🪙 175 PKC</div>
+          <div class="seller-info">by @ThunderKid</div>
+          <button class="btn-primary btn-sm" style="width:100%;">Buy Now</button>
+        </div>
+        <div class="nft-card marketplace-nft-card">
+          <div class="nft-image">🌿</div>
+          <div class="nft-name">Leafguard #0055</div>
+          <div class="nft-type-badges"><span class="type-badge grass">Grass</span></div>
+          <div class="price-tag">🪙 120 PKC</div>
+          <div class="seller-info">by @GreenThumb</div>
+          <button class="btn-primary btn-sm" style="width:100%;">Buy Now</button>
+        </div>
+      </div>
+
+      <div class="pagination" id="marketplacePagination">
+        <button class="page-btn" data-page="prev">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn" data-page="next">›</button>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: BATTLES ===== -->
+    <section class="dashboard-section" id="section-battles" aria-label="Battles">
+      <div class="section-header"><h2 class="ribbon-title">⚔️ Battles</h2></div>
+
+      <div class="battle-modes">
+        <div class="battle-mode-card" id="quickMatchBtn">
+          <span class="mode-icon">⚡</span>
+          <div class="mode-title">Quick Match</div>
+          <div class="mode-desc">Find a random opponent for instant action!</div>
+          <button class="btn-primary btn-sm">Play Now</button>
+        </div>
+        <div class="battle-mode-card" id="rankedMatchBtn">
+          <span class="mode-icon">🏅</span>
+          <div class="mode-title">Ranked Match</div>
+          <div class="mode-desc">Climb the competitive ladder and earn rewards.</div>
+          <button class="btn-primary btn-sm">Compete</button>
+        </div>
+        <div class="battle-mode-card" id="practiceBtn">
+          <span class="mode-icon">🎯</span>
+          <div class="mode-title">Practice Mode</div>
+          <div class="mode-desc">Train against AI with no stakes.</div>
+          <button class="btn-secondary btn-sm">Practice</button>
+        </div>
+      </div>
+
+      <!-- Team Selection -->
+      <div class="dashboard-card">
+        <div class="card-title"><span class="title-icon">🎮</span> Your Battle Team</div>
+        <div class="team-selector" id="teamSelector">
+          <div class="team-slot">
+            <span class="slot-icon">➕</span>
+            <span class="slot-text">Slot 1</span>
+          </div>
+          <div class="team-slot">
+            <span class="slot-icon">➕</span>
+            <span class="slot-text">Slot 2</span>
+          </div>
+          <div class="team-slot">
+            <span class="slot-icon">➕</span>
+            <span class="slot-text">Slot 3</span>
+          </div>
+        </div>
+        <button class="btn-primary" id="readyBattleBtn" disabled>⚔️ Ready for Battle</button>
+      </div>
+
+      <div class="content-row equal">
+        <!-- Battle History -->
+        <div class="dashboard-card">
+          <div class="card-title"><span class="title-icon">📋</span> Battle History</div>
+          <div class="activity-list" id="battleHistoryList">
+            <div class="activity-item">
+              <div class="activity-icon battle">⚔️</div>
+              <div class="activity-details">
+                <div class="activity-text"><strong>Won</strong> vs @ShadowTrainer</div>
+                <div class="activity-time">+25 PKC · 2 hours ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon battle">⚔️</div>
+              <div class="activity-details">
+                <div class="activity-text"><strong>Lost</strong> vs @EliteChampion</div>
+                <div class="activity-time">-5 PKC · 5 hours ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon battle">⚔️</div>
+              <div class="activity-details">
+                <div class="activity-text"><strong>Won</strong> vs @NovicePlayer</div>
+                <div class="activity-time">+20 PKC · Yesterday</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="dashboard-card">
+          <div class="card-title"><span class="title-icon">🏅</span> Leaderboard</div>
+          <div class="leaderboard-list" id="leaderboardList">
+            <div class="leaderboard-item">
+              <span class="lb-rank top-3">🥇</span>
+              <span class="lb-avatar">🐉</span>
+              <span class="lb-name">DragonMaster</span>
+              <span class="lb-wins">1,247 W</span>
+            </div>
+            <div class="leaderboard-item">
+              <span class="lb-rank top-3">🥈</span>
+              <span class="lb-avatar">⚡</span>
+              <span class="lb-name">ThunderKid</span>
+              <span class="lb-wins">1,103 W</span>
+            </div>
+            <div class="leaderboard-item">
+              <span class="lb-rank top-3">🥉</span>
+              <span class="lb-avatar">🔥</span>
+              <span class="lb-name">FireStorm</span>
+              <span class="lb-wins">998 W</span>
+            </div>
+            <div class="leaderboard-item">
+              <span class="lb-rank">4</span>
+              <span class="lb-avatar">💧</span>
+              <span class="lb-name">AquaWave</span>
+              <span class="lb-wins">876 W</span>
+            </div>
+            <div class="leaderboard-item">
+              <span class="lb-rank">5</span>
+              <span class="lb-avatar">🌿</span>
+              <span class="lb-name">LeafBlade</span>
+              <span class="lb-wins">821 W</span>
+            </div>
+            <div class="leaderboard-item current-user" id="userLeaderboardRow">
+              <span class="lb-rank" id="lbUserRank">-</span>
+              <span class="lb-avatar">🎮</span>
+              <span class="lb-name" id="lbUserName">You</span>
+              <span class="lb-wins" id="lbUserWins">0 W</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Battle Stats -->
+      <div class="dashboard-card">
+        <div class="card-title"><span class="title-icon">📊</span> Battle Statistics</div>
+        <div class="stats-grid" style="margin-bottom:0;">
+          <div class="stat-card" style="border-color:var(--bg-blue-300);box-shadow:0 4px 0 var(--bg-blue-400);">
+            <span class="stat-icon">🎮</span>
+            <div class="stat-value" id="totalBattlesStat">0</div>
+            <div class="stat-label">Total Battles</div>
+          </div>
+          <div class="stat-card" style="border-color:#2ecc71;box-shadow:0 4px 0 #27ae60;">
+            <span class="stat-icon">✅</span>
+            <div class="stat-value" id="totalWinsStat">0</div>
+            <div class="stat-label">Wins</div>
+          </div>
+          <div class="stat-card" style="border-color:#e74c3c;box-shadow:0 4px 0 #c0392b;">
+            <span class="stat-icon">❌</span>
+            <div class="stat-value" id="totalLossesStat">0</div>
+            <div class="stat-label">Losses</div>
+          </div>
+          <div class="stat-card" style="border-color:var(--gold-500);box-shadow:0 4px 0 var(--gold-700);">
+            <span class="stat-icon">📈</span>
+            <div class="stat-value" id="winRateStat">0%</div>
+            <div class="stat-label">Win Rate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: TOURNAMENTS ===== -->
+    <section class="dashboard-section" id="section-tournaments" aria-label="Tournaments">
+      <div class="section-header"><h2 class="ribbon-title">🏆 Tournaments</h2></div>
+
+      <div class="tab-bar">
+        <button class="tab-item active" data-tab="active-tournaments">Active</button>
+        <button class="tab-item" data-tab="upcoming-tournaments">Upcoming</button>
+        <button class="tab-item" data-tab="my-tournaments">My Tournaments</button>
+        <button class="tab-item" data-tab="past-tournaments">Past Results</button>
+      </div>
+
+      <div id="activeTournamentsContent">
+        <div class="tournament-card">
+          <span class="tourney-icon">🏆</span>
+          <div class="tourney-info">
+            <div class="tourney-name">Genesis Championship</div>
+            <div class="tourney-meta">
+              <span>💰 Prize: 10,000 PKC</span>
+              <span>👥 128 / 256 Players</span>
+              <span>🎫 Free Entry</span>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div class="tourney-timer">⏰ 2d 14h left</div>
+            <button class="btn-primary btn-sm" style="margin-top:8px;">Join</button>
+          </div>
+        </div>
+        <div class="tournament-card">
+          <span class="tourney-icon">⚡</span>
+          <div class="tourney-info">
+            <div class="tourney-name">Weekly Blitz</div>
+            <div class="tourney-meta">
+              <span>💰 Prize: 2,500 PKC</span>
+              <span>👥 56 / 64 Players</span>
+              <span>🎫 50 PKC Entry</span>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div class="tourney-timer">⏰ 18h left</div>
+            <button class="btn-primary btn-sm" style="margin-top:8px;">Join</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: QUESTS & ACHIEVEMENTS ===== -->
+    <section class="dashboard-section" id="section-quests" aria-label="Quests and Achievements">
+      <div class="section-header"><h2 class="ribbon-title">📜 Quests & Achievements</h2></div>
+
+      <div class="quests-section-tabs">
+        <button class="quest-tab active" data-qtab="daily">Daily Quests</button>
+        <button class="quest-tab" data-qtab="weekly">Weekly Quests</button>
+        <button class="quest-tab" data-qtab="achievements">Achievements</button>
+      </div>
+
+      <!-- Daily Quests -->
+      <div id="dailyQuestsTab">
+        <div class="quest-full-item">
+          <span class="q-icon">⚔️</span>
+          <div class="q-details">
+            <div class="q-name">Win 3 Battles</div>
+            <div class="q-desc">Emerge victorious in 3 PvP battles</div>
+            <div class="q-bar-wrapper">
+              <div class="q-bar"><div class="q-bar-fill" style="width:66%"></div></div>
+              <span class="q-progress-text">2 / 3</span>
+            </div>
+          </div>
+          <div class="q-reward-area">
+            <div class="q-reward-amount">+50 PKC</div>
+            <div class="q-reward-label">Reward</div>
+          </div>
+        </div>
+        <div class="quest-full-item">
+          <span class="q-icon">🪙</span>
+          <div class="q-details">
+            <div class="q-name">Earn 100 PKC</div>
+            <div class="q-desc">Accumulate 100 PKC from any source</div>
+            <div class="q-bar-wrapper">
+              <div class="q-bar"><div class="q-bar-fill" style="width:70%"></div></div>
+              <span class="q-progress-text">70 / 100</span>
+            </div>
+          </div>
+          <div class="q-reward-area">
+            <div class="q-reward-amount">+25 PKC</div>
+            <div class="q-reward-label">Reward</div>
+          </div>
+        </div>
+        <div class="quest-full-item">
+          <span class="q-icon">🏪</span>
+          <div class="q-details">
+            <div class="q-name">Visit the Marketplace</div>
+            <div class="q-desc">Browse or purchase an item from the Marketplace</div>
+            <div class="q-bar-wrapper">
+              <div class="q-bar"><div class="q-bar-fill" style="width:0%"></div></div>
+              <span class="q-progress-text">0 / 1</span>
+            </div>
+          </div>
+          <div class="q-reward-area">
+            <div class="q-reward-amount">+10 PKC</div>
+            <div class="q-reward-label">Reward</div>
+          </div>
+        </div>
+        <div class="quest-full-item completed">
+          <span class="q-icon">✅</span>
+          <div class="q-details">
+            <div class="q-name">Log In Today</div>
+            <div class="q-desc">Sign in to your account</div>
+            <div class="q-bar-wrapper">
+              <div class="q-bar"><div class="q-bar-fill" style="width:100%"></div></div>
+              <span class="q-progress-text">1 / 1</span>
+            </div>
+          </div>
+          <div class="q-reward-area">
+            <button class="btn-success btn-sm">Claim</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly Quests (hidden by default) -->
+      <div id="weeklyQuestsTab" style="display:none;">
+        <div class="quest-full-item">
+          <span class="q-icon">🏆</span>
+          <div class="q-details">
+            <div class="q-name">Win 20 Battles This Week</div>
+            <div class="q-desc">Prove your dominance on the battlefield</div>
+            <div class="q-bar-wrapper">
+              <div class="q-bar"><div class="q-bar-fill" style="width:30%"></div></div>
+              <span class="q-progress-text">6 / 20</span>
+            </div>
+          </div>
+          <div class="q-reward-area">
+            <div class="q-reward-amount">+500 PKC</div>
+            <div class="q-reward-label">Reward</div>
+          </div>
+        </div>
+        <div class="quest-full-item">
+          <span class="q-icon">🐾</span>
+          <div class="q-details">
+            <div class="q-name">Collect 3 New Nomekops</div>
+            <div class="q-desc">Expand your collection with new additions</div>
+            <div class="q-bar-wrapper">
+              <div class="q-bar"><div class="q-bar-fill" style="width:33%"></div></div>
+              <span class="q-progress-text">1 / 3</span>
+            </div>
+          </div>
+          <div class="q-reward-area">
+            <div class="q-reward-amount">+200 PKC</div>
+            <div class="q-reward-label">Reward</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements (hidden by default) -->
+      <div id="achievementsTab" style="display:none;">
+        <div class="achievements-grid">
+          <div class="achievement-badge unlocked">
+            <span class="badge-icon">🎉</span>
+            <div class="badge-name">First Steps</div>
+            <div class="badge-desc">Create your account</div>
+          </div>
+          <div class="achievement-badge unlocked">
+            <span class="badge-icon">⚔️</span>
+            <div class="badge-name">Warrior</div>
+            <div class="badge-desc">Win your first battle</div>
+          </div>
+          <div class="achievement-badge unlocked">
+            <span class="badge-icon">🐾</span>
+            <div class="badge-name">Collector</div>
+            <div class="badge-desc">Own 5 Nomekops</div>
+          </div>
+          <div class="achievement-badge locked">
+            <span class="badge-icon">🏆</span>
+            <div class="badge-name">Champion</div>
+            <div class="badge-desc">Win 100 battles</div>
+          </div>
+          <div class="achievement-badge locked">
+            <span class="badge-icon">💎</span>
+            <div class="badge-name">Mogul</div>
+            <div class="badge-desc">Earn 10,000 PKC</div>
+          </div>
+          <div class="achievement-badge locked">
+            <span class="badge-icon">🐉</span>
+            <div class="badge-name">Dragon Tamer</div>
+            <div class="badge-desc">Collect a Dragon type</div>
+          </div>
+          <div class="achievement-badge locked">
+            <span class="badge-icon">🌟</span>
+            <div class="badge-name">Legendary</div>
+            <div class="badge-desc">Reach Trainer Lv. 50</div>
+          </div>
+          <div class="achievement-badge locked">
+            <span class="badge-icon">👑</span>
+            <div class="badge-name">Tournament King</div>
+            <div class="badge-desc">Win a tournament</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: SETTINGS ===== -->
+    <section class="dashboard-section" id="section-settings" aria-label="Settings">
+      <div class="section-header"><h2 class="ribbon-title">⚙️ Settings</h2></div>
+
+      <div class="dashboard-card">
+        <div class="settings-section">
+          <div class="settings-section-title">👤 Account Settings</div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Username</div>
+              <div class="settings-desc" id="settingsUsername">Not set</div>
+            </div>
+            <button class="btn-secondary btn-sm">Edit</button>
+          </div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Email</div>
+              <div class="settings-desc" id="settingsEmail">Loading...</div>
+            </div>
+            <span style="font-size:0.78rem;color:#27ae60;font-weight:600;">✅ Verified</span>
+          </div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Bio</div>
+              <div class="settings-desc" id="settingsBio">No bio set</div>
+            </div>
+            <button class="btn-secondary btn-sm">Edit</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="settings-section">
+          <div class="settings-section-title">🎮 Game Preferences</div>
+          <div class="settings-row">
+            <div><div class="settings-label">Sound Effects</div></div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked id="sfxToggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Music</div></div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked id="musicToggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Master Volume</div></div>
+            <input type="range" class="volume-slider" id="masterVolume" min="0" max="100" value="80" />
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Graphics Quality</div></div>
+            <select class="settings-select" id="graphicsQuality">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Language</div></div>
+            <select class="settings-select" id="languageSetting">
+              <option value="en" selected>English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="ja">日本語</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="settings-section">
+          <div class="settings-section-title">🔒 Privacy</div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Profile Visibility</div>
+              <div class="settings-desc">Who can see your profile</div>
+            </div>
+            <select class="settings-select" id="profileVisibility">
+              <option value="public">Public</option>
+              <option value="friends">Friends Only</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Show Online Status</div></div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked id="onlineStatusToggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Allow Friend Requests</div></div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked id="friendRequestToggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="settings-section">
+          <div class="settings-section-title">🔑 Security</div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Change Password</div>
+              <div class="settings-desc">Update your account password</div>
+            </div>
+            <button class="btn-secondary btn-sm" id="changePasswordBtn">Change</button>
+          </div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Two-Factor Authentication</div>
+              <div class="settings-desc">Add extra security to your account</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="twoFaToggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="settings-section">
+          <div class="settings-section-title">💼 Wallet Management</div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Connected Wallet</div>
+              <div class="settings-desc" id="connectedWalletAddr">No wallet connected</div>
+            </div>
+            <button class="btn-primary btn-sm" id="connectWalletBtn">Connect Wallet</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="danger-zone">
+          <div class="danger-title">⚠️ Danger Zone</div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Delete Account</div>
+              <div class="settings-desc">Permanently delete your account and all data</div>
+            </div>
+            <button class="btn-danger btn-sm" id="deleteAccountBtn">Delete Account</button>
+          </div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Export My Data</div>
+              <div class="settings-desc">Download all your account data</div>
+            </div>
+            <button class="btn-secondary btn-sm" id="exportDataBtn">Export</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: SUPPORT ===== -->
+    <section class="dashboard-section" id="section-support" aria-label="Support">
+      <div class="section-header"><h2 class="ribbon-title">❓ Support</h2></div>
+
+      <div class="content-row equal">
+        <!-- FAQ -->
+        <div class="dashboard-card">
+          <div class="card-title"><span class="title-icon">📖</span> Frequently Asked Questions</div>
+          <div class="faq-accordion">
+            <div class="faq-item">
+              <button class="faq-question">How do I get started? <span class="faq-arrow">▼</span></button>
+              <div class="faq-answer"><p>Create an account, choose your starter Nomekop, and begin exploring the world! Complete daily quests to earn PKC and grow your collection.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">How do I buy PKC? <span class="faq-arrow">▼</span></button>
+              <div class="faq-answer"><p>Navigate to your PKC Wallet and click "Buy PKC". You can purchase tokens using supported payment methods including credit card, crypto, or bank transfer.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">How do battles work? <span class="faq-arrow">▼</span></button>
+              <div class="faq-answer"><p>Choose up to 3 Nomekops for your team, then select Quick Match or Ranked Match. Battles are turn-based — choose moves wisely using type advantages!</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">How do I sell my Nomekops? <span class="faq-arrow">▼</span></button>
+              <div class="faq-answer"><p>Go to the Marketplace, click "Sell NFT", select the Nomekop you want to sell, set a price in PKC, and confirm. Your listing will be visible to all traders.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">What is staking? <span class="faq-arrow">▼</span></button>
+              <div class="faq-answer"><p>Staking locks your PKC for a period (30, 90, or 180 days) to earn interest. The longer you stake, the higher your APY reward. You can track active stakes in your Wallet.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">Is my data secure? <span class="faq-arrow">▼</span></button>
+              <div class="faq-answer"><p>Yes! We use Supabase with Row Level Security, encrypted sessions, and never store sensitive data in localStorage. Enable 2FA for extra protection.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact & Community -->
+        <div>
+          <!-- Contact Support -->
+          <div class="dashboard-card">
+            <div class="card-title"><span class="title-icon">📬</span> Contact Support</div>
+            <form class="support-form" id="supportForm">
+              <div class="form-group">
+                <label class="form-label" for="supportCategory">Category</label>
+                <select class="form-select" id="supportCategory">
+                  <option value="">Select a category</option>
+                  <option value="technical">Technical Issue</option>
+                  <option value="account">Account</option>
+                  <option value="billing">Billing</option>
+                  <option value="gameplay">Gameplay</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="supportSubject">Subject</label>
+                <input type="text" class="form-input" id="supportSubject" placeholder="Brief description of your issue" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="supportDescription">Description</label>
+                <textarea class="form-textarea" id="supportDescription" placeholder="Tell us more about your issue..."></textarea>
+              </div>
+              <button type="submit" class="btn-primary" style="width:100%;">📤 Submit Ticket</button>
+              <p style="font-size:0.75rem;color:var(--text-light);margin-top:8px;text-align:center;">Average response time: ~24 hours</p>
+            </form>
+          </div>
+
+          <!-- Community Links -->
+          <div class="dashboard-card">
+            <div class="card-title"><span class="title-icon">🌐</span> Community</div>
+            <div class="community-links">
+              <a href="https://discord.gg/uqfBvFNs" target="_blank" rel="noopener noreferrer" class="community-link-card">
+                <span class="cl-icon">💬</span>
+                <span class="cl-name">Discord</span>
+              </a>
+              <a href="https://x.com/NmkpBqst" target="_blank" rel="noopener noreferrer" class="community-link-card">
+                <span class="cl-icon">🐦</span>
+                <span class="cl-name">Twitter / X</span>
+              </a>
+              <a href="https://www.facebook.com/share/17sMBbdn6s/" target="_blank" rel="noopener noreferrer" class="community-link-card">
+                <span class="cl-icon">📘</span>
+                <span class="cl-name">Facebook</span>
+              </a>
+              <a href="http://www.youtube.com/@NomekopBequest" target="_blank" rel="noopener noreferrer" class="community-link-card">
+                <span class="cl-icon">▶️</span>
+                <span class="cl-name">YouTube</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- My Tickets -->
+      <div class="dashboard-card">
+        <div class="card-title"><span class="title-icon">🎫</span> My Tickets</div>
+        <div id="myTicketsList">
+          <div class="empty-state" style="padding:24px;">
+            <span class="empty-icon">🎫</span>
+            <div class="empty-title">No support tickets</div>
+            <p class="empty-text">You haven't submitted any support tickets yet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================
+       FOOTER
+       =================================== -->
+  <footer class="dashboard-footer">
+    <p>© 2026 Nomekop Bequest. All rights reserved. |
+      <a href="more/privacy-policy.html">Privacy Policy</a> |
+      <a href="more/terms-of-service.html">Terms of Service</a> |
+      <a href="more/cookie-policy.html">Cookie Policy</a>
+    </p>
+  </footer>
+
+  <!-- ===================================
+       MODALS
+       =================================== -->
+  <!-- Buy PKC Modal -->
+  <div class="modal-overlay" id="buyPkcModal">
+    <div class="modal">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <div class="modal-title">🛒 Buy PKC Tokens</div>
+      <div class="modal-subtitle">Choose your payment method and amount.</div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label class="form-label" style="display:block;font-weight:600;margin-bottom:6px;">Amount (PKC)</label>
+        <input type="number" class="settings-input" style="width:100%;" placeholder="Enter amount" min="1" />
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+        <button class="filter-chip active">💳 Credit Card</button>
+        <button class="filter-chip">🪙 Crypto</button>
+        <button class="filter-chip">🏦 Bank Transfer</button>
+      </div>
+      <button class="btn-primary" style="width:100%;">Confirm Purchase</button>
+    </div>
+  </div>
+
+  <!-- Send PKC Modal -->
+  <div class="modal-overlay" id="sendPkcModal">
+    <div class="modal">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <div class="modal-title">📤 Send PKC</div>
+      <div class="modal-subtitle">Transfer PKC to another trainer.</div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label class="form-label" style="display:block;font-weight:600;margin-bottom:6px;">Recipient Username or Wallet</label>
+        <input type="text" class="settings-input" style="width:100%;" placeholder="@username or 0x..." />
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label class="form-label" style="display:block;font-weight:600;margin-bottom:6px;">Amount (PKC)</label>
+        <input type="number" class="settings-input" style="width:100%;" placeholder="Enter amount" min="1" />
+      </div>
+      <button class="btn-primary" style="width:100%;">Send PKC</button>
+    </div>
+  </div>
+
+  <script src="dashboard-script.js"></script>
+</body>
+</html>

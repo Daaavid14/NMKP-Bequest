@@ -783,14 +783,14 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("heroDashboardBtn")
     ?.addEventListener("click", function (e) {
       e.preventDefault();
-      window.location.href = "/dashboard.html";
+      window.location.href = "dashboard.html";
     });
 
   document
     .getElementById("mobileDashboardBtn")
     ?.addEventListener("click", function (e) {
       e.preventDefault();
-      window.location.href = "/dashboard.html";
+      window.location.href = "dashboard.html";
     });
 
   document
