@@ -106,13 +106,13 @@ function initMobileMenu() {
       mobileMenuClose.addEventListener("click", closeMobileMenu);
     }
 
-    mobileNavLinks.forEach((link) => {
+    mobileNavLinks.forEach(link => {
       link.addEventListener("click", () => {
         closeMobileMenu();
       });
     });
 
-    mobileMenu.addEventListener("click", (e) => {
+    mobileMenu.addEventListener("click", e => {
       if (e.target === mobileMenu) {
         closeMobileMenu();
       }
@@ -134,15 +134,15 @@ function closeMobileMenu() {
 function initMobileDropdowns() {
   const mobileDropdowns = document.querySelectorAll(".mobile-dropdown");
 
-  mobileDropdowns.forEach((dropdown) => {
+  mobileDropdowns.forEach(dropdown => {
     const trigger = dropdown.querySelector(".mobile-dropdown-trigger");
 
     if (trigger) {
-      trigger.addEventListener("click", (e) => {
+      trigger.addEventListener("click", e => {
         e.preventDefault();
         dropdown.classList.toggle("active");
 
-        mobileDropdowns.forEach((otherDropdown) => {
+        mobileDropdowns.forEach(otherDropdown => {
           if (otherDropdown !== dropdown) {
             otherDropdown.classList.remove("active");
           }
@@ -155,16 +155,16 @@ function initMobileDropdowns() {
 function initDesktopDropdowns() {
   const dropdowns = document.querySelectorAll(".dropdown");
 
-  dropdowns.forEach((dropdown) => {
+  dropdowns.forEach(dropdown => {
     const trigger = dropdown.querySelector(".dropdown-trigger");
 
     if (trigger) {
-      trigger.addEventListener("click", (e) => {
+      trigger.addEventListener("click", e => {
         if (window.innerWidth > 1023) {
           e.preventDefault();
           dropdown.classList.toggle("active");
 
-          dropdowns.forEach((otherDropdown) => {
+          dropdowns.forEach(otherDropdown => {
             if (otherDropdown !== dropdown) {
               otherDropdown.classList.remove("active");
             }
@@ -174,9 +174,9 @@ function initDesktopDropdowns() {
     }
   });
 
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", e => {
     if (!e.target.closest(".dropdown")) {
-      dropdowns.forEach((dropdown) => {
+      dropdowns.forEach(dropdown => {
         dropdown.classList.remove("active");
       });
     }
@@ -188,13 +188,13 @@ function updateActiveNavItem() {
   const navLinks = document.querySelectorAll(".nav-link");
   const scrollY = window.scrollY;
 
-  sections.forEach((section) => {
+  sections.forEach(section => {
     const sectionTop = section.offsetTop - 100;
     const sectionHeight = section.offsetHeight;
     const sectionId = section.getAttribute("id");
 
     if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-      navLinks.forEach((link) => {
+      navLinks.forEach(link => {
         link.classList.remove("active");
         if (link.getAttribute("href") === `#${sectionId}`) {
           link.classList.add("active");
@@ -204,7 +204,7 @@ function updateActiveNavItem() {
   });
 
   if (scrollY < 100) {
-    navLinks.forEach((link) => {
+    navLinks.forEach(link => {
       link.classList.remove("active");
       if (link.getAttribute("href") === "#hero") {
         link.classList.add("active");
@@ -216,8 +216,8 @@ function updateActiveNavItem() {
 function initSmoothScroll() {
   const navLinks = document.querySelectorAll('a[href^="#"]');
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+  navLinks.forEach(link => {
+    link.addEventListener("click", e => {
       const href = link.getAttribute("href");
 
       if (href.startsWith("#") && href.length > 1) {
@@ -519,7 +519,7 @@ function generateUsernameSuggestions(baseUsername) {
   ];
 
   suggestionsList.innerHTML = "";
-  suggestions.forEach((suggestion) => {
+  suggestions.forEach(suggestion => {
     const chip = document.createElement("div");
     chip.className = "suggestion-chip";
     chip.textContent = suggestion;
@@ -600,7 +600,7 @@ if (usernameForm) {
 function preloadTypeSprites() {
   const typeSprites = ["fire", "water", "electric", "ice", "dark", "grass"];
 
-  typeSprites.forEach((type) => {
+  typeSprites.forEach(type => {
     const img = new Image();
     img.src = `./assets/types/${type}.png`;
     img.onerror = function () {
@@ -622,7 +622,7 @@ if (document.readyState === "loading") {
 document.addEventListener("DOMContentLoaded", function () {
   const typeSprites = document.querySelectorAll(".type-sprite");
 
-  typeSprites.forEach((sprite) => {
+  typeSprites.forEach(sprite => {
     sprite.addEventListener("error", function () {
       console.warn(`Failed to load image: ${this.src}`);
       this.style.display = "none";
@@ -703,12 +703,12 @@ function clearForm(formType) {
 
   form.reset();
 
-  form.querySelectorAll(".form-error-msg").forEach((msg) => {
+  form.querySelectorAll(".form-error-msg").forEach(msg => {
     msg.classList.remove("visible");
     msg.textContent = "";
   });
 
-  form.querySelectorAll(".form-input").forEach((input) => {
+  form.querySelectorAll(".form-input").forEach(input => {
     input.classList.remove("error");
   });
 
@@ -741,7 +741,7 @@ function switchModal(fromType, toType) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll("[data-modal]").forEach((btn) => {
+  document.querySelectorAll("[data-modal]").forEach(btn => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       const modalType = this.getAttribute("data-modal");
@@ -749,7 +749,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  document.querySelectorAll(".modal-close").forEach((btn) => {
+  document.querySelectorAll(".modal-close").forEach(btn => {
     btn.addEventListener("click", closeModal);
   });
 
@@ -845,18 +845,18 @@ function clearAllErrors(formType) {
   const form = document.getElementById(`${formType}Form`);
   if (!form) return;
 
-  form.querySelectorAll(".form-error-msg").forEach((msg) => {
+  form.querySelectorAll(".form-error-msg").forEach(msg => {
     msg.classList.remove("visible");
     msg.textContent = "";
   });
 
-  form.querySelectorAll(".form-input").forEach((input) => {
+  form.querySelectorAll(".form-input").forEach(input => {
     input.classList.remove("error");
   });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".form-input").forEach((input) => {
+  document.querySelectorAll(".form-input").forEach(input => {
     input.addEventListener("input", function () {
       if (this.classList.contains("error")) {
         clearError(this.id);
@@ -1119,20 +1119,29 @@ if (scrollIndicator) {
 // 8. ADDITIONAL FORM ENHANCEMENTS
 // ===================================
 
-emailInput.addEventListener("input", function () {
-  if (emailInput.classList.contains("error")) {
-    emailInput.classList.remove("error");
-    formError.textContent = "";
+{
+  const emailInput =
+    document.getElementById("signupEmail") ||
+    document.getElementById("loginEmail");
+  const formError = document.querySelector(".form-error-msg");
+
+  if (emailInput) {
+    emailInput.addEventListener("input", function () {
+      if (emailInput.classList.contains("error")) {
+        emailInput.classList.remove("error");
+        if (formError) formError.textContent = "";
+      }
+    });
+
+    emailInput.addEventListener("focus", function () {
+      this.parentElement.classList.add("focused");
+    });
+
+    emailInput.addEventListener("blur", function () {
+      this.parentElement.classList.remove("focused");
+    });
   }
-});
-
-emailInput.addEventListener("focus", function () {
-  this.parentElement.classList.add("focused");
-});
-
-emailInput.addEventListener("blur", function () {
-  this.parentElement.classList.remove("focused");
-});
+}
 
 // ===================================
 // 9. PERFORMANCE OPTIMIZATION
@@ -1155,25 +1164,32 @@ window.addEventListener(
 // 10. ACCESSIBILITY ENHANCEMENTS
 // ===================================
 
-modal.addEventListener("keydown", function (e) {
-  if (!modal.classList.contains("active")) return;
+{
+  const modal =
+    document.getElementById("loginModal") ||
+    document.getElementById("signupModal");
+  if (modal) {
+    modal.addEventListener("keydown", function (e) {
+      if (!modal.classList.contains("active")) return;
 
-  if (e.key === "Tab") {
-    const focusableElements = modal.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-    );
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
+      if (e.key === "Tab") {
+        const focusableElements = modal.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
 
-    if (e.shiftKey && document.activeElement === firstElement) {
-      e.preventDefault();
-      lastElement.focus();
-    } else if (!e.shiftKey && document.activeElement === lastElement) {
-      e.preventDefault();
-      firstElement.focus();
-    }
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    });
   }
-});
+}
 
 // ===================================
 // 11. FEATURES SECTION SCROLL ANIMATION
@@ -1192,8 +1208,8 @@ function initFeaturesAnimation() {
     rootMargin: "0px",
   };
 
-  const observerCallback = (entries) => {
-    entries.forEach((entry) => {
+  const observerCallback = entries => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         if (featuresHeading) {
           featuresHeading.classList.add("animate");
@@ -1226,81 +1242,416 @@ if (document.readyState === "loading") {
 }
 
 // ===================================
-// SHOWCASE MARQUEE CAROUSEL
+// SHOWCASE - 3D CARD CAROUSEL
 // ===================================
 
-function initShowcaseCarousel() {
+const CAROUSEL_POKEMON = [
+  {
+    name: "Pikachu",
+    stage: "Stage 2",
+    folder: "secondForm",
+    type: "Electric",
+    hp: 274,
+    atk: 55,
+    def: 40,
+    spd: 90,
+    gradient:
+      "linear-gradient(145deg, #fff9c4 0%, #ffee58 30%, #fdd835 60%, #f9a825 100%)",
+  },
+  {
+    name: "Squirtle",
+    stage: "Base",
+    folder: "baseForm",
+    type: "Water",
+    hp: 292,
+    atk: 48,
+    def: 65,
+    spd: 43,
+    gradient:
+      "linear-gradient(145deg, #e3f2fd 0%, #90caf9 30%, #42a5f5 60%, #1e88e5 100%)",
+  },
+  {
+    name: "Charmander",
+    stage: "Base",
+    folder: "baseForm",
+    type: "Fire",
+    hp: 282,
+    atk: 52,
+    def: 43,
+    spd: 65,
+    gradient:
+      "linear-gradient(145deg, #fff3e0 0%, #ffcc80 30%, #ff9800 60%, #ef6c00 100%)",
+  },
+  {
+    name: "Bulbasaur",
+    stage: "Base",
+    folder: "baseForm",
+    type: "Grass",
+    hp: 294,
+    atk: 49,
+    def: 49,
+    spd: 45,
+    gradient:
+      "linear-gradient(145deg, #e8f5e9 0%, #a5d6a7 30%, #66bb6a 60%, #2e7d32 100%)",
+  },
+  {
+    name: "Eevee",
+    stage: "Base",
+    folder: "baseForm",
+    type: "Normal",
+    hp: 310,
+    atk: 55,
+    def: 50,
+    spd: 55,
+    gradient:
+      "linear-gradient(145deg, #efebe9 0%, #d7ccc8 30%, #a1887f 60%, #795548 100%)",
+  },
+  {
+    name: "Dragonite",
+    stage: "Stage 3",
+    folder: "thirdForm",
+    type: "Dragon",
+    hp: 386,
+    atk: 134,
+    def: 95,
+    spd: 80,
+    gradient:
+      "linear-gradient(145deg, #ede7f6 0%, #b39ddb 30%, #7e57c2 60%, #4527a0 100%)",
+  },
+  {
+    name: "Charizard",
+    stage: "Stage 3",
+    folder: "thirdForm",
+    type: "Fire",
+    hp: 360,
+    atk: 84,
+    def: 78,
+    spd: 100,
+    gradient:
+      "linear-gradient(145deg, #fbe9e7 0%, #ff8a65 30%, #f4511e 60%, #bf360c 100%)",
+  },
+  {
+    name: "Gengar",
+    stage: "Stage 3",
+    folder: "thirdForm",
+    type: "Ghost",
+    hp: 324,
+    atk: 65,
+    def: 60,
+    spd: 110,
+    gradient:
+      "linear-gradient(145deg, #f3e5f5 0%, #ce93d8 30%, #9c27b0 60%, #6a1b9a 100%)",
+  },
+  {
+    name: "Jolteon",
+    stage: "Stage 3",
+    folder: "thirdForm",
+    type: "Electric",
+    hp: 334,
+    atk: 65,
+    def: 60,
+    spd: 130,
+    gradient:
+      "linear-gradient(145deg, #fffde7 0%, #fff176 30%, #fdd835 60%, #f57f17 100%)",
+  },
+  {
+    name: "Blastoise",
+    stage: "Stage 3",
+    folder: "thirdForm",
+    type: "Water",
+    hp: 362,
+    atk: 83,
+    def: 100,
+    spd: 78,
+    gradient:
+      "linear-gradient(145deg, #e1f5fe 0%, #4fc3f7 30%, #0288d1 60%, #01579b 100%)",
+  },
+];
+
+const TYPE_COLORS = {
+  Fire: "#F08030",
+  Water: "#6890F0",
+  Grass: "#78C850",
+  Electric: "#F8D030",
+  Dragon: "#7038F8",
+  Ghost: "#705898",
+  Normal: "#A8A878",
+  Rock: "#B8A038",
+  Dark: "#705848",
+  Ice: "#98D8D8",
+  Fighting: "#C03028",
+  Poison: "#A040A0",
+};
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function initCardCarousel() {
   const showcaseSection = document.querySelector("#showcase");
   const showcaseHeading = document.querySelector(".showcase-heading");
   const showcaseSubheading = document.querySelector(".showcase-subheading");
-  const track = document.querySelector(".carousel-track");
+  const track = document.getElementById("carouselTrack");
+  const shuffleBtn = document.getElementById("shuffleBtn");
+  const prevBtn = document.getElementById("carouselPrev");
+  const nextBtn = document.getElementById("carouselNext");
 
   if (!showcaseSection || !track) return;
 
-  const cards = track.querySelectorAll(".creature-card");
-  cards.forEach((card) => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    track.appendChild(clone);
+  let cards = [];
+  let activeIndex = 0;
+  let autoRotateTimer = null;
+  let isPaused = false;
+  const AUTO_ROTATE_INTERVAL = 3000;
+  const VISIBLE_COUNT = 7;
+
+  function buildCards(pokemon) {
+    track.innerHTML = "";
+    cards = [];
+
+    pokemon.forEach((pkmn, i) => {
+      const card = document.createElement("div");
+      card.className = "carousel-card";
+      card.setAttribute("data-index", i);
+
+      card.innerHTML = `
+        <div class="carousel-card-inner" style="background: ${pkmn.gradient};">
+          <div class="carousel-holo-shine"></div>
+          <div class="carousel-foil"></div>
+          <div class="carousel-sparkles">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="carousel-card-header">
+            <span class="carousel-card-stage">${pkmn.stage}</span>
+            <span class="carousel-card-hp">HP ${pkmn.hp}</span>
+          </div>
+          <div class="carousel-card-image">
+            <img src="assets/${pkmn.folder}/${pkmn.name}.gif" alt="${pkmn.name}" loading="lazy" />
+          </div>
+          <div class="carousel-card-info">
+            <h3 class="carousel-card-name">${pkmn.name}</h3>
+            <span class="carousel-card-type" style="background: ${TYPE_COLORS[pkmn.type] || "#A8A878"};">${pkmn.type}</span>
+            <div class="carousel-card-stats">
+              <div class="carousel-card-stat"><span class="carousel-card-stat-label">ATK</span><span class="carousel-card-stat-val">${pkmn.atk}</span></div>
+              <div class="carousel-card-stat"><span class="carousel-card-stat-label">DEF</span><span class="carousel-card-stat-val">${pkmn.def}</span></div>
+              <div class="carousel-card-stat"><span class="carousel-card-stat-label">SPD</span><span class="carousel-card-stat-val">${pkmn.spd}</span></div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        goToCard(i);
+      });
+
+      track.appendChild(card);
+      cards.push(card);
+    });
+
+    activeIndex = Math.floor(pokemon.length / 2);
+    layoutCards();
+  }
+
+  function layoutCards() {
+    const total = cards.length;
+    const half = Math.floor(VISIBLE_COUNT / 2);
+
+    cards.forEach((card, i) => {
+      let offset = i - activeIndex;
+      if (offset > total / 2) offset -= total;
+      if (offset < -total / 2) offset += total;
+
+      const absOffset = Math.abs(offset);
+
+      if (absOffset > half) {
+        card.style.opacity = "0";
+        card.style.pointerEvents = "none";
+        card.style.transform = `translate(-50%, -50%) translateX(${offset * 200}px) scale(0.5) rotateY(${offset > 0 ? -40 : 40}deg)`;
+        card.style.zIndex = "0";
+        card.classList.remove("active");
+        return;
+      }
+
+      const xSpacing = getXSpacing();
+      const translateX = offset * xSpacing;
+
+      const translateY = absOffset * absOffset * 8;
+
+      const rotateY = offset * -8;
+
+      const scale = 1 - absOffset * 0.1;
+
+      const zIndex = VISIBLE_COUNT - absOffset;
+
+      const opacity = 1 - absOffset * 0.15;
+
+      card.style.transform = `translate(-50%, -50%) translateX(${translateX}px) translateY(${translateY}px) rotateY(${rotateY}deg) scale(${scale})`;
+      card.style.zIndex = zIndex;
+      card.style.opacity = opacity;
+      card.style.pointerEvents = absOffset === 0 ? "auto" : "auto";
+
+      if (absOffset === 0) {
+        card.classList.add("active");
+      } else {
+        card.classList.remove("active");
+      }
+    });
+  }
+
+  function getXSpacing() {
+    const w = window.innerWidth;
+    if (w < 500) return 80;
+    if (w < 768) return 110;
+    if (w < 1024) return 140;
+    return 165;
+  }
+
+  function goToCard(index) {
+    activeIndex = index;
+    layoutCards();
+    resetAutoRotate();
+  }
+
+  function nextCard() {
+    activeIndex = (activeIndex + 1) % cards.length;
+    layoutCards();
+  }
+
+  function prevCard() {
+    activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+    layoutCards();
+  }
+
+  let currentPokemon = CAROUSEL_POKEMON;
+
+  function startAutoRotate() {
+    stopAutoRotate();
+    autoRotateTimer = setInterval(() => {
+      if (!isPaused) nextCard();
+    }, AUTO_ROTATE_INTERVAL);
+  }
+
+  function stopAutoRotate() {
+    if (autoRotateTimer) {
+      clearInterval(autoRotateTimer);
+      autoRotateTimer = null;
+    }
+  }
+
+  function resetAutoRotate() {
+    stopAutoRotate();
+    startAutoRotate();
+  }
+
+  const scene = document.getElementById("carouselScene");
+  if (scene) {
+    scene.addEventListener("mouseenter", () => {
+      isPaused = true;
+    });
+    scene.addEventListener("mouseleave", () => {
+      isPaused = false;
+    });
+  }
+
+  if (prevBtn)
+    prevBtn.addEventListener("click", () => {
+      prevCard();
+      resetAutoRotate();
+    });
+  if (nextBtn)
+    nextBtn.addEventListener("click", () => {
+      nextCard();
+      resetAutoRotate();
+    });
+
+  if (shuffleBtn) {
+    shuffleBtn.addEventListener("click", () => {
+      track.style.opacity = "0";
+      track.style.transform = "scale(0.95)";
+
+      setTimeout(() => {
+        currentPokemon = shuffleArray(CAROUSEL_POKEMON);
+        buildCards(currentPokemon);
+        track.style.opacity = "1";
+        track.style.transform = "scale(1)";
+        startAutoRotate();
+      }, 350);
+    });
+    track.style.transition = "opacity 0.35s ease, transform 0.35s ease";
+  }
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") {
+      prevCard();
+      resetAutoRotate();
+    }
+    if (e.key === "ArrowRight") {
+      nextCard();
+      resetAutoRotate();
+    }
   });
 
-  const observerOptions = {
-    threshold: 0.15,
-    rootMargin: "0px",
-  };
+  let touchStartX = 0;
+  let touchEndX = 0;
 
-  const observerCallback = (entries) => {
-    entries.forEach((entry) => {
+  if (scene) {
+    scene.addEventListener(
+      "touchstart",
+      e => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true },
+    );
+
+    scene.addEventListener(
+      "touchend",
+      e => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) nextCard();
+          else prevCard();
+          resetAutoRotate();
+        }
+      },
+      { passive: true },
+    );
+  }
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layoutCards, 150);
+  });
+
+  currentPokemon = [...CAROUSEL_POKEMON];
+  buildCards(currentPokemon);
+  startAutoRotate();
+
+  const observerCallback = entries => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
-        if (showcaseHeading) {
-          showcaseHeading.classList.add("animate");
-        }
-        if (showcaseSubheading) {
-          showcaseSubheading.classList.add("animate");
-        }
+        if (showcaseHeading) showcaseHeading.classList.add("animate");
+        if (showcaseSubheading) showcaseSubheading.classList.add("animate");
         observer.unobserve(entry.target);
       }
     });
   };
-
-  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  const observer = new IntersectionObserver(observerCallback, {
+    threshold: 0.15,
+  });
   observer.observe(showcaseSection);
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initShowcaseCarousel);
+  document.addEventListener("DOMContentLoaded", initCardCarousel);
 } else {
-  initShowcaseCarousel();
-}
-
-// ===================================
-// 13. CREATURE CARD INTERACTION
-// ===================================
-
-function initCreatureCardInteraction() {
-  const track = document.querySelector(".carousel-track");
-  if (track) {
-    track.addEventListener("click", function (e) {
-      const card = e.target.closest(".creature-card");
-      if (!card) return;
-
-      card.style.animation = "none";
-      setTimeout(() => {
-        card.style.animation = "";
-      }, 10);
-
-      const name = card.querySelector(".creature-name");
-      if (name) {
-        console.log("Clicked creature:", name.textContent);
-      }
-    });
-  }
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initCreatureCardInteraction);
-} else {
-  initCreatureCardInteraction();
+  initCardCarousel();
 }
 
 // ===================================
@@ -1322,8 +1673,8 @@ function initHowItWorksAnimation() {
     rootMargin: "0px",
   };
 
-  const observerCallback = (entries) => {
-    entries.forEach((entry) => {
+  const observerCallback = entries => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         if (howItWorksHeading) {
           howItWorksHeading.classList.add("animate");
@@ -1375,8 +1726,8 @@ function initSocialProofAnimation() {
     rootMargin: "0px",
   };
 
-  const observerCallback = (entries) => {
-    entries.forEach((entry) => {
+  const observerCallback = entries => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         if (socialProofHeading) {
           socialProofHeading.classList.add("animate");
@@ -1442,7 +1793,7 @@ if (document.readyState === "loading") {
 // SMOOTH SCROLL FOR ALL LINKS
 // ===================================
 
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", function (e) {
     const href = this.getAttribute("href");
     if (href === "#" || href === "#!") return;
@@ -1474,7 +1825,7 @@ async function handleGoogleAuth() {
 
   // Show loading state
   const googleButtons = document.querySelectorAll(".btn-google");
-  googleButtons.forEach((btn) => {
+  googleButtons.forEach(btn => {
     btn.classList.add("loading");
     btn.disabled = true;
   });
@@ -1483,7 +1834,7 @@ async function handleGoogleAuth() {
     // PLACEHOLDER: Replace with actual Google OAuth implementation
     // This is where you'll integrate with Supabase or Firebase Auth
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     // Example with Supabase (uncomment when ready):
     // const { data, error } = await supabase.auth.signInWithOAuth({
@@ -1502,7 +1853,7 @@ async function handleGoogleAuth() {
     console.error("Google auth error:", error);
     alert("Failed to authenticate with Google. Please try again.");
   } finally {
-    googleButtons.forEach((btn) => {
+    googleButtons.forEach(btn => {
       btn.classList.remove("loading");
       btn.disabled = false;
     });
@@ -1515,7 +1866,7 @@ async function handleFacebookAuth() {
   console.log("Facebook authentication initiated");
 
   const facebookButtons = document.querySelectorAll(".btn-facebook");
-  facebookButtons.forEach((btn) => {
+  facebookButtons.forEach(btn => {
     btn.classList.add("loading");
     btn.disabled = true;
   });
@@ -1523,7 +1874,7 @@ async function handleFacebookAuth() {
   try {
     // PLACEHOLDER: Replace with actual Facebook OAuth implementation
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     // Example with Supabase (uncomment when ready):
     // const { data, error } = await supabase.auth.signInWithOAuth({
@@ -1541,7 +1892,7 @@ async function handleFacebookAuth() {
     console.error("Facebook auth error:", error);
     alert("Failed to authenticate with Facebook. Please try again.");
   } finally {
-    facebookButtons.forEach((btn) => {
+    facebookButtons.forEach(btn => {
       btn.classList.remove("loading");
       btn.disabled = false;
     });
