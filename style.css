@@ -1975,7 +1975,7 @@ body.mobile-menu-open {
   position: relative;
   padding: var(--spacing-4xl) 0;
   background: var(--bg-blue-50);
-  overflow: hidden;
+  overflow: clip;
 }
 
 .showcase::before {
@@ -2059,6 +2059,7 @@ body.mobile-menu-open {
 
 /* --- Carousel Scene Container --- */
 .carousel-scene {
+  -webkit-perspective: 1400px;
   perspective: 1400px;
   position: relative;
   width: 100%;
@@ -2107,6 +2108,7 @@ body.mobile-menu-open {
   position: relative;
   width: 100%;
   height: 420px;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   z-index: 1;
 }
@@ -2120,6 +2122,7 @@ body.mobile-menu-open {
   height: 340px;
   border-radius: 18px;
   cursor: pointer;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform, opacity;
@@ -2947,6 +2950,7 @@ body.mobile-menu-open {
 
   .carousel-scene {
     padding: 25px 0 15px;
+    -webkit-perspective: 900px;
     perspective: 900px;
   }
 
@@ -3311,9 +3315,9 @@ body.mobile-menu-open {
   color: var(--text-gray);
 }
 
-/* ================
-   FOOTER - COC STYLE
-   ================ */
+/* =======
+   FOOTER
+   =======*/
 
 .footer {
   background: linear-gradient(
@@ -3484,9 +3488,9 @@ body.mobile-menu-open {
   color: rgba(255, 255, 255, 0.3);
 }
 
-/* ===============================
+/* ===========================
    RESPONSIVE - SOCIAL PROOF
-   =============================== */
+   =========================== */
 
 @media (max-width: 1023px) {
   .stats-row {
