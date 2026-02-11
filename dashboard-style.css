@@ -150,6 +150,7 @@ body {
 
 [data-theme="dark"] body {
   background-color: #0f0f23;
+  background-blend-mode: overlay;
 }
 
 body::before {
