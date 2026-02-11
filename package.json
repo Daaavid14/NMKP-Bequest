@@ -1,0 +1,33 @@
+{
+  "name": "nmkp-bequest",
+  "version": "1.0.0",
+  "description": "NOMEKOP Bequest - Pokemon NFT Project",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "upload": "node scripts/pinata-upload.js",
+    "upload:dry": "node scripts/pinata-upload.js --dry-run",
+    "compile": "npx hardhat compile --config hardhat.config.cjs",
+    "test": "npx hardhat test --config hardhat.config.cjs",
+    "deploy:local": "npx hardhat run scripts/deploy.cjs --config hardhat.config.cjs",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.cjs --network sepolia --config hardhat.config.cjs",
+    "mint:local": "npx hardhat run scripts/mint.cjs --config hardhat.config.cjs",
+    "mint:sepolia": "npx hardhat run scripts/mint.cjs --network sepolia --config hardhat.config.cjs",
+    "xp:local": "npx hardhat run scripts/grant-xp.cjs --config hardhat.config.cjs",
+    "xp:sepolia": "npx hardhat run scripts/grant-xp.cjs --network sepolia --config hardhat.config.cjs",
+    "evolve:local": "npx hardhat run scripts/evolve.cjs --config hardhat.config.cjs",
+    "evolve:sepolia": "npx hardhat run scripts/evolve.cjs --network sepolia --config hardhat.config.cjs",
+    "query:local": "npx hardhat run scripts/query.cjs --config hardhat.config.cjs",
+    "query:sepolia": "npx hardhat run scripts/query.cjs --network sepolia --config hardhat.config.cjs",
+    "node": "npx hardhat node --config hardhat.config.cjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "pinata": "^2.5.4"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.4.0",
+    "hardhat": "^2.28.5"
+  }
+}

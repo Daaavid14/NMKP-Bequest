@@ -73,6 +73,10 @@ signing_keys.json
 secrets/
 .secrets
 
+# NFT.Storage upload artifacts
+metadata/cids.json
+package-lock.json
+
 # ============================================================================
 # IMPORTANT SECURITY NOTE
 # ============================================================================

@@ -12,6 +12,7 @@
   <link rel="icon" href="backgrounds/pokemonBall.png" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
 </head>
 <body>
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
@@ -38,6 +39,11 @@
       <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">
         <span class="theme-icon-light">☀️</span>
         <span class="theme-icon-dark">🌙</span>
+      </button>
+
+      <button class="wallet-connect-pill" id="walletConnectPill" aria-label="Connect Wallet" title="Connect MetaMask">
+        <span class="wallet-icon">🦊</span>
+        <span id="navWalletStatus">Connect Wallet</span>
       </button>
 
       <button class="pkc-balance-pill" id="pkcBalancePill" aria-label="PKC Balance" data-section="wallet">
@@ -276,6 +282,12 @@
     <section class="dashboard-section" id="section-collection" aria-label="My Collection">
       <div class="section-header"><h2 class="ribbon-title">📦 My Collection</h2></div>
 
+      <!-- Blockchain Status -->
+      <div class="chain-status-bar" id="collectionChainStatus">
+        <span class="chain-dot" id="collectionChainDot"></span>
+        <span id="collectionChainText">Connect wallet to view your on-chain Nomekops</span>
+      </div>
+
       <!-- Filters -->
       <div class="marketplace-filters">
         <input type="text" class="settings-input" id="collectionSearch" placeholder="Search by name or ID..." style="flex:1;max-width:300px;" />
@@ -303,15 +315,16 @@
           <option value="rarity">Sort: Rarity</option>
           <option value="date">Sort: Date Acquired</option>
         </select>
+        <button class="btn-secondary btn-sm" id="refreshCollectionBtn">🔄 Refresh</button>
       </div>
 
       <div class="nft-grid" id="collectionGrid">
-        <!-- Populated by JS or empty state -->
-        <div class="empty-state" style="grid-column:1/-1;">
+        <!-- Populated by JS from blockchain -->
+        <div class="empty-state" style="grid-column:1/-1;" id="collectionEmpty">
           <span class="empty-icon">📦</span>
           <div class="empty-title">Your collection is empty!</div>
-          <p class="empty-text">Start catching Nomekops to fill your collection.</p>
-          <button class="btn-primary" data-section="marketplace">Go to Marketplace</button>
+          <p class="empty-text">Connect your wallet and mint Nomekops to fill your collection.</p>
+          <button class="btn-primary" id="connectForCollection">🦊 Connect Wallet</button>
         </div>
       </div>
 
@@ -429,14 +442,27 @@
     <section class="dashboard-section" id="section-marketplace" aria-label="Marketplace">
       <div class="section-header"><h2 class="ribbon-title">🏪 Marketplace</h2></div>
 
+      <!-- Chain Info Bar -->
+      <div class="chain-info-bar">
+        <div class="chain-info-left">
+          <span class="chain-dot connected" id="marketChainDot"></span>
+          <span class="chain-name">Sepolia Testnet</span>
+          <span class="chain-contract" id="marketContractAddr" title="0xBc26F38c9be4fcE60623d50cB21dB7BEe2B46e46">Contract: 0xBc26...e46</span>
+        </div>
+        <div class="chain-info-right">
+          <span class="total-supply-badge" id="totalSupplyBadge">Total Minted: --</span>
+          <a href="https://sepolia.etherscan.io/address/0xBc26F38c9be4fcE60623d50cB21dB7BEe2B46e46" target="_blank" rel="noopener" class="etherscan-link">View on Etherscan ↗</a>
+        </div>
+      </div>
+
       <div class="tab-bar">
-        <button class="tab-item active" data-tab="browse">Browse NFTs</button>
-        <button class="tab-item" data-tab="my-listings">My Listings</button>
-        <button class="tab-item" data-tab="sell">Sell NFT</button>
+        <button class="tab-item active" data-tab="browse" id="tabBrowse">Browse All NFTs</button>
+        <button class="tab-item" data-tab="my-nfts" id="tabMyNfts">My NFTs</button>
+        <button class="tab-item" data-tab="catalog" id="tabCatalog">Full Catalog</button>
       </div>
 
       <div class="marketplace-filters" id="marketplaceFilters">
-        <input type="text" class="settings-input" id="marketSearch" placeholder="Search by name, ID, or seller..." style="flex:1;max-width:300px;" />
+        <input type="text" class="settings-input" id="marketSearch" placeholder="Search by name, type, or token ID..." style="flex:1;max-width:300px;" />
         <select class="settings-select" id="marketTypeFilter">
           <option value="">All Types</option>
           <option value="fire">🔥 Fire</option>
@@ -444,51 +470,63 @@
           <option value="grass">🌿 Grass</option>
           <option value="electric">⚡ Electric</option>
           <option value="dragon">🐉 Dragon</option>
+          <option value="fighting">👊 Fighting</option>
+          <option value="ghost">👻 Ghost</option>
+          <option value="poison">☠️ Poison</option>
+          <option value="bug">🐛 Bug</option>
+          <option value="normal">⚪ Normal</option>
+          <option value="ice">❄️ Ice</option>
+          <option value="rock">🪨 Rock</option>
+          <option value="ground">🏔️ Ground</option>
+          <option value="flying">🕊️ Flying</option>
+        </select>
+        <select class="settings-select" id="marketStageFilter">
+          <option value="">All Stages</option>
+          <option value="base">Base Form</option>
+          <option value="second">Second Form</option>
+          <option value="third">Third Form</option>
         </select>
         <select class="settings-select" id="marketSort">
-          <option value="recent">Recently Listed</option>
-          <option value="price-low">Price: Low to High</option>
-          <option value="price-high">Price: High to Low</option>
-          <option value="trending">Trending</option>
+          <option value="id-asc">Token ID: Low → High</option>
+          <option value="id-desc">Token ID: High → Low</option>
+          <option value="name">Name: A → Z</option>
+          <option value="level-high">Level: High → Low</option>
+          <option value="level-low">Level: Low → High</option>
         </select>
+        <button class="btn-secondary btn-sm" id="refreshMarketBtn">🔄 Refresh</button>
       </div>
 
-      <div class="nft-grid" id="marketplaceGrid">
-        <div class="nft-card marketplace-nft-card">
-          <div class="nft-image">🔥</div>
-          <div class="nft-name">Flamewing #0042</div>
-          <div class="nft-type-badges"><span class="type-badge fire">Fire</span><span class="type-badge flying">Flying</span></div>
-          <div class="price-tag">🪙 250 PKC</div>
-          <div class="seller-info">by @DragonMaster</div>
-          <button class="btn-primary btn-sm" style="width:100%;">Buy Now</button>
-        </div>
-        <div class="nft-card marketplace-nft-card">
-          <div class="nft-image">💧</div>
-          <div class="nft-name">Aquascale #0108</div>
-          <div class="nft-type-badges"><span class="type-badge water">Water</span><span class="type-badge dragon">Dragon</span></div>
-          <div class="price-tag">🪙 380 PKC</div>
-          <div class="seller-info">by @WaterTrainer</div>
-          <button class="btn-primary btn-sm" style="width:100%;">Buy Now</button>
-        </div>
-        <div class="nft-card marketplace-nft-card">
-          <div class="nft-image">⚡</div>
-          <div class="nft-name">Voltpaw #0217</div>
-          <div class="nft-type-badges"><span class="type-badge electric">Electric</span></div>
-          <div class="price-tag">🪙 175 PKC</div>
-          <div class="seller-info">by @ThunderKid</div>
-          <button class="btn-primary btn-sm" style="width:100%;">Buy Now</button>
-        </div>
-        <div class="nft-card marketplace-nft-card">
-          <div class="nft-image">🌿</div>
-          <div class="nft-name">Leafguard #0055</div>
-          <div class="nft-type-badges"><span class="type-badge grass">Grass</span></div>
-          <div class="price-tag">🪙 120 PKC</div>
-          <div class="seller-info">by @GreenThumb</div>
-          <button class="btn-primary btn-sm" style="width:100%;">Buy Now</button>
+      <!-- Browse Tab Content -->
+      <div id="browseTabContent">
+        <div class="nft-grid" id="marketplaceGrid">
+          <div class="marketplace-loading" id="marketplaceLoading" style="grid-column:1/-1;text-align:center;padding:48px;">
+            <div class="loading-spinner"></div>
+            <p style="margin-top:16px;color:var(--text-medium);">Loading NFTs from blockchain...</p>
+          </div>
         </div>
       </div>
 
-      <div class="pagination" id="marketplacePagination">
+      <!-- My NFTs Tab Content -->
+      <div id="myNftsTabContent" style="display:none;">
+        <div class="nft-grid" id="myNftsGrid">
+          <div class="empty-state" style="grid-column:1/-1;" id="myNftsEmpty">
+            <span class="empty-icon">🦊</span>
+            <div class="empty-title">Connect your wallet</div>
+            <p class="empty-text">Connect MetaMask to see your owned Nomekop NFTs on Sepolia.</p>
+            <button class="btn-primary" id="connectForMyNfts">🦊 Connect Wallet</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catalog Tab Content -->
+      <div id="catalogTabContent" style="display:none;">
+        <p style="color:var(--text-medium);margin-bottom:16px;font-size:0.9rem;">Browse all 60 Nomekop species across 3 evolution stages with IPFS-hosted artwork.</p>
+        <div class="nft-grid" id="catalogGrid">
+          <!-- Populated by JS from metadata -->
+        </div>
+      </div>
+
+      <div class="pagination" id="marketplacePagination" style="display:none;">
         <button class="page-btn" data-page="prev">‹</button>
         <button class="page-btn active">1</button>
         <button class="page-btn">2</button>
@@ -1150,6 +1188,72 @@
         <button class="filter-chip">🏦 Bank Transfer</button>
       </div>
       <button class="btn-primary" style="width:100%;">Confirm Purchase</button>
+    </div>
+  </div>
+
+  <!-- NFT Detail Modal -->
+  <div class="modal-overlay" id="nftDetailModal">
+    <div class="modal nft-detail-modal">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <div class="nft-detail-content">
+        <div class="nft-detail-image" id="nftDetailImage">
+          <img src="" alt="NFT" id="nftDetailImg" />
+          <div class="nft-detail-stage-badge" id="nftDetailStageBadge">Base Form</div>
+        </div>
+        <div class="nft-detail-info">
+          <h2 class="nft-detail-name" id="nftDetailName">Loading...</h2>
+          <div class="nft-detail-id" id="nftDetailId">Token #--</div>
+          <div class="nft-detail-type-badges" id="nftDetailTypes"></div>
+          <div class="nft-detail-meta">
+            <div class="nft-meta-item">
+              <span class="meta-label">Level</span>
+              <span class="meta-value" id="nftDetailLevel">1</span>
+            </div>
+            <div class="nft-meta-item">
+              <span class="meta-label">Experience</span>
+              <span class="meta-value" id="nftDetailExp">0</span>
+            </div>
+            <div class="nft-meta-item">
+              <span class="meta-label">Stage</span>
+              <span class="meta-value" id="nftDetailStage">Base</span>
+            </div>
+            <div class="nft-meta-item">
+              <span class="meta-label">Rarity</span>
+              <span class="meta-value" id="nftDetailRarity">Common</span>
+            </div>
+          </div>
+          <div class="nft-detail-stats">
+            <div class="nft-stat-bar">
+              <span class="stat-bar-label">HP</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill hp" id="nftStatHp" style="width:50%"></div></div>
+              <span class="stat-bar-value" id="nftStatHpVal">0</span>
+            </div>
+            <div class="nft-stat-bar">
+              <span class="stat-bar-label">ATK</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill atk" id="nftStatAtk" style="width:50%"></div></div>
+              <span class="stat-bar-value" id="nftStatAtkVal">0</span>
+            </div>
+            <div class="nft-stat-bar">
+              <span class="stat-bar-label">DEF</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill def" id="nftStatDef" style="width:50%"></div></div>
+              <span class="stat-bar-value" id="nftStatDefVal">0</span>
+            </div>
+            <div class="nft-stat-bar">
+              <span class="stat-bar-label">SPD</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill spd" id="nftStatSpd" style="width:50%"></div></div>
+              <span class="stat-bar-value" id="nftStatSpdVal">0</span>
+            </div>
+          </div>
+          <div class="nft-detail-owner">
+            <span class="owner-label">Owner:</span>
+            <span class="owner-address" id="nftDetailOwner">--</span>
+          </div>
+          <div class="nft-detail-actions" id="nftDetailActions">
+            <a class="btn-secondary btn-sm" id="nftEtherscanLink" href="#" target="_blank" rel="noopener">View on Etherscan ↗</a>
+            <a class="btn-secondary btn-sm" id="nftIpfsLink" href="#" target="_blank" rel="noopener">View Metadata (IPFS) ↗</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
