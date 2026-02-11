@@ -21,6 +21,8 @@ const MINT_LIST = [
   { species: "squirtle", hp: 292, atk: 48, def: 65, spd: 43 },
   { species: "pichu", hp: 274, atk: 40, def: 15, spd: 60 },
   { species: "eevee", hp: 314, atk: 55, def: 50, spd: 55 },
+  { species: "machop", hp: 302, atk: 80, def: 50, spd: 35,},
+  
 ];
 
 async function main() {
@@ -68,6 +70,9 @@ async function main() {
   // Show token count
   const balance = await PokemonNFT.balanceOf(deployer.address);
   console.log(`\n🏆 ${deployer.address} now owns ${balance} Pokemon NFT(s)`);
+
+  // Explicit exit to avoid UV_HANDLE_CLOSING assertion on Windows
+  process.exit(0);
 }
 
 main().catch((error) => {

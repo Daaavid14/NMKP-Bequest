@@ -25,7 +25,7 @@ const NFT_CONFIG = {
   chainId: "0xaa36a7", // Sepolia = 11155111 decimal
   chainIdDecimal: 11155111,
   chainName: "Sepolia Testnet",
-  rpcUrl: "https://rpc.sepolia.org",
+  rpcUrl: "https://ethereum-sepolia-rpc.publicnode.com",
   explorerUrl: "https://sepolia.etherscan.io",
   ipfsGateway: "https://red-capable-stork-490.mypinata.cloud/ipfs/",
 };
