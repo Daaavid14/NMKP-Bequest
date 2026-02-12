@@ -8,7 +8,7 @@
   --bg-blue-300: #85c1e9;
   --bg-blue-400: #5d7ce2;
   --bg-blue-500: #3498db;
-  --bg-blue-600: #2e86c1;
+  --bg-blue-600: #030303;
 
   --gold-50: #fffef7;
   --gold-100: #fef9e7;
@@ -138,7 +138,7 @@ html {
 
 body {
   font-family: var(--font-secondary);
-  background: url("./backgrounds/newBackground.jpg");
+  background: #2b2b2b;
   background-size: cover;
   background-attachment: fixed;
   color: var(--text-dark);
@@ -149,8 +149,7 @@ body {
 }
 
 [data-theme="dark"] body {
-  background-color: #0f0f23;
-  background-blend-mode: overlay;
+  background-color: #111111;
 }
 
 body::before {
@@ -248,7 +247,7 @@ img {
   left: 0;
   right: 0;
   height: var(--navbar-height);
-  background: var(--surface-overlay);
+  background: #171718;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -312,11 +311,11 @@ img {
 .nav-search input {
   width: 100%;
   padding: 10px 16px 10px 42px;
-  border: 3px solid var(--border-medium);
+  border: 2px solid var(--border-subtle);
   border-radius: 12px;
   font-family: var(--font-secondary);
   font-size: 0.9rem;
-  background: var(--surface-input);
+  background: #222224;
   color: var(--text-dark);
   transition: all var(--transition-fast);
 }
@@ -388,34 +387,28 @@ img {
   align-items: center;
   gap: 8px;
   background: linear-gradient(135deg, #fef9e7, #fcf3cf);
-  border: 3px solid var(--gold-500);
   border-radius: 50px;
   padding: 6px 16px 6px 10px;
   font-family: var(--font-display);
   font-size: 0.95rem;
   color: #b7950b;
-  box-shadow: 0 3px 0 var(--gold-700), 0 4px 12px rgba(244, 208, 63, 0.3);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .pkc-balance-pill:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 0 var(--gold-700), 0 6px 16px rgba(244, 208, 63, 0.4);
 }
 
 .pkc-coin-icon {
   width: 24px;
   height: 24px;
-  background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.7rem;
   color: var(--text-dark);
   font-weight: 700;
-  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.15);
   animation: coinSpin 4s ease-in-out infinite;
 }
 
@@ -608,11 +601,10 @@ img {
   top: calc(100% + 12px);
   right: 0;
   width: 240px;
-  background: var(--surface-primary);
-  border: 3px solid var(--gold-400);
+  background: #222224;
+  border: 3px solid var(--border-subtle);
   border-radius: 16px;
-  box-shadow: 0 12px 40px var(--shadow-heavy);
-  display: none;
+  display: none;  
   overflow: hidden;
   z-index: 200;
 }
@@ -693,12 +685,13 @@ img {
    SIDEBAR NAVIGATION
    ==================== */
 .dashboard-sidebar {
+  scrollbar-width: thin;
   position: fixed;
   top: var(--navbar-height);
   left: 0;
   width: var(--sidebar-width);
   height: calc(100vh - var(--navbar-height));
-  background: linear-gradient(180deg, var(--surface-sidebar-start), var(--surface-sidebar-end));
+  background: #171718;
   box-shadow: 4px 0 20px var(--shadow-color);
   overflow-y: auto;
   overflow-x: hidden;
@@ -723,29 +716,27 @@ img {
   gap: 14px;
   padding: 12px 16px;
   border-radius: 12px;
-  font-size: 0.92rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: var(--text-medium);
   transition: all var(--transition-fast);
   position: relative;
 }
 
-.sidebar-link:hover {
-  background: rgba(244, 208, 63, 0.12);
-  color: var(--text-dark);
-  transform: translateX(4px);
+.sidebar-link:hover, .sidebar-icon:hover {
+  background: #222224;
+  color: #e6bc03;
 }
 
 .sidebar-link.active {
-  background: linear-gradient(135deg, rgba(244, 208, 63, 0.25), rgba(241, 196, 15, 0.15));
-  color: var(--text-dark);
+  background: #222224;
+  color: #e6bc03;
   font-weight: 600;
-  border: 2px solid rgba(244, 208, 63, 0.4);
-  box-shadow: 0 2px 8px rgba(244, 208, 63, 0.2);
+  box-shadow: 0 2px 8px rgba(41, 41, 40, 0.2);
 }
 
 .sidebar-link .sidebar-icon {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   width: 28px;
   text-align: center;
   flex-shrink: 0;
@@ -780,7 +771,6 @@ img {
   font-family: var(--font-display);
   font-size: 0.9rem;
   color: var(--gold-800);
-  box-shadow: 0 3px 0 var(--gold-700);
 }
 
 .sidebar-overlay {
@@ -830,8 +820,6 @@ img {
   background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
   padding: 10px 32px;
   border-radius: 12px;
-  border: 3px solid var(--gold-700);
-  box-shadow: 0 4px 0 var(--gold-800), 0 6px 16px rgba(0,0,0,0.15);
   position: relative;
 }
 
@@ -879,11 +867,9 @@ img {
 }
 
 .stat-card {
-  background: linear-gradient(180deg, var(--surface-card-gradient-start), var(--surface-card-gradient-end));
-  border: 4px solid var(--gold-500);
+  background: #171718;
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 6px 0 #d4af37, 0 8px 20px var(--shadow-color);
   text-align: center;
   transition: all var(--transition-fast);
   position: relative;
@@ -897,12 +883,11 @@ img {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--gold-400), var(--gold-600), var(--gold-400));
 }
 
 .stat-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 0 #d4af37, 0 14px 28px var(--shadow-heavy);
+  box-shadow: 0 3px 0 #d4af37, 0 5px 5px var(--shadow-heavy);
 }
 
 .stat-card .stat-icon {
@@ -943,13 +928,11 @@ img {
    DASHBOARD CARDS
    ================= */
 .dashboard-card {
-  background: linear-gradient(180deg, var(--surface-card-gradient-start), var(--surface-card-gradient-end));
-  border: 4px solid var(--gold-500);
+  background: #171718;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 8px 0 #d4af37, 0 12px 24px var(--shadow-color);
   margin-bottom: 24px;
-}
+} 
 
 .dashboard-card .card-title {
   font-family: var(--font-display);
@@ -969,12 +952,10 @@ img {
    WELCOME BANNER
    ================= */
 .welcome-banner {
-  background: linear-gradient(135deg, var(--surface-card-gradient-start), var(--gold-50));
-  border: 4px solid var(--gold-500);
+  background: #171718;
   border-radius: 20px;
   padding: 28px 32px;
   margin-bottom: 28px;
-  box-shadow: 0 8px 0 #d4af37, 0 12px 28px var(--shadow-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1109,10 +1090,10 @@ img {
   align-items: center;
   gap: 14px;
   padding: 12px;
-  background: var(--surface-input);
+  background: #222224;
   border-radius: 12px;
   margin-bottom: 10px;
-  border: 2px solid var(--border-medium);
+  border: 2px solid var(--border-subtle);
   transition: all var(--transition-fast);
 }
 
@@ -1201,8 +1182,8 @@ img {
 }
 
 .nft-card {
-  background: linear-gradient(180deg, var(--surface-card-gradient-start), var(--surface-card-gradient-end));
-  border: 3px solid var(--border-medium);
+  background: #171718;
+  border: 2px solid var(--border-subtle);
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 4px 12px var(--shadow-color);
@@ -1221,7 +1202,7 @@ img {
 .nft-card .nft-image {
   width: 100%;
   aspect-ratio: 1;
-  background: linear-gradient(135deg, var(--bg-sky), var(--bg-blue-200));
+  background: #222224;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -1236,7 +1217,7 @@ img {
   width: 80%;
   height: 80%;
   object-fit: contain;
-  image-rendering: pixelated;
+  image-rendering: high-quality;
 }
 
 .nft-card .nft-rarity {
@@ -1349,14 +1330,13 @@ img {
 }
 
 .btn-secondary {
-  background: linear-gradient(180deg, var(--surface-primary), var(--surface-tertiary));
-  border: 3px solid var(--bg-blue-300);
+  background: #29292b;
+  border: 2px solid var(--border-subtle);
   border-radius: 12px;
   color: var(--text-dark);
   font-family: var(--font-display);
   font-size: 0.85rem;
   padding: 8px 20px;
-  box-shadow: 0 3px 0 var(--bg-blue-400), 0 4px 10px var(--shadow-color);
   transition: all var(--transition-fast);
   cursor: pointer;
   display: inline-flex;
@@ -1366,21 +1346,17 @@ img {
 }
 
 .btn-secondary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 0 var(--bg-blue-400), 0 6px 14px rgba(0,0,0,0.15);
+  background: #4e4e50;
 }
 
 .btn-secondary:active {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--bg-blue-400);
+  box-shadow: 0 2px 0 var(--border-subtle);
 }
 
 .btn-sm {
   font-size: 0.78rem;
   padding: 6px 14px;
   border-radius: 8px;
-  border-width: 2px;
-  box-shadow: 0 2px 0 #d68910;
 }
 
 .btn-danger {
@@ -1583,19 +1559,17 @@ img {
 }
 
 .battle-mode-card {
-  background: linear-gradient(180deg, var(--surface-card-gradient-start), var(--surface-card-gradient-end));
-  border: 4px solid var(--gold-500);
+  background: #171718;
   border-radius: 16px;
   padding: 28px 20px;
   text-align: center;
-  box-shadow: 0 6px 0 #d4af37, 0 8px 20px var(--shadow-color);
   transition: all var(--transition-fast);
   cursor: pointer;
 }
 
 .battle-mode-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 0 #d4af37, 0 14px 28px var(--shadow-heavy);
+  box-shadow: 0 3px 0 #d4af37, 0 14px 28px var(--shadow-heavy);
   border-color: var(--gold-600);
 }
 
@@ -1628,7 +1602,7 @@ img {
 .team-slot {
   width: 160px;
   height: 200px;
-  border: 3px dashed var(--bg-blue-300);
+  border: 2px dashed var(--border-medium);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -1637,18 +1611,18 @@ img {
   gap: 8px;
   cursor: pointer;
   transition: all var(--transition-fast);
-  background: var(--surface-input);
+  background: #29292b;
 }
 
 .team-slot:hover {
-  border-color: var(--gold-500);
-  background: rgba(244, 208, 63, 0.05);
+  border-color: var(--white);
+  background: #222224;
 }
 
 .team-slot.filled {
   border-style: solid;
-  border-color: var(--gold-500);
-  background: var(--surface-primary);
+  border-color: var(--white);
+  background: #29292b;
   box-shadow: 0 4px 12px var(--shadow-color);
 }
 
@@ -1725,11 +1699,9 @@ img {
    TOURNAMENTS
    =============*/
 .tournament-card {
-  background: linear-gradient(180deg, var(--surface-card-gradient-start), var(--surface-card-gradient-end));
-  border: 4px solid var(--gold-500);
+  background: #171718;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 6px 0 #d4af37, 0 8px 20px var(--shadow-color);
   margin-bottom: 16px;
   display: flex;
   align-items: center;
@@ -1739,7 +1711,7 @@ img {
 
 .tournament-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 0 #d4af37, 0 12px 24px var(--shadow-heavy);
+  box-shadow: 0 3px 0 #d4af37, 0 12px 24px var(--shadow-heavy);
 }
 
 .tournament-card .tourney-icon {
@@ -2027,35 +1999,37 @@ img {
 
 .settings-input {
   padding: 8px 14px;
-  border: 2px solid var(--border-medium);
+  border: 2px solid var(--border-subtle);
   border-radius: 8px;
   font-family: var(--font-secondary);
   font-size: 0.88rem;
   color: var(--text-dark);
-  background: var(--surface-input-solid);
+  background: #29292b;
   transition: all var(--transition-fast);
 }
 
 .settings-input:focus {
   outline: none;
-  border-color: var(--gold-500);
-  box-shadow: 0 0 0 3px rgba(244, 208, 63, 0.15);
+  border-color: #d1d0d0;
 }
 
 .settings-select {
   padding: 8px 14px;
-  border: 2px solid var(--border-medium);
+  border: 2px solid var(--border-subtle);
   border-radius: 8px;
   font-family: var(--font-secondary);
   font-size: 0.88rem;
   color: var(--text-dark);
-  background: var(--surface-input-solid);
+  background: #29292b;
   cursor: pointer;
 }
 
 .settings-select:focus {
   outline: none;
-  border-color: var(--gold-500);
+}
+
+.settings-select:hover {
+  background: #4e4e50;
 }
 
 option img {
@@ -2110,11 +2084,11 @@ option img {
 }
 
 .faq-item {
-  border: 2px solid var(--border-medium);
+  border: 2px solid var(--border-subtle);
   border-radius: 12px;
   margin-bottom: 8px;
   overflow: hidden;
-  background: var(--surface-primary);
+  background: #222224;
 }
 
 .faq-question {
@@ -2179,12 +2153,12 @@ option img {
 .support-form .form-textarea {
   width: 100%;
   padding: 10px 14px;
-  border: 3px solid var(--border-medium);
+  border: 2px solid var(--border-subtle);
   border-radius: 10px;
   font-family: var(--font-secondary);
   font-size: 0.88rem;
   color: var(--text-dark);
-  background: var(--surface-input-solid);
+  background: #222224;
   transition: all var(--transition-fast);
 }
 
@@ -2212,9 +2186,9 @@ option img {
   align-items: center;
   gap: 12px;
   padding: 14px 18px;
-  border: 3px solid var(--border-medium);
+  border: 2px solid var(--border-subtle);
   border-radius: 12px;
-  background: var(--surface-primary);
+  background: #222224;
   transition: all var(--transition-fast);
   cursor: pointer;
 }
@@ -2281,15 +2255,14 @@ option img {
 }
 
 .modal {
-  background: linear-gradient(180deg, var(--surface-card-gradient-start), var(--surface-card-gradient-end));
-  border: 4px solid var(--gold-500);
+  background: #222224;
+  border: 3px solid var(--border-medium);
   border-radius: 20px;
   padding: 32px;
   max-width: 500px;
   width: 90%;
   max-height: 85vh;
   overflow-y: auto;
-  box-shadow: 0 8px 0 #d4af37, 0 20px 60px var(--shadow-heavy);
   animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
 }
@@ -2309,13 +2282,13 @@ option img {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: var(--text-medium);
   transition: all var(--transition-fast);
 }
 
 .modal .modal-close:hover {
-  background: rgba(231, 76, 60, 0.1);
+  background: rgba(56, 53, 53, 0.1);
   color: var(--red-500);
 }
 
@@ -2471,9 +2444,6 @@ option img {
   margin-left: var(--sidebar-width);
   padding: 20px 28px;
   text-align: center;
-  border-top: 3px solid rgba(244, 208, 63, 0.3);
-  background: var(--surface-overlay);
-  backdrop-filter: blur(10px);
   position: relative;
   z-index: 2;
   transition: margin-left var(--transition-normal);
@@ -2690,18 +2660,18 @@ option img {
 
 .stake-period {
   padding: 10px 20px;
-  border: 3px solid var(--border-medium);
+  border: 2px solid var(--border-subtle);
   border-radius: 12px;
   text-align: center;
   cursor: pointer;
   transition: all var(--transition-fast);
-  background: var(--surface-primary);
+  background: #29292b;
 }
 
 .stake-period:hover,
 .stake-period.active {
-  border-color: var(--gold-500);
-  background: var(--gold-50);
+  border-color: var(--border-medium);
+  background: #4e4e50;
 }
 
 .stake-period .period-days {
@@ -2790,14 +2760,12 @@ option img {
    TOURNAMENT BANNER
    ==================*/
 .tournament-banner {
-  background: linear-gradient(135deg, var(--gold-300), var(--gold-500), var(--gold-600));
-  border: 4px solid var(--gold-700);
+  background: #171718;
   border-radius: 16px;
   padding: 24px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 6px 0 var(--gold-800), 0 8px 20px rgba(0,0,0,0.15);
   margin-bottom: 24px;
   color: var(--text-dark);
 }
@@ -2897,14 +2865,12 @@ html.theme-transition *::after {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--surface-secondary), var(--surface-tertiary));
-  border: 3px solid var(--bg-blue-300);
+  background: #4e4e50;
   border-radius: 50px;
   padding: 6px 16px 6px 10px;
   font-family: var(--font-display);
   font-size: 0.85rem;
   color: var(--text-medium);
-  box-shadow: 0 3px 0 var(--bg-blue-400), 0 4px 12px rgba(0,0,0,0.1);
   cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
@@ -2913,14 +2879,12 @@ html.theme-transition *::after {
 .wallet-connect-pill:hover {
   transform: translateY(-1px);
   border-color: var(--gold-500);
-  box-shadow: 0 4px 0 var(--gold-600), 0 6px 16px rgba(244, 208, 63, 0.3);
 }
 
 .wallet-connect-pill.connected {
-  background: linear-gradient(135deg, #e8f8f5, #d5f5e3);
+  background: #222224;
   border-color: var(--green-500);
-  color: #1e8449;
-  box-shadow: 0 3px 0 var(--green-600), 0 4px 12px rgba(26, 188, 156, 0.2);
+  color: white;
 }
 
 .wallet-connect-pill .wallet-icon {
@@ -2969,8 +2933,8 @@ html.theme-transition *::after {
   flex-wrap: wrap;
   gap: 12px;
   padding: 12px 20px;
-  background: linear-gradient(135deg, var(--surface-input), var(--surface-secondary));
-  border: 3px solid var(--border-medium);
+  background: #29292b;
+  border: 2px solid var(--border-medium);
   border-radius: 14px;
   margin-bottom: 20px;
 }
@@ -3014,13 +2978,13 @@ html.theme-transition *::after {
 
 .etherscan-link {
   font-size: 0.82rem;
-  color: var(--bg-blue-500);
+  color: #d1d0d0;
   font-weight: 600;
   transition: color var(--transition-fast);
 }
 
 .etherscan-link:hover {
-  color: var(--bg-blue-600);
+  color: #ffffff;
   text-decoration: underline;
 }
 
@@ -3149,7 +3113,7 @@ html.theme-transition *::after {
    =========================== */
 .nft-detail-modal {
   max-width: 720px;
-  width: 95%;
+  width: 100%;
 }
 
 .nft-detail-content {
@@ -3160,7 +3124,8 @@ html.theme-transition *::after {
 
 .nft-detail-image {
   position: relative;
-  background: linear-gradient(135deg, var(--bg-sky-light), var(--bg-blue-200));
+  top: 15%;
+  background: #29292b;
   border-radius: 16px;
   padding: 16px;
   display: flex;
@@ -3168,14 +3133,13 @@ html.theme-transition *::after {
   justify-content: center;
   aspect-ratio: 1;
   overflow: hidden;
-  border: 3px solid var(--border-medium);
 }
 
 .nft-detail-image img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  image-rendering: auto;
+  image-rendering: high-quality;
 }
 
 .nft-detail-stage-badge {
@@ -3187,6 +3151,24 @@ html.theme-transition *::after {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.nft-detail-stage-badge.stage-base {
+  background: rgba(46, 204, 113, 0.2);
+  color: #27ae60;
+  border: 2px solid #27ae60;
+}
+
+.nft-detail-stage-badge.stage-second {
+  background: rgba(52, 152, 219, 0.2);
+  color: #2980b9;
+  border: 2px solid #2980b9;
+}
+
+.nft-detail-stage-badge.stage-third {
+  background: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
 }
 
 .nft-detail-info {
