@@ -4,8 +4,8 @@
 
 const { createClient } = window.supabase;
 const supabaseClient = createClient(
-  "http://127.0.0.1:54321",
-  "sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH",
+  "https://mtwaqclwqmmprxhafpbk.supabase.co",
+  "sb_publishable_1Aayly4Jq3_kIPDnrRN79w_m4NFfE4F",
 );
 
 let currentUser = null;
